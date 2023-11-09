@@ -7,9 +7,4 @@ const Logo = () => (
         </g>
     </svg>
 );
-
-function Comp() {
-    return <div></div>;
-}
-
-export { Logo, Comp };
+export { Logo };

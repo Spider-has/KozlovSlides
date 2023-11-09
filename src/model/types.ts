@@ -2,9 +2,9 @@ type Id = string;
 
 type Span = {
     value: string;
-    fontFamily: string;
+    fontFamily?: FontFamily;
     fontSize: number;
-    color: string;
+    color?: Color;
     bold: boolean;
     cursive: boolean;
     underline: boolean;
@@ -19,7 +19,7 @@ type StrokeObject = {
 
 type GraphicObject = {
     type: 'graphic';
-    color: string;
+    color?: Color;
     border?: Border;
     rotateAngle: number;
     opacity: number;
@@ -76,7 +76,7 @@ type FunctionGraphObject = {
 };
 
 type Border = {
-    color: string;
+    color?: Color;
     width: number;
     type: 'solid' | 'dashed';
 };
@@ -112,7 +112,7 @@ type backgroundImg = {
 };
 
 type backgroundColor = {
-    color: string;
+    color?: Color;
 };
 
 type Slide = {
@@ -133,8 +133,21 @@ type Presentation = {
     slides: Array<Slide>;
     size: Size;
     name: string;
+    menuValues?: MenuValues;
+};
+type MenuValues = {
+    fontFamily?: FontFamily;
+    fontSize: number;
+    textColor?: Color;
+    graphColor?: Color;
 };
 
+type Color = {
+    color: string;
+};
+type FontFamily = {
+    fontFamily: string;
+};
 type Editor = {
     presentation: Presentation;
     history: Array<Presentation>;

@@ -1,8 +1,11 @@
 {
     "scripts": {
-        "lint": "eslint . --fix && npx stylelint **/*.css --fix && prettier . — write ",
+        "lint": "npm run styles || npm run eslinter || npm run prettierlint",
+        "styles": "npx stylelint --fix **/*.css",
+        "eslinter": "npx eslint --fix .",
+        "prettierlint": "npx prettier . --write",
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "react-scripts build && npm run lint",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

@@ -18,9 +18,11 @@ import {
 
 const spanMid: Span = {
     value: 'a',
-    fontFamily: 'Times New Roman',
+    fontFamily: {
+        fontFamily: 'Times New Roman',
+    },
     fontSize: 12,
-    color: 'black',
+    //color: 'black',
     bold: false,
     cursive: true,
     underline: false,
@@ -28,9 +30,9 @@ const spanMid: Span = {
 
 const spanMax: Span = {
     value: 'abobus',
-    fontFamily: 'Arial',
+    // fontFamily: 'Arial',
     fontSize: 14,
-    color: '#FFFFFF',
+    //  color: '#FFFFFF',
     bold: true,
     cursive: true,
     underline: true,
@@ -53,7 +55,7 @@ const strokeObjectMax: StrokeObject = {
     chars: [spanMid, spanMax],
     rotateAngle: 43.9,
     border: {
-        color: '#FDE138',
+        //   color: '#FDE138',
         width: 10,
         type: 'solid',
     },
@@ -91,14 +93,14 @@ const triangleObjectMax: TriangleObject = {
 };
 const graphicObjectMin: GraphicObject = {
     type: 'graphic',
-    color: 'black',
+    // color: 'black',
     rotateAngle: 0,
     opacity: 1,
     figureData: ellipseObjectMin,
 };
 const graphicObjectMid: GraphicObject = {
     type: 'graphic',
-    color: 'black',
+    // color: 'black',
     rotateAngle: 0,
     opacity: 1,
     figureData: rectangleObjectMid,
@@ -107,13 +109,13 @@ const graphicObjectMid: GraphicObject = {
 
 const graphicObjectMax: GraphicObject = {
     type: 'graphic',
-    color: 'black',
+    // color: 'black',
     rotateAngle: 74.93,
     opacity: 0.38,
     figureData: triangleObjectMax,
     textBlock: strokeObjectMax,
     border: {
-        color: '#FDE138',
+        // color: '#FDE138',
         width: 10,
         type: 'solid',
     },
@@ -163,7 +165,7 @@ const slideMin: Slide = {
     background: {
         type: 'color',
         data: {
-            color: 'white',
+            //   color: 'white',
         },
     },
 };
@@ -179,7 +181,7 @@ const slideMid: Slide = {
     background: {
         type: 'color',
         data: {
-            color: 'white',
+            //   color: 'white',
         },
     },
 };
@@ -256,5 +258,3 @@ const editorMax: Editor = {
     selectedSlides: ['4', '2'],
     viewMode: 'edit',
 };
-
-const asd = 0;
