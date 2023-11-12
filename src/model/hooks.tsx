@@ -7,7 +7,7 @@ const UseCustomRefHook = () => {
     useEffect(() => {
         console.log(containerRef);
         console.log(itemsRef);
-        console.log();
+        console.log('sosi');
     }, []);
 
     return {
