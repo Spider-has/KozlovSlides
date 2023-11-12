@@ -1,0 +1,52 @@
+.ivan{
+    display: flex;
+}
+
+.input-text{
+    display: block;
+    position: relative;
+    padding: 1px 2px 1px 5px;
+}
+
+.input-text__text{
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;        
+    max-width: 90%;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.input-text__text:hover{
+    outline: 1px solid gray;
+}
+
+.input-text__input {
+    display: none;
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    max-width: 90%;
+    font-size: 18px;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.input-text__input:focus{
+    outline: 1px solid blue;
+}
+
+.input-text__input_active{
+    display: block;
+}
+
+.single-line{
+    font-size: 18px;
+}
