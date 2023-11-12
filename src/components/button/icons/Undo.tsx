@@ -1,5 +1,10 @@
 const Undo = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        width="20px"
+        height="20px"
+    >
         <path
             xmlns="http://www.w3.org/2000/svg"
             fill="#444746"

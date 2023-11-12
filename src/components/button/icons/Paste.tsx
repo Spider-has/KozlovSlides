@@ -1,4 +1,4 @@
-const Insert = () => (
+const Paste = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -12,4 +12,4 @@ const Insert = () => (
         />
     </svg>
 );
-export { Insert };
+export { Paste };

@@ -1,4 +1,4 @@
-const Download = () => (
+const Video = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -8,8 +8,8 @@ const Download = () => (
         <path
             xmlns="http://www.w3.org/2000/svg"
             fill="#444746"
-            d="M13 8l-1.06-1.06-2.19 2.19V2h-1.5v7.13L6.06 6.94 5 8l4 4zm.5 4v1.5h-9V12H3v1.5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5V12h-1.5z"
+            d="M15.5 3h-3L14 6h-2l-1.5-3H9l1.5 3h-2L7 3H5.5L7 6H5L3.5 3h-1C1.67 3 1 3.67 1 4.5v9c0 .83.67 1.5 1.5 1.5h13c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5zm0 10.5h-13v-6h13v6z"
         />
     </svg>
 );
-export { Download };
+export { Video };
