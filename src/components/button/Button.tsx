@@ -49,47 +49,47 @@ import { Create } from './icons/Create';
 import { Create } from './icons/Create';
 import { Create } from './icons/Create';
 import { Create } from './icons/Create';*/
-import * as buttons from './ButtonIcons';
+import * as Buttons from './ButtonIcons';
 const Button = () => {
     return (
         <div>
-            <buttons.ArrowThatOpensTheList />
-            <buttons.Audio />
-            <buttons.Border />
-            <buttons.Center />
-            <buttons.ChangeBg />
-            <buttons.ChooseLayout />
-            <buttons.CopyFormatting />
-            <buttons.Create />
-            <buttons.Cut />
-            <buttons.Delete />
-            <buttons.Diagram />
-            <buttons.Download />
-            <buttons.Duplication />
-            <buttons.Figure />
-            <buttons.Group />
-            <buttons.GroupCancel />
-            <buttons.Insert />
-            <buttons.Intervals />
-            <buttons.Leveling />
-            <buttons.Line />
-            <buttons.Move />
-            <buttons.NewSlide />
-            <buttons.Numbering />
-            <buttons.Open />
-            <buttons.Paste />
-            <buttons.Photo />
-            <buttons.Preview />
-            <buttons.Redo />
-            <buttons.Remove />
-            <buttons.Rename />
-            <buttons.Rotate />
-            <buttons.SelectAll />
-            <buttons.Skip />
-            <buttons.Text />
-            <buttons.TextField />
-            <buttons.Undo />
-            <buttons.Video />
+            <Buttons.ArrowThatOpensTheList />
+            <Buttons.Audio />
+            <Buttons.Border />
+            <Buttons.Center />
+            <Buttons.ChangeBg />
+            <Buttons.ChooseLayout />
+            <Buttons.CopyFormatting />
+            <Buttons.Create />
+            <Buttons.Cut />
+            <Buttons.Delete />
+            <Buttons.Diagram />
+            <Buttons.Download />
+            <Buttons.Duplication />
+            <Buttons.Figure />
+            <Buttons.Group />
+            <Buttons.GroupCancel />
+            <Buttons.Insert />
+            <Buttons.Intervals />
+            <Buttons.Leveling />
+            <Buttons.Line />
+            <Buttons.Move />
+            <Buttons.NewSlide />
+            <Buttons.Numbering />
+            <Buttons.Open />
+            <Buttons.Paste />
+            <Buttons.Photo />
+            <Buttons.Preview />
+            <Buttons.Redo />
+            <Buttons.Remove />
+            <Buttons.Rename />
+            <Buttons.Rotate />
+            <Buttons.SelectAll />
+            <Buttons.Skip />
+            <Buttons.Text />
+            <Buttons.TextField />
+            <Buttons.Undo />
+            <Buttons.Video />
         </div>
     );
 };
