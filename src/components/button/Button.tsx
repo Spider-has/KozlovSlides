@@ -97,7 +97,7 @@ const AllButtons = () => {
 
 type ButtonProps = {
     text: string;
-    type: 'text' | 'icon-text' | 'icon';
+    type: 'text' | 'icon-text' | 'icon'; // вынести в enum
     icon?: JSX.Element | null;
     iconSize?: number;
     action: (event) => void;

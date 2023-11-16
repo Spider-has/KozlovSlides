@@ -11,7 +11,7 @@ type Span = {
 };
 
 type StrokeObject = {
-    type: 'text';
+    type: 'text'; // вынести в enum
     chars: Array<Span>;
     rotateAngle: number;
     border?: Border;
@@ -23,18 +23,18 @@ type GraphicObject = {
     border?: Border;
     rotateAngle: number;
     opacity: number;
-    figureData: EllipseObject | TriangleObject | RectangleObject;
+    figureData: EllipseObject | TriangleObject | RectangleObject; // вынести в enum
     textBlock?: StrokeObject;
 };
 
 type EllipseObject = {
-    type: 'ellipse';
+    type: 'ellipse'; // вынести в enum
     size: Size;
     rounding: number;
 };
 
 type TriangleObject = {
-    type: 'triangle';
+    type: 'triangle'; // вынести в enum
     point1: Point;
     point2: Point;
     point3: Point;
@@ -46,31 +46,31 @@ type Point = {
 };
 
 type RectangleObject = {
-    type: 'rectangle';
+    type: 'rectangle'; // вынести в enum
     rounding: number;
     size: Size;
 };
 
 type ImageObject = {
-    type: 'image';
+    type: 'image'; // вынести в enum
     size: Size;
     imgUrl: string;
 };
 
 type VideoObject = {
-    type: 'video';
+    type: 'video'; // вынести в enum
     size: Size;
     videoUrl: string;
 };
 
 type AudioObject = {
-    type: 'audio';
+    type: 'audio'; // вынести в enum
     size: Size;
     audioUrl: string;
 };
 
 type FunctionGraphObject = {
-    type: 'functionGraph';
+    type: 'functionGraph'; // вынести в enum
     size: Size;
     func: string;
 };
@@ -78,7 +78,7 @@ type FunctionGraphObject = {
 type Border = {
     color?: Color;
     width: number;
-    type: 'solid' | 'dashed';
+    type: 'solid' | 'dashed'; // вынести в enum
 };
 
 type SlideElement = {
@@ -90,7 +90,7 @@ type SlideElement = {
         | ImageObject
         | VideoObject
         | AudioObject
-        | FunctionGraphObject;
+        | FunctionGraphObject; // вынести в enum
 };
 
 type SlideTransion = {
@@ -103,7 +103,7 @@ type ElementAnimation = {
 };
 
 type SlideBackground = {
-    type: 'image' | 'color';
+    type: 'image' | 'color'; // вынести в enum
     data: backgroundImg | backgroundColor;
 };
 
@@ -152,7 +152,7 @@ type Editor = {
     presentation: Presentation;
     history: Array<Presentation>;
     selectedSlides: Array<Id>;
-    viewMode: 'edit' | 'view';
+    viewMode: 'edit' | 'view'; // вынести в enum
 };
 
 export type {
