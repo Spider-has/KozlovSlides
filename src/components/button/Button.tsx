@@ -50,7 +50,7 @@ import { Create } from './icons/Create';
 import { Create } from './icons/Create';
 import { Create } from './icons/Create';*/
 import * as Buttons from './ButtonIcons';
-const Button = () => {
+const ButtonsAll = () => {
     return (
         <div>
             <Buttons.ArrowThatOpensTheList />
@@ -94,4 +94,4 @@ const Button = () => {
     );
 };
 
-export { Button };
+export { ButtonsAll };
