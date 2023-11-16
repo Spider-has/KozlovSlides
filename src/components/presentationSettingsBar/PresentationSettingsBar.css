@@ -8,6 +8,26 @@
     padding: 1px 2px 1px 5px;
 }
 
+.input-text__input2{
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    max-width: 90%;
+    font-size: 18px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+
+.input-text__input2:hover{
+    outline: 1px solid gray;
+}
+
+.input-text__input2:focus{
+    outline: 1px solid blue;
+}
+
 .input-text__text{
     display: block;
     font-family: 'Times New Roman', Times, serif;
@@ -30,11 +50,11 @@
     font-family: 'Times New Roman', Times, serif;
     position: absolute;
     top: 1px;
-    left: 0;
+    left: 5px;
     max-width: 90%;
     font-size: 18px;
     padding: 5px;
-    padding-left: 10px;
+    padding-right: 0;
     border-radius: 10px;
     border: none;
 }
@@ -49,4 +69,21 @@
 
 .single-line{
     font-size: 18px;
+}
+
+.header-panel{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.header-panel__button-menu{
+    display: flex;
+    flex-direction: row;
+}
+
+.header-panel__activity-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

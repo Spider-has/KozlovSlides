@@ -50,7 +50,8 @@ import { Create } from './icons/Create';
 import { Create } from './icons/Create';
 import { Create } from './icons/Create';*/
 import * as Buttons from './ButtonIcons';
-const Button = () => {
+import './Button.css';
+const AllButtons = () => {
     return (
         <div>
             <Buttons.ArrowThatOpensTheList />
@@ -94,4 +95,25 @@ const Button = () => {
     );
 };
 
-export { Button };
+type ButtonProps = {
+    text: string;
+    type: 'text' | 'icon-text' | 'icon';
+    icon?: JSX.Element | null;
+    iconSize?: number;
+    action: (event) => void;
+};
+
+const Button = (props: ButtonProps) => {
+    return (
+        <div className="button-block">
+            {(props.type == 'icon' || props.type == 'icon-text') && props.icon}
+            {(props.type == 'text' || props.type == 'icon-text') && (
+                <button className="button-block__button" onClick={props.action}>
+                    {props.text}
+                </button>
+            )}
+        </div>
+    );
+};
+
+export { AllButtons, Button };

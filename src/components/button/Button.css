@@ -2,3 +2,26 @@
     color: #FFFFFF;
 }
 
+
+
+.button-block{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 2px 7px;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+
+}
+
+.button-block__button{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+
+.button-block:hover{
+    background-color:#E8E8E8;
+}
