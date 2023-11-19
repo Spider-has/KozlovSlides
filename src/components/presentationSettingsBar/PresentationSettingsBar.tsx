@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import './PresentationSettingsBar.css';
 import { Button } from '../button/Button';
 import { ButtonWithActionListProps } from '../../model/types';
-import { FileButtonList } from '../../model/models';
+import {
+    EditButtonList,
+    FileButtonList,
+    FormatButtonList,
+    InsertionButtonList,
+    ObjectButtonList,
+    SlideButtonList,
+} from '../../model/models';
 import * as ButtonIcon from '../button/ButtonIcons';
 
 const InputText = () => {
@@ -172,21 +179,41 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
 
 const Title = () => {
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
+    const EditButtonSection: ButtonWithActionListProps = EditButtonList;
+    const InsertionButtonSection: ButtonWithActionListProps =
+        InsertionButtonList;
+    const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
+    const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
+    const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <header className="docs-bars">
             <div className="docs-bars__activity-panel">
                 <InputText />
-                <div className="header-panel__button-menu">
+                <div className="docs-menubars">
                     <ButtonWithActionList
                         mainButton={FileButtonSection.mainButton}
                         buttonList={FileButtonSection.buttonList}
                     />
-
-                    <Button text={'Правка'} type="text" action={() => {}} />
-                    <Button text={'Вставка'} type="text" action={() => {}} />
-                    <Button text={'Формат'} type="text" action={() => {}} />
-                    <Button text={'Слайд'} type="text" action={() => {}} />
-                    <Button text={'Объект'} type="text" action={() => {}} />
+                    <ButtonWithActionList
+                        mainButton={EditButtonSection.mainButton}
+                        buttonList={EditButtonSection.buttonList}
+                    />
+                    <ButtonWithActionList
+                        mainButton={InsertionButtonSection.mainButton}
+                        buttonList={InsertionButtonSection.buttonList}
+                    />
+                    <ButtonWithActionList
+                        mainButton={FormatButtonSection.mainButton}
+                        buttonList={FormatButtonSection.buttonList}
+                    />
+                    <ButtonWithActionList
+                        mainButton={SlideButtonSection.mainButton}
+                        buttonList={SlideButtonSection.buttonList}
+                    />
+                    <ButtonWithActionList
+                        mainButton={ObjectButtonSection.mainButton}
+                        buttonList={ObjectButtonSection.buttonList}
+                    />
                 </div>
                 <div className="docs-primary-toolbars">
                     <Button
