@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './PresentationSettingsBar.css';
 import { Button } from '../button/Button';
-import { ArrowThatOpensTheList } from '../button/ButtonIcons';
+import { ButtonWithActionListProps } from '../../model/types';
+import { FileButtonList } from '../../model/models';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
@@ -83,43 +84,85 @@ const InputText = () => {
     );
 };
 
-const ButtonWithActionList = () => {
+const useClickOut = (
+    action: () => void,
+    visibility: boolean,
+    elementRef: React.RefObject<Node>,
+) => {
+    useEffect(() => {
+        if (visibility) {
+            const handle = event => {
+                console.log(visibility);
+                if (
+                    visibility &&
+                    elementRef.current &&
+                    !elementRef.current.contains(event.target as Node)
+                ) {
+                    action();
+                }
+            };
+
+            setTimeout(() => {
+                document.addEventListener('click', handle);
+            }, 0);
+
+            return () => {
+                document.removeEventListener('click', handle);
+            };
+        }
+    }, [visibility]);
+};
+
+const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const [visible, setVisible] = useState(false);
+    const ButtonListBar = useRef<HTMLDivElement>(null);
+
+    const { mainButton, buttonList } = props;
+
+    // const Buttons = buttonList.map((button, index) => (
+    //     <Button
+    //         key={index}
+    //         text={button.text}
+    //         type={button.type}
+    //         icon={button.icon}
+    //         action={button.action || null}
+    //         iconSize={button.iconSize || undefined}
+    //     />
+    // ));
+
+    mainButton.action = () => {
+        setVisible(!visible);
+    };
+
+    useClickOut(
+        () => {
+            setVisible(!visible);
+        },
+        visible,
+        ButtonListBar,
+    );
+
     return (
         <div className="button-list">
             <Button
-                text={'Файл'}
-                type="text"
-                action={() => {
-                    setVisible(!visible);
-                }}
+                text={mainButton.text}
+                type={mainButton.type}
+                action={mainButton.action}
+                icon={mainButton.icon || null}
+                iconSize={mainButton.iconSize || undefined}
             />
             {visible && (
-                <div className="button-list__list">
-                    <Button
-                        text={'Файл1'}
-                        type="icon-text"
-                        icon={<ArrowThatOpensTheList />}
-                        action={() => {}}
-                    />
-                    <Button
-                        text={'Файл2'}
-                        type="icon-text"
-                        icon={<ArrowThatOpensTheList />}
-                        action={() => {}}
-                    />
-                    <Button
-                        text={'Файл3'}
-                        type="icon-text"
-                        icon={<ArrowThatOpensTheList />}
-                        action={() => {}}
-                    />
-                    <Button
-                        text={'Файл4'}
-                        type="icon-text"
-                        icon={<ArrowThatOpensTheList />}
-                        action={() => {}}
-                    />
+                <div ref={ButtonListBar} className="button-list__list">
+                    {buttonList.map((button, index) => (
+                        <Button
+                            key={index}
+                            text={button.text}
+                            type={button.type}
+                            icon={button.icon}
+                            action={button.action || null}
+                            iconSize={button.iconSize || undefined}
+                        />
+                    ))}
                 </div>
             )}
         </div>
@@ -127,12 +170,16 @@ const ButtonWithActionList = () => {
 };
 
 const Title = () => {
+    const FileButtonSection: ButtonWithActionListProps = FileButtonList;
     return (
         <header className="header-panel">
             <div className="header-panel__activity-panel">
                 <InputText />
                 <div className="header-panel__button-menu">
-                    <ButtonWithActionList />
+                    <ButtonWithActionList
+                        mainButton={FileButtonSection.mainButton}
+                        buttonList={FileButtonSection.buttonList}
+                    />
 
                     <Button text={'Правка'} type="text" action={() => {}} />
                     <Button text={'Вставка'} type="text" action={() => {}} />

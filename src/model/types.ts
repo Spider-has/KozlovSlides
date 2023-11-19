@@ -155,6 +155,19 @@ type Editor = {
     viewMode: 'edit' | 'view'; // вынести в enum
 };
 
+type ButtonProps = {
+    text: string;
+    type: 'text' | 'icon-text' | 'icon'; // вынести в enum
+    icon?: JSX.Element | null;
+    iconSize?: number;
+    action: (event) => void;
+};
+
+type ButtonWithActionListProps = {
+    mainButton: ButtonProps;
+    buttonList: ButtonProps[];
+};
+
 export type {
     Span,
     StrokeObject,
@@ -171,6 +184,6 @@ export type {
     ElementAnimation,
     SlideElement,
     FunctionGraphObject as FuncGraphObject,
+    ButtonWithActionListProps,
+    ButtonProps,
 };
-
-console.log();
