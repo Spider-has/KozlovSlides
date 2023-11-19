@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './PresentationSettingsBar.css';
 import { Button } from '../button/Button';
+import * as ButtonIcon from '../button/ButtonIcons';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
@@ -86,16 +87,66 @@ const InputText = () => {
 
 const Title = () => {
     return (
-        <header className="header-panel">
-            <div className="header-panel__activity-panel">
+        <header className="docs-bars">
+            <div className="docs-bars__activity-panel">
                 <InputText />
-                <div className="header-panel__button-menu">
+                <div className="docs-menubars">
                     <Button text={'Файл'} type="text" action={() => {}} />
                     <Button text={'Правка'} type="text" action={() => {}} />
                     <Button text={'Вставка'} type="text" action={() => {}} />
                     <Button text={'Формат'} type="text" action={() => {}} />
                     <Button text={'Слайд'} type="text" action={() => {}} />
                     <Button text={'Объект'} type="text" action={() => {}} />
+                </div>
+                <div className="docs-primary-toolbars">
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.NewSlide />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Undo />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Redo />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.CopyFormatting />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Cursor />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.TextField />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Photo />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Figure />}
+                        action={() => {}}
+                    />
+                    <Button
+                        type="icon"
+                        icon={<ButtonIcon.Line />}
+                        action={() => {}}
+                    />
+                    <Button text={'Фон'} type="text" action={() => {}} />
+                    <Button text={'Макет'} type="text" action={() => {}} />
+                    <Button text={'Тема'} type="text" action={() => {}} />
                 </div>
             </div>
         </header>
