@@ -61,6 +61,7 @@ const AllButtons = () => {
             <Buttons.Center />
             <Buttons.ChangeBg />
             <Buttons.ChooseLayout />
+            <Buttons.Copy />
             <Buttons.CopyFormatting />
             <Buttons.Create />
             <Buttons.Cut />
@@ -79,7 +80,6 @@ const AllButtons = () => {
             <Buttons.NewSlide />
             <Buttons.Numbering />
             <Buttons.Open />
-            <Buttons.Paste />
             <Buttons.Photo />
             <Buttons.Preview />
             <Buttons.Redo />
@@ -94,6 +94,14 @@ const AllButtons = () => {
             <Buttons.Video />
         </div>
     );
+};
+
+type ButtonProps = {
+    text?: string;
+    type: 'text' | 'icon-text' | 'icon'; // вынести в enum
+    icon?: JSX.Element | null;
+    iconSize?: number;
+    action: (event) => void;
 };
 
 const Button = (props: ButtonProps) => {

@@ -73,18 +73,23 @@
     font-size: 18px;
 }
 
-.header-panel{
+.docs-bars{
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 
-.header-panel__button-menu{
+.docs-menubars{
     display: flex;
     flex-direction: row;
 }
 
-.header-panel__activity-panel{
+.docs-primary-toolbars{
+    display: flex;
+    flex-direction: row;
+}
+
+.docs-bars__activity-panel{
     display: flex;
     flex-direction: column;
     gap: 10px;
