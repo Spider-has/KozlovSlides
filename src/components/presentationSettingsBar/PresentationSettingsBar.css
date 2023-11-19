@@ -6,6 +6,8 @@
     display: block;
     position: relative;
     padding: 1px 2px 1px 5px;
+    max-width: 90%;
+    width: auto;
 }
 
 .input-text__input2{
@@ -86,4 +88,18 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.button-list{
+    display: flex;
+    position: relative;
+    height: 28px;
+}
+
+.button-list__list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 28px;
 }

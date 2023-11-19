@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './PresentationSettingsBar.css';
 import { Button } from '../button/Button';
+import { ArrowThatOpensTheList } from '../button/ButtonIcons';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
@@ -36,8 +37,10 @@ const InputText = () => {
 
     const changeInputWidth = () => {
         if (inputRef.current && spanRef.current) {
+            console.log(spanRef.current.offsetWidth);
             inputRef.current.style.width =
-                spanRef.current.offsetWidth + 3 + 'px';
+                spanRef.current.offsetWidth + 1000 + 'px';
+            console.log(inputRef.current.style.width);
             setName(inputRef.current.value);
         }
     };
@@ -80,9 +83,48 @@ const InputText = () => {
     );
 };
 
-// const ActionList = () => {
-//     return <div></div>;
-// };
+const ButtonWithActionList = () => {
+    const [visible, setVisible] = useState(false);
+    return (
+        <div className="button-list">
+            <Button
+                text={'Файл'}
+                type="text"
+                action={() => {
+                    setVisible(!visible);
+                }}
+            />
+            {visible && (
+                <div className="button-list__list">
+                    <Button
+                        text={'Файл1'}
+                        type="icon-text"
+                        icon={<ArrowThatOpensTheList />}
+                        action={() => {}}
+                    />
+                    <Button
+                        text={'Файл2'}
+                        type="icon-text"
+                        icon={<ArrowThatOpensTheList />}
+                        action={() => {}}
+                    />
+                    <Button
+                        text={'Файл3'}
+                        type="icon-text"
+                        icon={<ArrowThatOpensTheList />}
+                        action={() => {}}
+                    />
+                    <Button
+                        text={'Файл4'}
+                        type="icon-text"
+                        icon={<ArrowThatOpensTheList />}
+                        action={() => {}}
+                    />
+                </div>
+            )}
+        </div>
+    );
+};
 
 const Title = () => {
     return (
@@ -90,7 +132,8 @@ const Title = () => {
             <div className="header-panel__activity-panel">
                 <InputText />
                 <div className="header-panel__button-menu">
-                    <Button text={'Файл'} type="text" action={() => {}} />
+                    <ButtonWithActionList />
+
                     <Button text={'Правка'} type="text" action={() => {}} />
                     <Button text={'Вставка'} type="text" action={() => {}} />
                     <Button text={'Формат'} type="text" action={() => {}} />
