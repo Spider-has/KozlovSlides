@@ -236,7 +236,6 @@ const Figure = () => (
         viewBox="0 0 20 20"
         fill="none"
     >
-        <rect x="0.5" y="0.5" width="19" height="19" stroke="black" />
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -246,6 +245,389 @@ const Figure = () => (
     </svg>
 );
 export { Figure };
+const ArrowThatCloseTheList = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            d="M13 13.825L9.29149 10L13 6.175L11.8583 5L7 10L11.8583 15L13 13.825Z"
+            fill="#3C4043"
+        />
+    </svg>
+);
+export { ArrowThatCloseTheList };
+const Pattern = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            d="M17.71 3.6725L16.83 2.7925C16.44 2.4025 15.81 2.4025 15.42 2.7925L11 7.2125L13.29 9.5025L17.71 5.0825C18.1 4.6925 18.1 4.0625 17.71 3.6725Z"
+            fill="#444746"
+        />
+        <path
+            d="M14.5 16.0024H3.5V5.00244H11.09L12.59 3.50244H3.5C2.67 3.50244 2 4.17244 2 5.00244V16.0024C2 16.8324 2.67 17.5024 3.5 17.5024H14.5C15.33 17.5024 16 16.8324 16 16.0024V8.91244L14.5 10.4124V16.0024Z"
+            fill="#444746"
+        />
+        <path
+            d="M5.52 12.4824H5C5.58 13.6724 6.86 14.5024 8.33 14.5024C10.17 14.5024 11.68 13.2024 11.95 11.5224C11.98 11.3524 12 11.1824 12 11.0024C12 9.62244 10.88 8.50244 9.5 8.50244C8.12 8.50244 7 9.62244 7 11.0024C7 11.8224 6.34 12.4824 5.52 12.4824Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { Pattern };
+const BorderColor = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <rect width="20" height="20" fill="white" />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M10.5 6.62781L4 13.1224V16H6.88L13.38 9.50541L10.5 6.62781ZM15.85 7.02748C16.05 6.82764 16.05 6.5179 15.85 6.31807L13.68 4.14988C13.48 3.95004 13.17 3.95004 12.97 4.14988L11.62 5.50874L14.5 8.38634L15.85 7.02748Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { BorderColor };
+const BorderWidth = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M3 10H17V12H3V10ZM3 4H17V8H3V4ZM3 15H17V16H3V15Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { BorderWidth };
+const BorderStyle = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            d="M3 15V13H5V15H3ZM3 11V9H9V11H3ZM3 7V5H17V7H3ZM7 15V13H9V15H7ZM11 11V9H17V11H11ZM11 15V13H13V15H11ZM15.0595 15V13H17V15H15.0595Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { BorderStyle };
+const Draw = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M4.35646 6.01861C4.89596 5.46234 5.43546 4.96443 5.67824 5.06557C6.05974 5.22505 5.67053 5.87468 5.44702 6.252C5.25434 6.57876 3.24278 9.2745 3.24278 11.1611C3.24278 12.157 3.60887 12.9816 4.27939 13.4795C4.85743 13.9114 5.61658 14.0435 6.31408 13.8374C7.13874 13.5924 7.81697 12.7521 8.67247 11.6863C9.60503 10.5271 10.8536 9.00998 11.817 9.00998C13.0733 9.00998 13.0887 9.79575 13.1734 10.4065C10.2524 10.9122 9.02314 13.2656 9.02314 14.5921C9.02314 15.9186 10.133 17 11.4933 17C12.7457 17 14.8035 15.9653 15.1079 12.2542H17V10.3092H15.0963C14.9807 9.02554 14.2563 7.04555 11.9904 7.04555C10.2563 7.04555 8.76495 8.53152 8.18692 9.25894C7.7399 9.82298 6.6031 11.1845 6.42583 11.379C6.2293 11.6085 5.9056 12.0325 5.56648 12.0325C5.22351 12.0325 5.01542 11.3829 5.28517 10.5348C5.55492 9.68294 6.36417 8.30979 6.711 7.8002C7.31601 6.91329 7.70907 6.30257 7.70907 5.24839C7.70907 3.53681 6.4451 3 5.77458 3C4.75723 3 3.87091 3.77799 3.67438 3.97638C3.40077 4.25646 3.16956 4.48596 3 4.69602L4.35646 6.01861ZM11.5164 15.0978C11.2775 15.0978 10.9499 14.8955 10.9499 14.5337C10.9499 14.0669 11.5087 12.8221 13.1657 12.3826C12.9268 14.4792 12.0559 15.0978 11.5164 15.0978Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { Draw };
+const Arrow = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5.25777 6.65034L3 8.90808V3H8.90808L6.65034 5.25777L17 15.6075L15.6075 17L5.25777 6.65034Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { Arrow };
+const Broken = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M2 10L7.18432 3H17.0279C17.8905 3 18.2433 3.58478 17.8194 4.30024L14.4424 10L17.8194 15.6998C18.2449 16.4179 17.8936 17 17.0279 17H7.18432L2 10Z"
+            stroke="#444746"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="bevel"
+        />
+    </svg>
+);
+export { Broken };
+const Circle = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
+            stroke="#444746"
+        />
+    </svg>
+);
+export { Circle };
+const Triangle = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M3.5 15.75L10 4.75L16.5 15.75H3.5Z" stroke="#444746" />
+    </svg>
+);
+export { Triangle };
+const Rectangle = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <rect x="2.5" y="3.5" width="15" height="13" stroke="#444746" />
+    </svg>
+);
+export { Rectangle };
+const TextLeft = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M13 16H3V14H13V16ZM17 13H3V11H17V13ZM17 4V6H3V4H17ZM13 9H3V7H13V9Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextLeft };
+const TextCenterX = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6 16H14V14H6V16ZM3 13H17V11H3V13ZM3 4V6H17V4H3ZM6 9H14V7H6V9Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextCenterX };
+const TextRight = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M7 16H17V14H7V16ZM3 13H17V11H3V13ZM3 4V6H17V4H3ZM7 9H17V7H7V9Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextRight };
+const TextWidth = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M3 16H17V14H3V16ZM3 13H17V11H3V13ZM3 4V6H17V4H3ZM3 9H17V7H3V9Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextWidth };
+const MoreTab = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M3 4H17V5.5H3V4ZM9 7.5H17V9H9V7.5ZM9 11H17V12.5H9V11ZM3 14.5H17V16H3V14.5ZM3 7V13L6 10L3 7Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { MoreTab };
+const LessTab = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M3 4H17V5.5H3V4ZM9 7.5H17V9H9V7.5ZM9 11H17V12.5H9V11ZM3 14.5H17V16H3V14.5Z"
+            fill="#444746"
+        />
+        <path d="M6 13V7L3 10L6 13Z" fill="#444746" />
+    </svg>
+);
+export { LessTab };
+const TextCenterY = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M9.25 18V14.875L8.062 16.062L7 15L10 12L13 15L11.938 16.062L10.75 14.875V18H9.25ZM4 11V9.5H16V11H4ZM10 8L7 5L8.062 3.938L9.25 5.125V2H10.75V5.125L11.938 3.938L13 5L10 8Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextCenterY };
+const TextUp = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4 3H16V4.5H4V3ZM10 6L6 10L7.06 11.06L9.25 8.87V17H10.75V8.87L12.94 11.06L14 10L10 6Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextUp };
+const NumList = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M5.5 15V13H17.5V15H5.5ZM5.5 11V9H17.5V11H5.5ZM5.5 7V5H17.5V7H5.5Z"
+            fill="#444746"
+        />
+        <path
+            d="M3.33333 7.1059H4V4H2.66667V4.77648H3.33333V7.1059ZM4.16667 8.447H2.5V9.22348H3.83333V9.61172H2.83333C2.64667 9.61172 2.5 9.78254 2.5 9.99996V11.5529H4.5V10.7764H3.16667V10.3882H4.16667C4.35333 10.3882 4.5 10.2174 4.5 9.99996V8.83524C4.5 8.61783 4.35333 8.447 4.16667 8.447ZM4.50002 13.2823C4.50002 13.0649 4.35335 12.8941 4.16669 12.8941H2.50002V13.6706H3.83335V14.0588H3.16669V14.8353H3.83335V15.2235H2.50002V16H4.16669C4.35335 16 4.50002 15.8292 4.50002 15.6118V14.8353C4.50002 14.6179 4.35335 14.447 4.16669 14.447C4.35335 14.447 4.50002 14.2762 4.50002 14.0588V13.2823Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { NumList };
+const TextDown = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4 17V15.5H16V17H4ZM10 14L6 10L7.062 8.938L9.25 11.125V3H10.75V11.125L12.938 8.938L14 10L10 14Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { TextDown };
+const MarkList = () => (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <g clipPath="url(#clip0_158_214)">
+            <path
+                d="M6 15V13H17V15H6ZM6 11V9H17V11H6ZM6 7V5H17V7H6Z"
+                fill="#444746"
+            />
+            <path
+                d="M4 7C4.55228 7 5 6.55228 5 6C5 5.44772 4.55228 5 4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7Z"
+                fill="#444746"
+            />
+            <path
+                d="M4 11C4.55228 11 5 10.5523 5 10C5 9.44772 4.55228 9 4 9C3.44772 9 3 9.44772 3 10C3 10.5523 3.44772 11 4 11Z"
+                fill="#444746"
+            />
+            <path
+                d="M4 15C4.55228 15 5 14.5523 5 14C5 13.4477 4.55228 13 4 13C3.44772 13 3 13.4477 3 14C3 14.5523 3.44772 15 4 15Z"
+                fill="#444746"
+            />
+        </g>
+        <defs>
+            <clipPath id="clip0_158_214">
+                <rect
+                    width="14"
+                    height="10"
+                    fill="white"
+                    transform="translate(3 5)"
+                />
+            </clipPath>
+        </defs>
+    </svg>
+);
+export { MarkList };
 const Group = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -489,7 +871,7 @@ const Rotate = () => (
         fill="none"
     >
         <path
-            d="M9.62 6.3825L3 13.0025V16.0025H6L12.62 9.3825L9.62 6.3825ZM5.38 14.5025H4.5V13.6225L9.62 8.5025L10.5 9.3825L5.38 14.5025ZM14.71 7.2925C15.1 6.9025 15.1 6.2725 14.71 5.8825L13.12 4.2925C12.73 3.9025 12.1 3.9025 11.71 4.2925L10.68 5.3125L13.68 8.3125L14.71 7.2925ZM12 13.0025L9 16.0025H17V13.0025H12Z"
+            d="M14.44 10.5327H15.97C15.87 11.7286 15.42 12.8241 14.73 13.7186L13.64 12.6231C14.06 12.0101 14.35 11.3065 14.44 10.5327ZM11 7.51759H13.72C12.91 6.31156 11.55 5.50754 10 5.50754C7.52 5.50754 5.49 7.53769 5.49 10.0302C5.49 11.005 5.81 11.9095 6.33 12.6432L5.26 13.7186C4.48 12.7035 4 11.4171 4 10.0302C4 6.70352 6.69 4 10 4C11.8 4 13.4 4.80402 14.5 6.07035V4H16V9.02513H11V7.51759ZM10.75 14.4824C11.43 14.3618 12.05 14.0804 12.58 13.6985L13.65 14.7739C12.82 15.4171 11.83 15.8492 10.74 15.99V14.4824H10.75ZM7.4 13.7085C7.94 14.1005 8.57 14.3618 9.25 14.4724V16C8.16 15.8593 7.16 15.4271 6.33 14.7839L7.4 13.7085Z"
             fill="#444746"
         />
     </svg>
