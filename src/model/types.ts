@@ -160,7 +160,7 @@ type ButtonProps = {
     type: 'text' | 'icon-text' | 'icon'; // вынести в enum
     icon?: JSX.Element | null;
     iconSize?: number;
-    action: (event) => void;
+    action: (event: unknown) => void;
 };
 
 type ButtonWithActionListProps = {
