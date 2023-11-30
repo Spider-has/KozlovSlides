@@ -1,54 +1,3 @@
-/*import { ArrowThatOpensTheList } from './icons/CopyFormatting';
-import { Audio } from './icons/Delete';
-import { Border } from './icons/Download';
-import { Center } from './icons/Insert';
-import { ChangeBg } from './icons/Redo';
-import { ChooseLayout } from './icons/Undo';
-import { Copy } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';
-import { Create } from './icons/Create';*/
 import * as Buttons from './ButtonIcons';
 import './Button.css';
 import { ButtonProps } from '../../model/types';
@@ -92,6 +41,29 @@ const AllButtons = () => {
             <Buttons.TextField />
             <Buttons.Undo />
             <Buttons.Video />
+            <Buttons.Cursor />
+            <Buttons.ArrowThatCloseTheList />
+            <Buttons.Pattern />
+            <Buttons.BorderColor />
+            <Buttons.BorderWidth />
+            <Buttons.BorderStyle />
+            <Buttons.Draw />
+            <Buttons.Arrow />
+            <Buttons.Broken />
+            <Buttons.Circle />
+            <Buttons.Triangle />
+            <Buttons.Rectangle />
+            <Buttons.TextLeft />
+            <Buttons.TextCenterX />
+            <Buttons.TextRight />
+            <Buttons.TextWidth />
+            <Buttons.MoreTab />
+            <Buttons.LessTab />
+            <Buttons.TextCenterY />
+            <Buttons.TextUp />
+            <Buttons.NumList />
+            <Buttons.TextDown />
+            <Buttons.MarkList />
         </div>
     );
 };
