@@ -1,5 +1,6 @@
 import * as ButtonIcons from '../components/button/icons/ButtonIcons';
 import {
+    ButtonType,
     // Span,
     // StrokeObject,
     // GraphicObject,
@@ -41,19 +42,19 @@ import {
 // };
 
 // const strokeObjectMin: StrokeObject = {
-//     type: 'text',
+//     type: ButtonType.Text,
 //     chars: [],
 //     rotateAngle: 0,
 // };
 
 // const strokeObjectMid: StrokeObject = {
-//     type: 'text',
+//     type: ButtonType.Text,
 //     chars: [spanMid],
 //     rotateAngle: 0,
 // };
 
 // const strokeObjectMax: StrokeObject = {
-//     type: 'text',
+//     type: ButtonType.Text,
 //     chars: [spanMid, spanMax],
 //     rotateAngle: 43.9,
 //     border: {
@@ -264,43 +265,43 @@ import {
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Файл',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Создать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Create />,
         },
         {
             text: 'Открыть',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Open />,
         },
         {
             text: 'Скачать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Download />,
         },
         {
             text: 'Переименовать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Rename />,
         },
         {
             text: 'Удалить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Delete />,
         },
         {
             text: 'Предварительный просмотр',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Preview />,
         },
@@ -310,43 +311,43 @@ export const FileButtonList: ButtonWithActionListProps = {
 export const FormatButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Формат',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Текст',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Text />,
         },
         {
             text: 'Выравнивание и отступы',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Leveling />,
         },
         {
             text: 'Интервалы между абзацами или строками',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Intervals />,
         },
         {
             text: 'Маркеры и нумерация',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Numbering />,
         },
         {
             text: 'Изображение',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Photo />,
         },
         {
             text: 'Границы и линии',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Line />,
         },
@@ -356,49 +357,49 @@ export const FormatButtonList: ButtonWithActionListProps = {
 export const SlideButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Слайд',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Новый слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.NewSlide />,
         },
         {
             text: 'Дублировать слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Duplication />,
         },
         {
             text: 'Удалить слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Delete />,
         },
         {
             text: 'Пропустить слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Skip />,
         },
         {
             text: 'Переместить слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Move />,
         },
         {
             text: 'Изменить фон',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.ChangeBg />,
         },
         {
             text: 'Выбрать макет',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.ChooseLayout />,
         },
@@ -408,37 +409,37 @@ export const SlideButtonList: ButtonWithActionListProps = {
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Переместить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Move />,
         },
         {
             text: 'Центрировать на странице',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Center />,
         },
         {
             text: 'Повернуть',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Rotate />,
         },
         {
             text: 'Сгруппировать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Group />,
         },
         {
             text: 'Отменить группировку',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.GroupCancel />,
         },
@@ -448,55 +449,55 @@ export const ObjectButtonList: ButtonWithActionListProps = {
 export const EditButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Правка',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Отменить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Undo />,
         },
         {
             text: 'Повторить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Redo />,
         },
         {
             text: 'Вырезать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Cut />,
         },
         {
             text: 'Копировать',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Copy />,
         },
         {
             text: 'Вставить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Insert />,
         },
         {
             text: 'Выбрать все',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.SelectAll />,
         },
         {
             text: 'Удалить',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Delete />,
         },
         {
             text: 'Создать копию',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Copy />,
         },
@@ -506,55 +507,55 @@ export const EditButtonList: ButtonWithActionListProps = {
 export const InsertionButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Вставка',
-        type: 'text',
+        type: ButtonType.Text,
         action: () => {},
     },
     buttonList: [
         {
             text: 'Изображение',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Photo />,
         },
         {
             text: 'Текстовое поле',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.TextField />,
         },
         {
             text: 'Аудио',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Audio />,
         },
         {
             text: 'Видео',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Video />,
         },
         {
             text: 'Фигура',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Figure />,
         },
         {
             text: 'График',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Diagram />,
         },
         {
             text: 'Линия',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.Line />,
         },
         {
             text: 'Новый слайд',
-            type: 'icon-text',
+            type: ButtonType.IconText,
             action: () => {},
             icon: <ButtonIcons.NewSlide />,
         },
