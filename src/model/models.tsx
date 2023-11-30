@@ -1,4 +1,4 @@
-import * as ButtonIcons from '../components/button/ButtonIcons';
+import * as ButtonIcons from '../components/button/icons/ButtonIcons';
 import {
     // Span,
     // StrokeObject,

@@ -9,32 +9,41 @@ type Span = {
     cursive: boolean;
     underline: boolean;
 };
-
+enum ObjectType {
+    Text,
+    Graphic,
+    Triangle,
+    Ellipse,
+    Image,
+    Video,
+    Audio,
+    FunctionGraph,
+}
 type StrokeObject = {
-    type: 'text'; // вынести в enum
+    type: ObjectType;
     chars: Array<Span>;
     rotateAngle: number;
     border?: Border;
 };
 
 type GraphicObject = {
-    type: 'graphic';
+    type: FigureObjects;
     color?: Color;
     border?: Border;
     rotateAngle: number;
     opacity: number;
-    figureData: EllipseObject | TriangleObject | RectangleObject; // вынести в enum
+    figureData: EllipseObject | TriangleObject | RectangleObject;
     textBlock?: StrokeObject;
 };
 
 type EllipseObject = {
-    type: 'ellipse'; // вынести в enum
+    type: ObjectType;
     size: Size;
     rounding: number;
 };
 
 type TriangleObject = {
-    type: 'triangle'; // вынести в enum
+    type: ObjectType;
     point1: Point;
     point2: Point;
     point3: Point;
@@ -46,52 +55,63 @@ type Point = {
 };
 
 type RectangleObject = {
-    type: 'rectangle'; // вынести в enum
+    type: ObjectType;
     rounding: number;
     size: Size;
 };
 
 type ImageObject = {
-    type: 'image'; // вынести в enum
+    type: ObjectType;
     size: Size;
     imgUrl: string;
 };
 
 type VideoObject = {
-    type: 'video'; // вынести в enum
+    type: ObjectType;
     size: Size;
     videoUrl: string;
 };
 
 type AudioObject = {
-    type: 'audio'; // вынести в enum
+    type: ObjectType;
     size: Size;
     audioUrl: string;
 };
 
 type FunctionGraphObject = {
-    type: 'functionGraph'; // вынести в enum
+    type: ObjectType;
     size: Size;
     func: string;
 };
 
+enum BorderType {
+    Solid,
+    Dashed,
+}
+
 type Border = {
     color?: Color;
     width: number;
-    type: 'solid' | 'dashed'; // вынести в enum
+    type: BorderType;
 };
 
 type SlideElement = {
     id: Id;
     position: Point;
+    type: ObjectType;
     data:
         | StrokeObject
         | GraphicObject
         | ImageObject
         | VideoObject
         | AudioObject
-        | FunctionGraphObject; // вынести в enum
+        | FunctionGraphObject;
 };
+enum FigureObjects {
+    Ellipse,
+    Triangle,
+    Rectangle,
+}
 
 type SlideTransion = {
     type: string;
@@ -101,18 +121,21 @@ type ElementAnimation = {
     type: string;
     id: Id;
 };
-
+enum BackgroundType {
+    Image,
+    Color,
+}
 type SlideBackground = {
-    type: 'image' | 'color'; // вынести в enum
-    data: backgroundImg | backgroundColor;
+    type: BackgroundType;
+    data: BackgroundImg | BackgroundColor;
 };
 
-type backgroundImg = {
+type BackgroundImg = {
     url: string;
 };
 
-type backgroundColor = {
-    color?: Color;
+type BackgroundColor = {
+    color: Color;
 };
 
 type Slide = {
@@ -152,12 +175,20 @@ type Editor = {
     presentation: Presentation;
     history: Array<Presentation>;
     selectedSlides: Array<Id>;
-    viewMode: 'edit' | 'view'; // вынести в enum
+    viewMode: ViewMode;
 };
-
+enum ViewMode {
+    Edit,
+    View,
+}
+enum ButtonType {
+    Text,
+    IconText,
+    Icon,
+}
 type ButtonProps = {
-    text: string;
-    type: 'text' | 'icon-text' | 'icon'; // вынести в enum
+    text?: string;
+    type: ButtonType;
     icon?: JSX.Element | null;
     iconSize?: number;
     action: (event: unknown) => void;
@@ -186,4 +217,6 @@ export type {
     FunctionGraphObject as FuncGraphObject,
     ButtonWithActionListProps,
     ButtonProps,
+    Id,
 };
+export { ButtonType };

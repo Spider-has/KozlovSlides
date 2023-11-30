@@ -1,0 +1,18 @@
+.slide-preview-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.slide-preview-area__number{
+    width: 20px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    color: gray;
+}
+
+.slide-preview-area__preview-area{
+    border: 3px solid gray;
+    border-radius: 25px;
+}
