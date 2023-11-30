@@ -96,14 +96,6 @@ const AllButtons = () => {
     );
 };
 
-type ButtonProps = {
-    text?: string;
-    type: 'text' | 'icon-text' | 'icon'; // вынести в enum
-    icon?: JSX.Element | null;
-    iconSize?: number;
-    action: (event) => void;
-};
-
 const Button = (props: ButtonProps) => {
     return (
         <div className="button-block" onClick={props.action}>

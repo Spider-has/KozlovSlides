@@ -186,4 +186,5 @@ export type {
     FunctionGraphObject as FuncGraphObject,
     ButtonWithActionListProps,
     ButtonProps,
+    Id,
 };
