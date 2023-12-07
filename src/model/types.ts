@@ -165,9 +165,7 @@ type MenuValues = {
     graphColor?: Color;
 };
 
-type Color = {
-    color: string;
-};
+type Color = string;
 type FontFamily = {
     fontFamily: string;
 };
