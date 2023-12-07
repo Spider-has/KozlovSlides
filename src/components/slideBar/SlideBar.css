@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    gap: 5px
 }
 
 .slide-preview-area__number{
@@ -13,6 +14,19 @@
 }
 
 .slide-preview-area__preview-area{
-    border: 3px solid gray;
+    border: 3px solid #C7C7C7;
     border-radius: 25px;
+    width: 145px;
+    height: 85px;
+}
+
+.slide-preview-list{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.slide-preview{
+    display: block;
+    position: relative;
 }

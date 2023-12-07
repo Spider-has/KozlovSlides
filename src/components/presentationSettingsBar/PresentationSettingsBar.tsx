@@ -26,7 +26,7 @@ const InputText = () => {
         }
     };
 
-    const enterDownHandler = event => {
+    const enterDownHandler = (event: { code: string }) => {
         if (event.code == 'Enter') {
             if (inputRef.current) {
                 inputRef.current.classList.remove('input-text__input_active');
@@ -48,13 +48,13 @@ const InputText = () => {
         if (inputRef.current && spanRef.current) {
             console.log(spanRef.current.offsetWidth);
             inputRef.current.style.width =
-                spanRef.current.offsetWidth + 1000 + 'px';
+                spanRef.current.offsetWidth + 7 + 'px';
             console.log(inputRef.current.style.width);
             setName(inputRef.current.value);
         }
     };
 
-    const closeOnClick = event => {
+    const closeOnClick = (event: { target: Node | null }) => {
         if (
             inputRef.current?.classList.contains('input-text__input_active') &&
             !(
@@ -99,7 +99,7 @@ const useClickOut = (
 ) => {
     useEffect(() => {
         if (visibility) {
-            const handle = event => {
+            const handle = (event: { target: Node }) => {
                 console.log(visibility);
                 if (
                     visibility &&
@@ -177,7 +177,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     );
 };
 
-const Title = () => {
+const MainSettingsBar = () => {
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
     const EditButtonSection: ButtonWithActionListProps = EditButtonList;
     const InsertionButtonSection: ButtonWithActionListProps =
@@ -186,35 +186,44 @@ const Title = () => {
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
+        <div className="docs-menubars">
+            <ButtonWithActionList
+                mainButton={FileButtonSection.mainButton}
+                buttonList={FileButtonSection.buttonList}
+            />
+            <ButtonWithActionList
+                mainButton={EditButtonSection.mainButton}
+                buttonList={EditButtonSection.buttonList}
+            />
+            <ButtonWithActionList
+                mainButton={InsertionButtonSection.mainButton}
+                buttonList={InsertionButtonSection.buttonList}
+            />
+            <ButtonWithActionList
+                mainButton={FormatButtonSection.mainButton}
+                buttonList={FormatButtonSection.buttonList}
+            />
+            <ButtonWithActionList
+                mainButton={SlideButtonSection.mainButton}
+                buttonList={SlideButtonSection.buttonList}
+            />
+            <ButtonWithActionList
+                mainButton={ObjectButtonSection.mainButton}
+                buttonList={ObjectButtonSection.buttonList}
+            />
+        </div>
+    );
+};
+
+const Title = () => {
+    return (
         <header className="docs-bars">
+            <div className="docs-bars__logo-area">
+                <Logo />
+            </div>
             <div className="docs-bars__activity-panel">
                 <InputText />
-                <div className="docs-menubars">
-                    <ButtonWithActionList
-                        mainButton={FileButtonSection.mainButton}
-                        buttonList={FileButtonSection.buttonList}
-                    />
-                    <ButtonWithActionList
-                        mainButton={EditButtonSection.mainButton}
-                        buttonList={EditButtonSection.buttonList}
-                    />
-                    <ButtonWithActionList
-                        mainButton={InsertionButtonSection.mainButton}
-                        buttonList={InsertionButtonSection.buttonList}
-                    />
-                    <ButtonWithActionList
-                        mainButton={FormatButtonSection.mainButton}
-                        buttonList={FormatButtonSection.buttonList}
-                    />
-                    <ButtonWithActionList
-                        mainButton={SlideButtonSection.mainButton}
-                        buttonList={SlideButtonSection.buttonList}
-                    />
-                    <ButtonWithActionList
-                        mainButton={ObjectButtonSection.mainButton}
-                        buttonList={ObjectButtonSection.buttonList}
-                    />
-                </div>
+                <MainSettingsBar />
                 <div className="docs-primary-toolbars">
                     <Button
                         type={ButtonType.Icon}

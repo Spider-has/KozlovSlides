@@ -2,8 +2,8 @@ const Logo = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="##CFCFCF"
-        width="1000px"
-        height="1000px"
+        viewBox="0 0 393 592"
+        preserveAspectRatio="xMidYMid meet"
     >
         <rect width={393} height={592} fill="#CFCFCF" />
         <rect y={141} width={393} height={241} fill="#FFC527" />

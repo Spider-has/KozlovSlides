@@ -76,12 +76,17 @@
 .docs-bars{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+    padding-left: 20px;
     gap: 5px;
 }
 
 .docs-menubars{
     display: flex;
     flex-direction: row;
+    gap: 15px;
+    padding-left: 10px;
 }
 
 .docs-primary-toolbars{
@@ -89,8 +94,13 @@
     flex-direction: row;
 }
 
+.docs-bars__logo-area{
+    width: 50px;
+}
+
 .docs-bars__activity-panel{
     display: flex;
+    width: 100%;
     flex-direction: column;
     gap: 10px;
 }
