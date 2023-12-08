@@ -11,6 +11,7 @@ import {
     SlideButtonList,
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
+import { Logo } from '../../logo';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
