@@ -1,38 +1,36 @@
-import { Slide } from '../../model/types';
+import { combineReducers } from '@reduxjs/toolkit';
+import { BackgroundType, Editor, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
-import { SlideBarActions } from '../actions/actions';
+import { PresentationActions } from '../actions/actions';
+import { generateRandomId } from '../../model/utils';
 
-type InitData = {
-    slides: Slide[];
+type InitData = Editor;
+const defaultSize = {
+    width: 500,
+    height: 600,
 };
-
 const initData: InitData = {
-    slides: [
-        {
-            id: '1',
-            elements: [],
-            elementsAnimations: [],
-            background: {
-                type: 'color',
-                data: {
-                    color: '',
+    presentation: {
+        slides: [
+            {
+                id: generateRandomId(),
+                elements: [],
+                selectedElements: [],
+                elementsAnimations: [],
+                background: {
+                    type: BackgroundType.Color,
+                    data: { color: '' },
                 },
+                isSelected: false,
             },
-            selectedElements: [],
-        },
-        {
-            id: '2',
-            elements: [],
-            elementsAnimations: [],
-            background: {
-                type: 'color',
-                data: {
-                    color: '',
-                },
-            },
-            selectedElements: [],
-        },
-    ],
+        ],
+        size: defaultSize,
+        name: 'Презентация',
+    },
+    history: [],
+    selectedSlides: [],
+    viewMode: ViewMode.Edit,
+    shiftMode: false,
 };
 
 const slideBarReducer = (
@@ -40,28 +38,85 @@ const slideBarReducer = (
     action: Action,
 ): InitData => {
     switch (action.type) {
-        case SlideBarActions.CHANGE_POSITON:
+        case PresentationActions.CHANGE_SLIDE_POSITION:
             return {
                 ...state,
-                slides: state.slides.map((slide, i) => {
-                    if (i == action.payload.oldPosition) {
-                        return {
-                            ...slide,
-                        };
-                    }
-                    return slide;
-                }),
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i == action.payload.oldPosition) {
+                            return {
+                                ...slide,
+                            };
+                        }
+                        return slide;
+                    }),
+                },
             };
 
-        case SlideBarActions.CHANGE_LAYOUT:
+        case PresentationActions.CHANGE_SLIDE_LAYOUT:
             return state;
-        case SlideBarActions.ADD_SLIDE:
+        case PresentationActions.ADD_SLIDE:
+            return {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: [...state.presentation.slides, action.payload],
+                },
+            };
+        case PresentationActions.DEELETE_SLIDE:
             return state;
-        case SlideBarActions.DEELETE_SLIDE:
-            return state;
+        case PresentationActions.SELECT_SLIDES:
+            return {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map(slide => {
+                        if (action.payload.includes(slide.id)) {
+                            return {
+                                ...slide,
+                                isSelected: true,
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+        case PresentationActions.REMOVE_SELECT_SLIDES:
+            return {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map(slide => {
+                        if (action.payload.includes(slide.id)) {
+                            return {
+                                ...slide,
+                                isSelected: false,
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
         default:
             return state;
     }
 };
 
-export { slideBarReducer };
+const editorReducer = (
+    state: InitData = initData,
+    action: Action,
+): InitData => {
+    switch (action.type) {
+        case PresentationActions.CHANGE_SHIFT_MODE:
+            return { ...state, shiftMode: !state.shiftMode };
+        default:
+            return state;
+    }
+};
+const rootReducer = combineReducers({
+    slideBar: slideBarReducer,
+    editor: editorReducer,
+});
+
+export { rootReducer };

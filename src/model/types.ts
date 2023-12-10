@@ -121,6 +121,7 @@ type ElementAnimation = {
     type: string;
     id: Id;
 };
+
 enum BackgroundType {
     Image,
     Color,
@@ -145,6 +146,7 @@ type Slide = {
     selectedElements: Array<Id>;
     elementsAnimations: Array<ElementAnimation>;
     background: SlideBackground;
+    isSelected: boolean;
 };
 
 type Size = {
@@ -174,6 +176,8 @@ type Editor = {
     history: Array<Presentation>;
     selectedSlides: Array<Id>;
     viewMode: ViewMode;
+    selectMode?: 'slides' | 'elements';
+    shiftMode: boolean;
 };
 enum ViewMode {
     Edit,
@@ -189,7 +193,7 @@ type ButtonProps = {
     type: ButtonType;
     icon?: JSX.Element | null;
     iconSize?: number;
-    action: (event: unknown) => void;
+    action: () => void;
 };
 
 type ButtonWithActionListProps = {
@@ -217,4 +221,4 @@ export type {
     ButtonProps,
     Id,
 };
-export { ButtonType };
+export { ButtonType, BackgroundType, ViewMode };

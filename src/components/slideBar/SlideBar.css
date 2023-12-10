@@ -14,16 +14,29 @@
 }
 
 .slide-preview-area__preview-area{
-    border: 3px solid #C7C7C7;
+    outline: 2px solid #D1D4D2;
     border-radius: 25px;
     width: 145px;
     height: 85px;
+}
+
+.slide-preview-area__preview-area:hover{
+    outline: 4px solid #C7C7C7;
+}
+
+.slide-preview-area__preview-area_selected{
+    outline: 4px solid #0B57D0;
+}
+
+.slide-preview-area__preview-area_selected:hover{
+    outline: 4px solid #0B57D0;
 }
 
 .slide-preview-list{
     display: flex;
     flex-direction: column;
     gap: 12px;
+    padding: 10px;
 }
 
 .slide-preview{

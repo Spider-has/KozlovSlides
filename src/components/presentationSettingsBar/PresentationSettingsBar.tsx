@@ -12,6 +12,7 @@ import {
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
 import { Logo } from '../../logo';
+import { useAppActions } from '../../store/hooks';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
@@ -101,7 +102,6 @@ const useClickOut = (
     useEffect(() => {
         if (visibility) {
             const handle = (event: { target: Node }) => {
-                console.log(visibility);
                 if (
                     visibility &&
                     elementRef.current &&
@@ -179,12 +179,17 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
 };
 
 const MainSettingsBar = () => {
+    const { createAddSlideAction } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
     const EditButtonSection: ButtonWithActionListProps = EditButtonList;
     const InsertionButtonSection: ButtonWithActionListProps =
         InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
+    SlideButtonList.buttonList[0].action = () => {
+        createAddSlideAction();
+        console.log('create');
+    };
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className="docs-menubars">

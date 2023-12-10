@@ -1,12 +1,17 @@
-enum SlideBarActions {
-    CHANGE_POSITON = 'CHANGE_POSITION',
+import { Slide } from '../../model/types';
+
+enum PresentationActions {
+    CHANGE_SLIDE_POSITION = 'CHANGE_POSITION',
     DEELETE_SLIDE = 'DEELETE_SLIDE',
     ADD_SLIDE = 'ADD_SLIDE',
-    CHANGE_LAYOUT = 'CHANGE_LAYOUT',
+    CHANGE_SLIDE_LAYOUT = 'CHANGE_LAYOUT',
+    SELECT_SLIDES = 'SELECT_SLIDES',
+    REMOVE_SELECT_SLIDES = 'REMOVE_SELECT_SLIDES',
+    CHANGE_SHIFT_MODE = 'CHANGE_SHIFT_MODE',
 }
 
 type ChangeSlidePosition = {
-    type: SlideBarActions.CHANGE_POSITON;
+    type: PresentationActions.CHANGE_SLIDE_POSITION;
     payload: {
         oldPosition: number;
         newPosition: number;
@@ -14,27 +19,46 @@ type ChangeSlidePosition = {
 };
 
 type AddSlide = {
-    type: SlideBarActions.ADD_SLIDE;
-    payload: {
-        slideLayoutType: 'type';
-    };
+    type: PresentationActions.ADD_SLIDE;
+    payload: Slide;
 };
 
 type DeleteSlide = {
-    type: SlideBarActions.DEELETE_SLIDE;
+    type: PresentationActions.DEELETE_SLIDE;
     payload: {
         slideId: string;
     };
 };
 
+type SelectSlides = {
+    type: PresentationActions.SELECT_SLIDES;
+    payload: string[];
+};
+
 type ChangeSlideLayout = {
-    type: SlideBarActions.CHANGE_LAYOUT;
+    type: PresentationActions.CHANGE_SLIDE_LAYOUT;
     payload: {
         slideId: string;
         newLayoutType: 'type';
     };
 };
 
-type Action = ChangeSlidePosition | ChangeSlideLayout | DeleteSlide | AddSlide;
+type RemoveSelectSlides = {
+    type: PresentationActions.REMOVE_SELECT_SLIDES;
+    payload: string[];
+};
+
+type ChangeShiftMode = {
+    type: PresentationActions.CHANGE_SHIFT_MODE;
+};
+
+type Action =
+    | ChangeSlidePosition
+    | ChangeSlideLayout
+    | DeleteSlide
+    | AddSlide
+    | SelectSlides
+    | RemoveSelectSlides
+    | ChangeShiftMode;
 export type { Action };
-export { SlideBarActions };
+export { PresentationActions };
