@@ -191,6 +191,7 @@ enum ButtonType {
 type ButtonProps = {
     text?: string;
     type: ButtonType;
+    list?: boolean;
     icon?: JSX.Element | null;
     iconSize?: number;
     action: () => void;

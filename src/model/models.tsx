@@ -417,7 +417,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             text: 'Переместить',
             type: ButtonType.IconText,
             action: () => {},
-            icon: <ButtonIcons.Move />,
+            icon: <ButtonIcons.Remove />,
         },
         {
             text: 'Центрировать на странице',

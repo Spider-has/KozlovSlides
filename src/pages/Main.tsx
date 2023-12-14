@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 //import { AllButtons } from '../components/button/Button';
 import { Title } from '../components/presentationSettingsBar/PresentationSettingsBar';
-import { SlidesArea } from '../components/slidesArea/SlidesArea';
 import { useAppActions } from '../store/hooks';
 import './Main.css';
+import { SlidesArea } from '../components/slidesArea/SlidesArea';
 
 // const FileSettingsPanel = () => {
 //     return (
@@ -27,6 +27,7 @@ const MainPage = () => {
         <div className="main-container">
             <Title />
             {/*<FileSettingsPanel />*/}
+            <SlidesArea />
         </div>
     );
 };

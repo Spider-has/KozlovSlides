@@ -10,7 +10,7 @@
 .input-text{
     display: block;
     position: relative;
-    padding: 1px 2px 1px 5px;
+    padding: 9px 2px 1px 5px;
     max-width: 90%;
     width: auto;
 }
@@ -83,6 +83,11 @@
 .docs-bars{
     height: 113.8px;
     display: flex;
+    flex-direction: column;
+}
+
+.docs-titlebar-container {
+    display: flex;
     flex-direction: row;
 }
 
@@ -93,12 +98,33 @@
 }
 
 .docs-primary-toolbars{
+    height: 40px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    background-color: #EDF2FA;
+    border-radius: 16px;
+    border-color: #EDF2FA;
 }
 
 .docs-bars__logo-area{
     width: 50px;
+}
+
+.docs-primary-toolbars__buttons-place {
+    display: flex;
+    flex-direction: row;
+    height: 26px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.create-line { 
+    content: " ";
+    background: #C7C7C7;
+    width: 1.5px;
+    height: 26px;
+    margin: 0 2px;
 }
 
 .docs-bars__activity-panel{
@@ -130,7 +156,6 @@
 .button-list__list{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     position: absolute;
     top: 28px;
     padding: 10px 2px;

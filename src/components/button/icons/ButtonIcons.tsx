@@ -1,4 +1,4 @@
-const ArrowThatOpensTheList = () => (
+const ArrowThatOpensTheListHorisontal = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -9,7 +9,24 @@ const ArrowThatOpensTheList = () => (
         <path d="M7.5 15V5L12.5 10L7.5 15Z" fill="#444746" />
     </svg>
 );
-export { ArrowThatOpensTheList };
+export { ArrowThatOpensTheListHorisontal };
+const ArrowThatOpensTheListVertical = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6 8L10 12L14 8H6Z"
+            fill="#444746"
+        />
+    </svg>
+);
+export { ArrowThatOpensTheListVertical };
 const Audio = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -741,7 +758,7 @@ const NewSlide = () => (
         viewBox="0 0 20 20"
         fill="none"
     >
-        <path d="M18 11H11V18H9V11H2V9H9V2H11V9H18V11Z" fill="#444746" />
+        <path d="M15 11H11V15H9V11H5V9H9V5H11V9H15V11Z" fill="#444746" />
     </svg>
 );
 export { NewSlide };
