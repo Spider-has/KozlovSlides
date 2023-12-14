@@ -97,8 +97,13 @@
     flex-direction: row;
 }
 
+.docs-bars__logo-area{
+    width: 50px;
+}
+
 .docs-bars__activity-panel{
     display: flex;
+    width: 100%;
     flex-direction: column;
 }
 

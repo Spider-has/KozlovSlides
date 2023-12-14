@@ -1,12 +1,8 @@
 import React from 'react';
 import './App.css';
-import { MainPage } from './pages/Main.tsx';
+
 function App() {
-    return (
-        <div>
-            <MainPage />
-        </div>
-    );
+    return <MainPage />;
 }
 
 export default App;
