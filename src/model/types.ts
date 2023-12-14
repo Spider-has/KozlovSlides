@@ -37,13 +37,13 @@ type GraphicObject = {
 };
 
 type EllipseObject = {
-    type: ObjectType;
+    type: FigureObjects.Ellipse;
     size: Size;
     rounding: number;
 };
 
 type TriangleObject = {
-    type: ObjectType;
+    type: FigureObjects.Triangle;
     point1: Point;
     point2: Point;
     point3: Point;
@@ -55,7 +55,7 @@ type Point = {
 };
 
 type RectangleObject = {
-    type: ObjectType;
+    type: FigureObjects.Rectangle;
     rounding: number;
     size: Size;
 };
@@ -146,7 +146,6 @@ type Slide = {
     selectedElements: Array<Id>;
     elementsAnimations: Array<ElementAnimation>;
     background: SlideBackground;
-    isSelected: boolean;
 };
 
 type Size = {
@@ -177,7 +176,7 @@ type Editor = {
     selectedSlides: Array<Id>;
     viewMode: ViewMode;
     selectMode?: 'slides' | 'elements';
-    shiftMode: boolean;
+    //shiftMode: boolean;
 };
 enum ViewMode {
     Edit,
@@ -222,4 +221,4 @@ export type {
     ButtonProps,
     Id,
 };
-export { ButtonType, BackgroundType, ViewMode };
+export { ButtonType, BackgroundType, ViewMode, ObjectType, FigureObjects };

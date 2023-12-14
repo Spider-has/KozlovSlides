@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-//import { AllButtons } from '../components/button/Button';
 import { Title } from '../components/presentationSettingsBar/PresentationSettingsBar';
-import { useAppActions } from '../store/hooks';
-import './Main.css';
 import { SlidesArea } from '../components/slidesArea/SlidesArea';
+import './Main.css';
 
 // const FileSettingsPanel = () => {
 //     return (
@@ -14,15 +11,7 @@ import { SlidesArea } from '../components/slidesArea/SlidesArea';
 // };
 
 const MainPage = () => {
-    const { createChangeShiftModeAction } = useAppActions();
-    useEffect(() => {
-        document.addEventListener('keydown', event => {
-            if (event.key == 'Shift') {
-                createChangeShiftModeAction();
-                console.log('shift');
-            }
-        });
-    }, []);
+    console.log('rendered!');
     return (
         <div className="main-container">
             <Title />

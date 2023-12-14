@@ -1,6 +1,19 @@
 .edit-slide-area{
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     flex-grow: 1;
-    background-color: #F9FBFD;
+    color: white;
+    background-color: #404040;
+    overflow: hidden;
+}
+
+
+.main-edit-slide-space{
+    display: block;
+    background-color: #FFFFFF;
+    margin: auto;
+    width: 800px;
+    height: 450px;
 }
