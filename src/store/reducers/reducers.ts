@@ -21,7 +21,6 @@ const initData: InitData = {
                     type: BackgroundType.Color,
                     data: { color: '' },
                 },
-                isSelected: false,
             },
         ],
         size: defaultSize,
@@ -30,7 +29,6 @@ const initData: InitData = {
     history: [],
     selectedSlides: [],
     viewMode: ViewMode.Edit,
-    shiftMode: false,
 };
 
 const slideBarReducer = (
@@ -98,25 +96,30 @@ const slideBarReducer = (
                     }),
                 },
             };
+        case PresentationActions.CHANGE_SELECTED_SLIDES: {
+            return {
+                ...state,
+                selectedSlides: action.payload,
+            };
+        }
         default:
             return state;
     }
 };
 
-const editorReducer = (
-    state: InitData = initData,
-    action: Action,
-): InitData => {
-    switch (action.type) {
-        case PresentationActions.CHANGE_SHIFT_MODE:
-            return { ...state, shiftMode: !state.shiftMode };
-        default:
-            return state;
-    }
-};
+// const editorReducer = (
+//     state: InitData = initData,
+//     action: Action,
+// ): InitData => {
+//     switch (action.type) {
+//         case PresentationActions.CHANGE_SHIFT_MODE:
+//             return { ...state, shiftMode: !state.shiftMode };
+//         default:
+//             return state;
+//     }
+// };
 const rootReducer = combineReducers({
     slideBar: slideBarReducer,
-    editor: editorReducer,
 });
 
 export { rootReducer };

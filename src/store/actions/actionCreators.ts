@@ -1,4 +1,4 @@
-import { BackgroundType } from '../../model/types';
+import { BackgroundType, Id } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
 
@@ -35,16 +35,17 @@ const createSelectSlidesAction = (slidesId: string[]) => {
     };
 };
 
-const createRemoveSelectSlidesAction = (slidesId: string[]) => {
+const createRemoveSelectSlidesAction = (slidesId: Id[]) => {
     return {
         type: PresentationActions.REMOVE_SELECT_SLIDES,
         payload: slidesId,
     };
 };
 
-const createChangeShiftModeAction = () => {
+const createChangeSelectedSlidesAction = (slidesId: Id[]) => {
     return {
-        type: PresentationActions.CHANGE_SHIFT_MODE,
+        type: PresentationActions.CHANGE_SELECTED_SLIDES,
+        payload: slidesId,
     };
 };
 
@@ -53,5 +54,5 @@ export {
     createDeleteSlideAction,
     createSelectSlidesAction,
     createRemoveSelectSlidesAction,
-    createChangeShiftModeAction,
+    createChangeSelectedSlidesAction,
 };

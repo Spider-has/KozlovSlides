@@ -1,4 +1,4 @@
-import { Slide } from '../../model/types';
+import { Id, Slide } from '../../model/types';
 
 enum PresentationActions {
     CHANGE_SLIDE_POSITION = 'CHANGE_POSITION',
@@ -8,6 +8,7 @@ enum PresentationActions {
     SELECT_SLIDES = 'SELECT_SLIDES',
     REMOVE_SELECT_SLIDES = 'REMOVE_SELECT_SLIDES',
     CHANGE_SHIFT_MODE = 'CHANGE_SHIFT_MODE',
+    CHANGE_SELECTED_SLIDES = 'CHANGE_SELECTED_SLIDES',
 }
 
 type ChangeSlidePosition = {
@@ -52,6 +53,11 @@ type ChangeShiftMode = {
     type: PresentationActions.CHANGE_SHIFT_MODE;
 };
 
+type ChangeSelectedSlides = {
+    type: PresentationActions.CHANGE_SELECTED_SLIDES;
+    payload: Id[];
+};
+
 type Action =
     | ChangeSlidePosition
     | ChangeSlideLayout
@@ -59,6 +65,7 @@ type Action =
     | AddSlide
     | SelectSlides
     | RemoveSelectSlides
-    | ChangeShiftMode;
+    | ChangeShiftMode
+    | ChangeSelectedSlides;
 export type { Action };
 export { PresentationActions };
