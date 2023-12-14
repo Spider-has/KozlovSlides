@@ -1,8 +1,8 @@
 const ArrowThatOpensTheList = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -13,8 +13,8 @@ export { ArrowThatOpensTheList };
 const Audio = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -28,8 +28,8 @@ export { Audio };
 const Border = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -40,8 +40,8 @@ export { Border };
 const Center = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -55,8 +55,8 @@ export { Center };
 const ChangeBg = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -70,8 +70,8 @@ export { ChangeBg };
 const ChooseLayout = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -85,8 +85,8 @@ export { ChooseLayout };
 const Copy = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -100,8 +100,8 @@ export { Copy };
 const CopyFormatting = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -115,8 +115,8 @@ export { CopyFormatting };
 const Create = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -130,8 +130,8 @@ export { Create };
 const Cut = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -145,8 +145,8 @@ export { Cut };
 const Cursor = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -166,8 +166,8 @@ export { Cursor };
 const Delete = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -182,8 +182,8 @@ export { Delete };
 const Diagram = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -197,8 +197,8 @@ export { Diagram };
 const Download = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -212,8 +212,8 @@ export { Download };
 const Duplication = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -231,8 +231,8 @@ export { Duplication };
 const Figure = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -248,8 +248,8 @@ export { Figure };
 const ArrowThatCloseTheList = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -263,8 +263,8 @@ export { ArrowThatCloseTheList };
 const Pattern = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -286,8 +286,8 @@ export { Pattern };
 const BorderColor = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -304,8 +304,8 @@ export { BorderColor };
 const BorderWidth = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -321,8 +321,8 @@ export { BorderWidth };
 const BorderStyle = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -336,8 +336,8 @@ export { BorderStyle };
 const Draw = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -353,8 +353,8 @@ export { Draw };
 const Arrow = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -370,8 +370,8 @@ export { Arrow };
 const Broken = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -390,8 +390,8 @@ export { Broken };
 const Circle = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -404,8 +404,8 @@ const Circle = () => (
 export { Circle };
 const Triangle = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -416,8 +416,8 @@ const Triangle = () => (
 export { Triangle };
 const Rectangle = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -428,8 +428,8 @@ const Rectangle = () => (
 export { Rectangle };
 const TextLeft = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -445,8 +445,8 @@ const TextLeft = () => (
 export { TextLeft };
 const TextCenterX = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -462,8 +462,8 @@ const TextCenterX = () => (
 export { TextCenterX };
 const TextRight = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -479,8 +479,8 @@ const TextRight = () => (
 export { TextRight };
 const TextWidth = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -496,8 +496,8 @@ const TextWidth = () => (
 export { TextWidth };
 const MoreTab = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -511,8 +511,8 @@ const MoreTab = () => (
 export { MoreTab };
 const LessTab = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -527,8 +527,8 @@ const LessTab = () => (
 export { LessTab };
 const TextCenterY = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -542,8 +542,8 @@ const TextCenterY = () => (
 export { TextCenterY };
 const TextUp = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -557,8 +557,8 @@ const TextUp = () => (
 export { TextUp };
 const NumList = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -576,8 +576,8 @@ const NumList = () => (
 export { NumList };
 const TextDown = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -591,8 +591,8 @@ const TextDown = () => (
 export { TextDown };
 const MarkList = () => (
     <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -631,8 +631,8 @@ export { MarkList };
 const Group = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -646,8 +646,8 @@ export { Group };
 const GroupCancel = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -661,8 +661,8 @@ export { GroupCancel };
 const Insert = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -676,8 +676,8 @@ export { Insert };
 const Intervals = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -691,8 +691,8 @@ export { Intervals };
 const Leveling = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -706,8 +706,8 @@ export { Leveling };
 const Line = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -721,8 +721,8 @@ export { Line };
 const Move = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -736,8 +736,8 @@ export { Move };
 const NewSlide = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -748,8 +748,8 @@ export { NewSlide };
 const Numbering = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -775,8 +775,8 @@ export { Numbering };
 const Open = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -790,8 +790,8 @@ export { Open };
 const Photo = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -805,8 +805,8 @@ export { Photo };
 const Preview = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -820,8 +820,8 @@ export { Preview };
 const Redo = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -835,8 +835,8 @@ export { Redo };
 const Remove = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -850,8 +850,8 @@ export { Remove };
 const Rename = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -865,8 +865,8 @@ export { Rename };
 const Rotate = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -880,8 +880,8 @@ export { Rotate };
 const SelectAll = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -895,8 +895,8 @@ export { SelectAll };
 const Skip = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -917,8 +917,8 @@ export { Skip };
 const Text = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -932,8 +932,8 @@ export { Text };
 const TextField = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -947,8 +947,8 @@ export { TextField };
 const Undo = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >
@@ -962,8 +962,8 @@ export { Undo };
 const Video = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 20 20"
         fill="none"
     >

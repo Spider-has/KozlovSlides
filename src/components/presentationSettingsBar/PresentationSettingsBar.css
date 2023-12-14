@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .ivan{
     display: flex;
 }
@@ -39,8 +44,10 @@
     white-space: nowrap;        
     max-width: 90%;
     width: fit-content;
-    padding: 5px;
+    padding: 1px 6px;
     border-radius: 10px;
+    color: #444746;
+    box-shadow: inset 1px 1px 0 rgba(0 0 0 .1), inset 0 -1px 0 rgba(0 0 0 .0);
 }
 
 .input-text__text:hover{
@@ -74,14 +81,15 @@
 }
 
 .docs-bars{
+    height: 113.8px;
     display: flex;
     flex-direction: row;
-    gap: 5px;
 }
 
 .docs-menubars{
     display: flex;
     flex-direction: row;
+    height: 33px;
 }
 
 .docs-primary-toolbars{
@@ -92,13 +100,26 @@
 .docs-bars__activity-panel{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+}
+
+.docs-titlebar {
+    padding-top: 8px;
+    width: 926px;
+    height:24px;
+}
+
+.logo {
+    margin: 7px 0 4px 8px;
+    padding: 8px;
+    width:36px;
+    height: 36px;
 }
 
 .button-list{
     display: flex;
     position: relative;
-    height: 28px;
+    height: 23px;
+    padding: 2px 7px;
 }
 
 .button-list__list{

@@ -11,7 +11,7 @@ import {
     SlideButtonList,
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
-
+import { Logo } from '../../logo';
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -187,8 +187,13 @@ const Title = () => {
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <header className="docs-bars">
+            <div className="logo">
+                <Logo />
+            </div>
             <div className="docs-bars__activity-panel">
-                <InputText />
+                <div className="docs-titlebar">
+                    <InputText />
+                </div>
                 <div className="docs-menubars">
                     <ButtonWithActionList
                         mainButton={FileButtonSection.mainButton}
