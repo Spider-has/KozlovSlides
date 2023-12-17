@@ -3,6 +3,7 @@ import { BackgroundType, Editor, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
 import { generateRandomId } from '../../model/utils';
+import { ObjectType, FigureObjects } from '../../model/figureTypes';
 
 type InitData = Editor;
 const defaultSize = {
@@ -14,7 +15,27 @@ const initData: InitData = {
         slides: [
             {
                 id: generateRandomId(),
-                elements: [],
+                elements: [
+                    {
+                        id: '1',
+                        position: {
+                            x: 10,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Graphic,
+                        figureType: FigureObjects.Rectangle,
+                        properties: {
+                            rotateAngle: 0,
+                            opacity: 1,
+                            rounding: 0,
+                            color: 'red',
+                            size: {
+                                width: 150,
+                                height: 200,
+                            },
+                        },
+                    },
+                ],
                 selectedElements: [],
                 elementsAnimations: [],
                 background: {
