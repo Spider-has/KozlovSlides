@@ -6,7 +6,6 @@ import {
     SlideElement,
 } from '../../model/figureTypes';
 import './EditSlideArea.css';
-import { useEffect } from 'react';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
@@ -63,10 +62,10 @@ const SlideObject = (props: SlideElement) => {
     }
 };
 
-type OnDragStartFunc = {
-    onDragAction: () => void;
-    onDropAction: () => void;
-};
+// type OnDragStartFunc = {
+//     onDragAction: () => void;
+//     onDropAction: () => void;
+// };
 
 // const useDragAndDrop = (ref, Actions: OnDragStartFunc) => {
 //     useEffect(() => {
