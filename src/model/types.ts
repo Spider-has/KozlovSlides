@@ -26,7 +26,7 @@ type StrokeObject = {
     border?: Border;
 };
 
-type GraphicObject = {
+interface GraphicObject {
     type: FigureObjects;
     color?: Color;
     border?: Border;
@@ -34,7 +34,7 @@ type GraphicObject = {
     opacity: number;
     figureData: EllipseObject | TriangleObject | RectangleObject;
     textBlock?: StrokeObject;
-};
+}
 
 type EllipseObject = {
     type: FigureObjects.Ellipse;
@@ -95,7 +95,7 @@ type Border = {
     type: BorderType;
 };
 
-type SlideElement = {
+interface SlideElement {
     id: Id;
     position: Point;
     type: ObjectType;
@@ -106,7 +106,7 @@ type SlideElement = {
         | VideoObject
         | AudioObject
         | FunctionGraphObject;
-};
+}
 enum FigureObjects {
     Ellipse,
     Triangle,

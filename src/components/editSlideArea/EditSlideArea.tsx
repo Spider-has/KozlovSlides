@@ -1,11 +1,6 @@
-// import {
-//     FigureObjects,
-//     GraphicObject,
-//     ObjectType,
-//     RectangleObject,
-//     Slide,
-//     SlideElement,
-// } from '../../model/types';
+// import { FigureObjects, ObjectType, Slide } from '../../model/types';
+// import { RectangleElement } from '../../model/figureTypes';
+import { Slide } from '../../model/types';
 import './EditSlideArea.css';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
@@ -24,34 +19,8 @@ const SlideEditSpace = (props: { slide: Slide }) => {
     );
 };
 
-// const Rectangle = (props: { element: SlideElement }) => {
-//     let elem: SlideElement = {
-//         id: '',
-//         position: {
-//             x: 0,
-//             y: 0,
-//         },
-//         type: ObjectType.Graphic,
-//         data: {
-//             type: FigureObjects.Rectangle,
-//             rotateAngle: 0,
-//             opacity: 0,
-//             figureData: {
-//                 type: FigureObjects.Rectangle,
-//                 rounding: 0,
-//                 size: {
-//                     width: 0,
-//                     height: 0,
-//                 },
-//             },
-//         },
-//     };
-//     if (
-//         props.element.type === ObjectType.Graphic &&
-//         props.element.data.type === FigureObjects.Rectangle
-//     ) {
-//         elem = { ...props.element };
-//     }
+// const Rectangle = (props: RectangleElement) => {
+//     const elem = { ...props };
 //     return <rect x={elem.position.x} y={elem.position.y} />;
 // };
 export { SlideEditSpace };
