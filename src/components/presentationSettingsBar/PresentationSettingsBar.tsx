@@ -224,18 +224,28 @@ const MainSettingsBar = () => {
 const Title = () => {
     return (
         <header className="docs-bars">
-            <div className="docs-bars__logo-area">
-                <Logo />
+            <div className="docs-titlebar-container">
+                <div className="logo">
+                    <Logo />
+                </div>
+                <div className="docs-bars__activity-panel">
+                    <InputText />
+                    <MainSettingsBar />
+                </div>
             </div>
-            <div className="docs-bars__activity-panel">
-                <InputText />
-                <MainSettingsBar />
-                <div className="docs-primary-toolbars">
+            <div className="docs-primary-toolbars">
+                <div className="docs-primary-toolbars__buttons-place">
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.NewSlide />}
                         action={() => {}}
                     />
+                    <Button
+                        type={ButtonType.Icon}
+                        icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
+                        action={() => {}}
+                    />
+                    <div className="create-line"></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Undo />}
@@ -251,6 +261,7 @@ const Title = () => {
                         icon={<ButtonIcon.CopyFormatting />}
                         action={() => {}}
                     />
+                    <div className="create-line"></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Cursor />}
@@ -276,16 +287,19 @@ const Title = () => {
                         icon={<ButtonIcon.Line />}
                         action={() => {}}
                     />
+                    <div className="create-line"></div>
                     <Button
                         text={'Фон'}
                         type={ButtonType.Text}
                         action={() => {}}
                     />
+                    <div className="create-line"></div>
                     <Button
                         text={'Макет'}
                         type={ButtonType.Text}
                         action={() => {}}
                     />
+                    <div className="create-line"></div>
                     <Button
                         text={'Тема'}
                         type={ButtonType.Text}

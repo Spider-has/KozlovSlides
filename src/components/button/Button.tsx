@@ -4,7 +4,8 @@ import { ButtonProps, ButtonType } from '../../model/types';
 const AllButtons = () => {
     return (
         <div>
-            <Buttons.ArrowThatOpensTheList />
+            <Buttons.ArrowThatOpensTheListHorisontal />
+            <Buttons.ArrowThatOpensTheListVertical />
             <Buttons.Audio />
             <Buttons.Border />
             <Buttons.Center />
