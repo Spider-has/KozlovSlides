@@ -125,6 +125,9 @@ const SlideBarReducer = (
             };
         }
         case PresentationActions.CHANGE_SELECTED_ELEMENTS: {
+            // const getSelectedSlide;
+            // const getSelectedElements;
+            // const newSlides;
             return {
                 ...state,
                 presentation: {

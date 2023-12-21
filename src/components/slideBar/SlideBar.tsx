@@ -1,19 +1,17 @@
 import { Id, Slide } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
+import { ActiveSlideArea } from '../editSlideArea/EditSlideArea';
 import './SlideBar.css';
 import { useEffect, useState } from 'react';
 
 const SlidePreview = (props: { slide: Slide }) => {
-    const slideElementsList = props.slide.elements.map(
-        ({ id, position }, i) => (
-            <div key={i}>
-                {id}
-                {position.x}
-                {position.y}
+    return (
+        <div className="slide-preview ">
+            <div className="slide-preview__main-area">
+                <ActiveSlideArea slide={props.slide} />
             </div>
-        ),
+        </div>
     );
-    return <div className="slide-preview">{slideElementsList}</div>;
 };
 
 const useShiftAction = (DownAction: () => void, UpAction: () => void) => {
@@ -68,8 +66,6 @@ const SlidePreviewArea = (props: {
                     }
                 }
                 console.log(selectedSlides);
-                // console.log(props.isShifted);
-                //console.log('selected: ', props.isSelected);
             }}
         >
             <div className="slide-preview-area__id-area">{props.id}</div>
@@ -85,7 +81,7 @@ const SlidePreviewArea = (props: {
 const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
     const [isShifted, setShifted] = useState(false);
     const selectedSlides = [...props.selectedSlides];
-    console.log(selectedSlides);
+    //console.log(selectedSlides);
     useShiftAction(
         () => {
             setShifted(true);

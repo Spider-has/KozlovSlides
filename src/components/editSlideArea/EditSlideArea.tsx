@@ -14,15 +14,21 @@ const SlideEditSpace = (props: { slide: Slide }) => {
         <div className="edit-slide-area">
             {props.slide.id}
             <div className="main-edit-slide-space">
-                <svg
-                    className="svg-space"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <AllObjects slideElements={props.slide.elements} />
-                </svg>
+                <ActiveSlideArea slide={props.slide} />
             </div>
         </div>
+    );
+};
+
+const ActiveSlideArea = (props: { slide: Slide }) => {
+    return (
+        <svg
+            className="svg-space"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <AllObjects slideElements={props.slide.elements} />
+        </svg>
     );
 };
 
@@ -108,7 +114,7 @@ const useDragAndDrop = (
     Actions: OnDragStartFunc,
 ) => {
     const { createChangeElementsPositionAction } = useAppActions();
-    console.log('start1', startElemPos);
+    //console.log('start1', startElemPos);
     useEffect(() => {
         const startMousePosition = {
             x: 0,
@@ -201,4 +207,4 @@ const Rectangle = (props: {
     );
 };
 
-export { SlideEditSpace };
+export { SlideEditSpace, ActiveSlideArea };
