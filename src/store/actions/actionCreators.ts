@@ -1,3 +1,4 @@
+import { Point } from '../../model/figureTypes';
 import { BackgroundType, Id } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
@@ -49,10 +50,32 @@ const createChangeSelectedSlidesAction = (slidesId: Id[]) => {
     };
 };
 
+const createChangeSelectedElementsAction = (ElementsId: Id[]) => {
+    return {
+        type: PresentationActions.CHANGE_SELECTED_ELEMENTS,
+        payload: ElementsId,
+    };
+};
+
+const createChangeElementsPositionAction = (
+    deltaOffset: Point,
+    ElementsId: Id[],
+) => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_POSITION,
+        payload: {
+            deltaOffset: deltaOffset,
+            ElementsId: ElementsId,
+        },
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
     createSelectSlidesAction,
     createRemoveSelectSlidesAction,
     createChangeSelectedSlidesAction,
+    createChangeSelectedElementsAction,
+    createChangeElementsPositionAction,
 };

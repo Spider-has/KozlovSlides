@@ -1,4 +1,4 @@
-import { Slide } from '../../model/types';
+import { Id, Slide } from '../../model/types';
 import {
     FigureObjects,
     ObjectType,
@@ -7,6 +7,7 @@ import {
 } from '../../model/figureTypes';
 import './EditSlideArea.css';
 import { useEffect, useRef } from 'react';
+import { useAppActions } from '../../store/hooks';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
@@ -37,7 +38,6 @@ const SlideObject = (props: SlideElement) => {
             switch (elem.figureType) {
                 case FigureObjects.Rectangle: {
                     Obj = <Rectangle {...elem} />;
-                    console.log(1);
                     break;
                 }
                 case FigureObjects.Triangle: {
@@ -81,28 +81,43 @@ const SlideObject = (props: SlideElement) => {
 type OnDragStartFunc = {
     onDragAction: () => void;
     onDropAction: () => void;
+    onClickAction: () => void;
 };
 
 const useDragAndDrop = (
     ref: React.RefObject<SVGGElement>,
     startElemPos: { x: number; y: number },
+    elemId: Id,
     Actions: OnDragStartFunc,
 ) => {
+    const { createChangeElementsPositionAction } = useAppActions();
+    console.log('start1', startElemPos);
     useEffect(() => {
         const startMousePosition = {
             x: 0,
             y: 0,
         };
-        const onMouseUp = () => {
+        const elementOldPosition = {
+            x: 0,
+            y: 0,
+        };
+        const onMouseUp = (e: MouseEvent) => {
             console.log('up');
             Actions.onDropAction();
+            createChangeElementsPositionAction(
+                {
+                    x: e.pageX - startMousePosition.x,
+                    y: e.pageY - startMousePosition.y,
+                },
+                [elemId],
+            );
             ref.current!.style.position = '';
             ref.current!.style.zIndex = '';
             ref.current!.style.border = '';
-            ref.current!.style.left = '';
-            ref.current!.style.top = '';
+
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown);
         };
 
         const onMouseMove = (e: MouseEvent) => {
@@ -110,23 +125,37 @@ const useDragAndDrop = (
             ref.current!.style.border = '2px solid black';
             ref.current!.setAttribute(
                 'x',
-                startElemPos.x + e.pageX - startMousePosition.x + 'px',
+                elementOldPosition.x + e.pageX - startMousePosition.x + 'px',
             );
 
             ref.current!.setAttribute(
                 'y',
-                startElemPos.y + e.pageY - startMousePosition.y + 'px',
+                elementOldPosition.y + e.pageY - startMousePosition.y + 'px',
             );
             Actions.onDragAction();
         };
-
-        console.log('initDragAndDrop');
-        ref.current!.addEventListener('mousedown', (e: MouseEvent) => {
+        const onMouseDown = (e: MouseEvent) => {
             startMousePosition.x = e.pageX;
             startMousePosition.y = e.pageY;
+            elementOldPosition.x = Number(ref.current!.getAttribute('x'));
+            elementOldPosition.y = Number(ref.current!.getAttribute('y'));
+            elementOldPosition.x = elementOldPosition.x
+                ? elementOldPosition.x
+                : 0;
+            elementOldPosition.y = elementOldPosition.y
+                ? elementOldPosition.y
+                : 0;
+            Actions.onClickAction();
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
-        });
+        };
+        console.log('initDragAndDrop');
+        ref.current!.addEventListener('mousedown', onMouseDown);
+        return () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown);
+        };
     }, []);
 };
 
@@ -138,6 +167,7 @@ const AllObjects = (props: { slideElements: SlideElement[] }) => {
 };
 
 const Rectangle = (props: RectangleElement) => {
+    const { createChangeSelectedElementsAction } = useAppActions();
     const elem = { ...props };
     const ref = useRef<SVGRectElement>(null);
     useDragAndDrop(
@@ -146,9 +176,13 @@ const Rectangle = (props: RectangleElement) => {
             x: elem.position.x,
             y: elem.position.y,
         },
+        elem.id,
         {
             onDragAction: () => {},
             onDropAction: () => {},
+            onClickAction: () => {
+                createChangeSelectedElementsAction([elem.id]);
+            },
         },
     );
 

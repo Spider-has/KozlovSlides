@@ -51,8 +51,9 @@ const initData: InitData = {
     selectedSlides: [],
     viewMode: ViewMode.Edit,
 };
+initData.selectedSlides[0] = initData.presentation.slides[0].id;
 
-const slideBarReducer = (
+const SlideBarReducer = (
     state: InitData = initData,
     action: Action,
 ): InitData => {
@@ -123,24 +124,78 @@ const slideBarReducer = (
                 selectedSlides: action.payload,
             };
         }
+        case PresentationActions.CHANGE_SELECTED_ELEMENTS: {
+            return {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map(slide => {
+                        if (
+                            state.selectedSlides[
+                                state.selectedSlides.length - 1
+                            ] === slide.id
+                        ) {
+                            return {
+                                ...slide,
+                                selectedElements: action.payload,
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+        }
+        case PresentationActions.CHANGE_ELEMENTS_POSITION: {
+            return {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map(slide => {
+                        if (
+                            state.selectedSlides[
+                                state.selectedSlides.length - 1
+                            ] === slide.id
+                        ) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map(element => {
+                                    if (
+                                        slide.selectedElements.includes(
+                                            element.id,
+                                        )
+                                    ) {
+                                        const oldx = element.position.x;
+                                        const oldy = element.position.y;
+                                        return {
+                                            ...element,
+                                            position: {
+                                                x:
+                                                    oldx +
+                                                    action.payload.deltaOffset
+                                                        .x,
+                                                y:
+                                                    oldy +
+                                                    action.payload.deltaOffset
+                                                        .y,
+                                            },
+                                        };
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+        }
         default:
             return state;
     }
 };
 
-// const editorReducer = (
-//     state: InitData = initData,
-//     action: Action,
-// ): InitData => {
-//     switch (action.type) {
-//         case PresentationActions.CHANGE_SHIFT_MODE:
-//             return { ...state, shiftMode: !state.shiftMode };
-//         default:
-//             return state;
-//     }
-// };
 const rootReducer = combineReducers({
-    slideBar: slideBarReducer,
+    slideBar: SlideBarReducer,
 });
 
 export { rootReducer };

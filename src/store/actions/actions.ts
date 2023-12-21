@@ -1,3 +1,4 @@
+import { Point } from '../../model/figureTypes';
 import { Id, Slide } from '../../model/types';
 
 enum PresentationActions {
@@ -9,6 +10,8 @@ enum PresentationActions {
     REMOVE_SELECT_SLIDES = 'REMOVE_SELECT_SLIDES',
     CHANGE_SHIFT_MODE = 'CHANGE_SHIFT_MODE',
     CHANGE_SELECTED_SLIDES = 'CHANGE_SELECTED_SLIDES',
+    CHANGE_ELEMENTS_POSITION = 'CHANGE_ELEMENTS_POSITION',
+    CHANGE_SELECTED_ELEMENTS = 'CHANGE_SELECTED_ELEMENTS',
 }
 
 type ChangeSlidePosition = {
@@ -58,6 +61,19 @@ type ChangeSelectedSlides = {
     payload: Id[];
 };
 
+type ChangeElementPosition = {
+    type: PresentationActions.CHANGE_ELEMENTS_POSITION;
+    payload: {
+        deltaOffset: Point;
+        ElementsId: Id[];
+    };
+};
+
+type ChangeSelectedElements = {
+    type: PresentationActions.CHANGE_SELECTED_ELEMENTS;
+    payload: Id[];
+};
+
 type Action =
     | ChangeSlidePosition
     | ChangeSlideLayout
@@ -66,6 +82,8 @@ type Action =
     | SelectSlides
     | RemoveSelectSlides
     | ChangeShiftMode
-    | ChangeSelectedSlides;
+    | ChangeSelectedSlides
+    | ChangeElementPosition
+    | ChangeSelectedElements;
 export type { Action };
 export { PresentationActions };

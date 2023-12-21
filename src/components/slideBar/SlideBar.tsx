@@ -5,12 +5,11 @@ import { useEffect, useState } from 'react';
 
 const SlidePreview = (props: { slide: Slide }) => {
     const slideElementsList = props.slide.elements.map(
-        ({ id, position, data }, i) => (
+        ({ id, position }, i) => (
             <div key={i}>
                 {id}
                 {position.x}
                 {position.y}
-                {typeof data}
             </div>
         ),
     );
@@ -86,6 +85,7 @@ const SlidePreviewArea = (props: {
 const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
     const [isShifted, setShifted] = useState(false);
     const selectedSlides = [...props.selectedSlides];
+    console.log(selectedSlides);
     useShiftAction(
         () => {
             setShifted(true);
