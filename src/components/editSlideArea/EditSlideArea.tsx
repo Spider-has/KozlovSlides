@@ -27,8 +27,25 @@ const SlideEditSpace = (props: { slide: Slide }) => {
 };
 
 const SlideObject = (props: SlideElement) => {
+    const { createChangeSelectedElementsAction } = useAppActions();
     const elem = { ...props };
     let Obj = <></>;
+    const ref = useRef(null);
+    useDragAndDrop(
+        ref,
+        {
+            x: elem.position.x,
+            y: elem.position.y,
+        },
+        elem.id,
+        {
+            onDragAction: () => {},
+            onDropAction: () => {},
+            onClickAction: () => {
+                createChangeSelectedElementsAction([elem.id]);
+            },
+        },
+    );
     switch (elem.elementType) {
         case ObjectType.Text: {
             Obj = <></>;
@@ -37,7 +54,7 @@ const SlideObject = (props: SlideElement) => {
         case ObjectType.Graphic: {
             switch (elem.figureType) {
                 case FigureObjects.Rectangle: {
-                    Obj = <Rectangle {...elem} />;
+                    Obj = <Rectangle elem={elem} elemRef={ref} />;
                     break;
                 }
                 case FigureObjects.Triangle: {
@@ -122,7 +139,6 @@ const useDragAndDrop = (
 
         const onMouseMove = (e: MouseEvent) => {
             ref.current!.style.zIndex = '1';
-            ref.current!.style.border = '2px solid black';
             ref.current!.setAttribute(
                 'x',
                 elementOldPosition.x + e.pageX - startMousePosition.x + 'px',
@@ -166,26 +182,12 @@ const AllObjects = (props: { slideElements: SlideElement[] }) => {
     return <>{objects}</>;
 };
 
-const Rectangle = (props: RectangleElement) => {
-    const { createChangeSelectedElementsAction } = useAppActions();
-    const elem = { ...props };
-    const ref = useRef<SVGRectElement>(null);
-    useDragAndDrop(
-        ref,
-        {
-            x: elem.position.x,
-            y: elem.position.y,
-        },
-        elem.id,
-        {
-            onDragAction: () => {},
-            onDropAction: () => {},
-            onClickAction: () => {
-                createChangeSelectedElementsAction([elem.id]);
-            },
-        },
-    );
-
+const Rectangle = (props: {
+    elem: RectangleElement;
+    elemRef: React.RefObject<SVGRectElement>;
+}) => {
+    const elem = { ...props.elem };
+    const ref = props.elemRef;
     return (
         <rect
             ref={ref}
