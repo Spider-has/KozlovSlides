@@ -27,6 +27,7 @@ interface TrianglePropreties extends GraphProperties {
     point1: Point;
     point2: Point;
     point3: Point;
+    size: Size;
 }
 
 interface EllipsePropreties extends GraphProperties {
@@ -97,6 +98,7 @@ interface StrokeObject extends DefaultSlideElement {
     elementType: ObjectType.Text;
     properties: {
         chars: Array<Span>;
+        size: Size;
         rotateAngle: number;
         border?: Border;
     };

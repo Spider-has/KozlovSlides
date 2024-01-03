@@ -8,27 +8,22 @@ import {
 import './EditSlideArea.css';
 import { useEffect, useRef } from 'react';
 import { useAppActions } from '../../store/hooks';
+import { getNumfromPxString } from '../../model/utils';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
         <div className="edit-slide-area">
             {props.slide.id}
-            <div className="main-edit-slide-space">
-                <ActiveSlideArea slide={props.slide} />
-            </div>
+            <ActiveSlideArea slide={props.slide} />
         </div>
     );
 };
 
 const ActiveSlideArea = (props: { slide: Slide }) => {
     return (
-        <svg
-            className="svg-space"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+        <div className="main-edit-slide-space">
             <AllObjects slideElements={props.slide.elements} />
-        </svg>
+        </div>
     );
 };
 
@@ -98,7 +93,7 @@ const SlideObject = (props: SlideElement) => {
         }
     }
 
-    return <g>{Obj}</g>;
+    return <>{Obj}</>;
 };
 
 type OnDragStartFunc = {
@@ -140,27 +135,21 @@ const useDragAndDrop = (
 
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
-            document.removeEventListener('mousedown', onMouseDown);
         };
 
         const onMouseMove = (e: MouseEvent) => {
             ref.current!.style.zIndex = '1';
-            ref.current!.setAttribute(
-                'x',
-                elementOldPosition.x + e.pageX - startMousePosition.x + 'px',
-            );
-
-            ref.current!.setAttribute(
-                'y',
-                elementOldPosition.y + e.pageY - startMousePosition.y + 'px',
-            );
+            ref.current!.style.left =
+                elementOldPosition.x + e.pageX - startMousePosition.x + 'px';
+            ref.current!.style.top =
+                elementOldPosition.y + e.pageY - startMousePosition.y + 'px';
             Actions.onDragAction();
         };
         const onMouseDown = (e: MouseEvent) => {
             startMousePosition.x = e.pageX;
             startMousePosition.y = e.pageY;
-            elementOldPosition.x = Number(ref.current!.getAttribute('x'));
-            elementOldPosition.y = Number(ref.current!.getAttribute('y'));
+            elementOldPosition.x = getNumfromPxString(ref.current!.style.left);
+            elementOldPosition.y = getNumfromPxString(ref.current!.style.top);
             elementOldPosition.x = elementOldPosition.x
                 ? elementOldPosition.x
                 : 0;
@@ -176,7 +165,6 @@ const useDragAndDrop = (
         return () => {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
-            document.removeEventListener('mousedown', onMouseDown);
         };
     }, []);
 };
@@ -190,20 +178,29 @@ const AllObjects = (props: { slideElements: SlideElement[] }) => {
 
 const Rectangle = (props: {
     elem: RectangleElement;
-    elemRef: React.RefObject<SVGRectElement>;
+    elemRef: React.LegacyRef<SVGSVGElement>;
 }) => {
     const elem = { ...props.elem };
-    const ref = props.elemRef;
     return (
-        <rect
-            ref={ref}
-            x={elem.position.x}
-            y={elem.position.y}
-            width={elem.properties.size.width}
-            height={elem.properties.size.height}
-            fill={elem.properties.color ? elem.properties.color : 'black'}
-            stroke={elem.properties.border?.color}
-        />
+        <svg
+            ref={props.elemRef}
+            className="svg-space"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+                top: elem.position.y + 'px',
+                left: elem.position.x + 'px',
+                width: elem.properties.size.width + 'px',
+                height: 'auto',
+            }}
+        >
+            <rect
+                width={elem.properties.size.width}
+                height={elem.properties.size.height}
+                fill={elem.properties.color ? elem.properties.color : 'black'}
+                stroke={elem.properties.border?.color}
+            />
+        </svg>
     );
 };
 
