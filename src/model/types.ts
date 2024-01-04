@@ -66,7 +66,6 @@ type Editor = {
     selectedSlides: Array<Id>;
     viewMode: ViewMode;
     selectMode?: 'slides' | 'elements';
-    //shiftMode: boolean;
 };
 enum ViewMode {
     Edit,
@@ -96,7 +95,6 @@ export type {
     Presentation,
     Editor,
     ElementAnimation,
-    SlideElement,
     ButtonWithActionListProps,
     ButtonProps,
     Id,

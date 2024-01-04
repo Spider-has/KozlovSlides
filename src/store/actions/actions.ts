@@ -12,6 +12,7 @@ enum PresentationActions {
     CHANGE_SELECTED_SLIDES = 'CHANGE_SELECTED_SLIDES',
     CHANGE_ELEMENTS_POSITION = 'CHANGE_ELEMENTS_POSITION',
     CHANGE_SELECTED_ELEMENTS = 'CHANGE_SELECTED_ELEMENTS',
+    CHANGE_POSITION_AND_SELECT_ELEMENT = 'CHANGE_POSITION_AND_SELECT_ELEMENT',
 }
 
 type ChangeSlidePosition = {
@@ -74,6 +75,14 @@ type ChangeSelectedElements = {
     payload: Id[];
 };
 
+type ChangePositionAndSelectedElement = {
+    type: PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT;
+    payload: {
+        id: Id;
+        deltaOffset: Point;
+    };
+};
+
 type Action =
     | ChangeSlidePosition
     | ChangeSlideLayout
@@ -84,6 +93,7 @@ type Action =
     | ChangeShiftMode
     | ChangeSelectedSlides
     | ChangeElementPosition
-    | ChangeSelectedElements;
+    | ChangeSelectedElements
+    | ChangePositionAndSelectedElement;
 export type { Action };
 export { PresentationActions };

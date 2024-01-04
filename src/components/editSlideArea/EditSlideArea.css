@@ -21,5 +21,21 @@
 
 .svg-space{
     display: block;
+}
+
+.svg-wrapper{
+    display: flex;
     position: absolute;
+}
+
+.svg-wrapper_selected{
+    outline: 3px solid rgb(124 124 250);
+}
+
+.scale-square{
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: rgb(124 124 250);
+    outline: 1px solid rgb(255 255 255);
 }

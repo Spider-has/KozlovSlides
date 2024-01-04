@@ -26,6 +26,7 @@ const SlidesArea = () => {
     const selectedSlidesId = useAppSelector(
         state => state.slideBar.selectedSlides,
     );
+    console.log('SLIDES RERENDERED!');
     const selectedSlide = getSlideById(Slides, selectedSlidesId[0]);
     return (
         <div className="slides-area">

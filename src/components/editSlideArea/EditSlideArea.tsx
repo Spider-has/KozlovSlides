@@ -2,13 +2,14 @@ import { Id, Slide } from '../../model/types';
 import {
     FigureObjects,
     ObjectType,
+    Point,
     RectangleElement,
     SlideElement,
 } from '../../model/figureTypes';
 import './EditSlideArea.css';
-import { useEffect, useRef } from 'react';
+import { RefObject, useRef } from 'react';
 import { useAppActions } from '../../store/hooks';
-import { getNumfromPxString } from '../../model/utils';
+import { useObjectsDragAndDrop } from '../../model/hooks';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
@@ -20,19 +21,24 @@ const SlideEditSpace = (props: { slide: Slide }) => {
 };
 
 const ActiveSlideArea = (props: { slide: Slide }) => {
-    return (
-        <div className="main-edit-slide-space">
-            <AllObjects slideElements={props.slide.elements} />
-        </div>
-    );
+    const objects = props.slide.elements.map((elem, i) => {
+        const isSelected = props.slide.selectedElements.includes(elem.id);
+        return <SlideObject element={elem} key={i} isSelected={isSelected} />;
+    });
+    return <div className="main-edit-slide-space">{objects}</div>;
 };
 
-const SlideObject = (props: SlideElement) => {
-    const { createChangeSelectedElementsAction } = useAppActions();
-    const elem = { ...props };
+const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
+    const {
+        createChangeSelectedElementsAction,
+
+        createChangeElementsPositionAction,
+        createChangePositionAndSelectElementAction,
+    } = useAppActions();
+    const elem = { ...props.element };
     let Obj = <></>;
     const ref = useRef(null);
-    useDragAndDrop(
+    useObjectsDragAndDrop(
         ref,
         {
             x: elem.position.x,
@@ -41,9 +47,20 @@ const SlideObject = (props: SlideElement) => {
         elem.id,
         {
             onDragAction: () => {},
-            onDropAction: () => {},
+            onDropAction: (newPosition: Point, id: Id[]) => {
+                if (props.isSelected) {
+                    createChangeElementsPositionAction(newPosition, id);
+                } else {
+                    createChangePositionAndSelectElementAction(
+                        id[0],
+                        newPosition,
+                    );
+                }
+            },
             onClickAction: () => {
-                createChangeSelectedElementsAction([elem.id]);
+                setClass(ref, 'svg-wrapper_selected');
+                if (!props.isSelected)
+                    createChangeSelectedElementsAction([elem.id]);
             },
         },
     );
@@ -55,7 +72,17 @@ const SlideObject = (props: SlideElement) => {
         case ObjectType.Graphic: {
             switch (elem.figureType) {
                 case FigureObjects.Rectangle: {
-                    Obj = <Rectangle elem={elem} elemRef={ref} />;
+                    Obj = (
+                        <Rectangle
+                            elem={elem}
+                            onClick={() => {
+                                // if (!props.isSelected)
+                                //     createChangeSelectedElementsAction([
+                                //         elem.id,
+                                //     ]);
+                            }}
+                        />
+                    );
                     break;
                 }
                 case FigureObjects.Triangle: {
@@ -93,110 +120,110 @@ const SlideObject = (props: SlideElement) => {
         }
     }
 
-    return <>{Obj}</>;
+    const setClass = (ref: RefObject<HTMLDivElement>, className: string) => {
+        if (ref.current!) {
+            ref.current!.classList.add(className);
+        }
+    };
+
+    const SelectedClass = props.isSelected ? 'svg-wrapper_selected' : '';
+    return (
+        <div
+            className={`svg-wrapper ${SelectedClass}`}
+            style={{
+                top: elem.position.y + 'px',
+                left: elem.position.x + 'px',
+            }}
+            ref={ref}
+        >
+            {Obj}
+            {props.isSelected && <SelectedElementMode {...elem} />}
+        </div>
+    );
 };
 
-type OnDragStartFunc = {
-    onDragAction: () => void;
-    onDropAction: () => void;
-    onClickAction: () => void;
+const SelectedElementMode = (props: SlideElement) => {
+    const elem = { ...props };
+    return (
+        <>
+            <div
+                className="scale-square"
+                style={{
+                    top: '-5px',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    top: '-5px',
+                    left: elem.size.width / 2 - 4 + 'px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    top: '-5px',
+                    right: '-6px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    top: elem.size.height / 2 - 5 + 'px',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    top: elem.size.height / 2 - 5 + 'px',
+                    right: '-6px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    bottom: '-5px',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    bottom: '-5px',
+                    left: elem.size.width / 2 - 6 + 'px',
+                }}
+            ></div>
+            <div
+                className="scale-square"
+                style={{
+                    bottom: '-5px',
+                    right: '-6px',
+                }}
+            ></div>
+        </>
+    );
 };
 
-const useDragAndDrop = (
-    ref: React.RefObject<SVGGElement>,
-    startElemPos: { x: number; y: number },
-    elemId: Id,
-    Actions: OnDragStartFunc,
-) => {
-    const { createChangeElementsPositionAction } = useAppActions();
-    //console.log('start1', startElemPos);
-    useEffect(() => {
-        const startMousePosition = {
-            x: 0,
-            y: 0,
-        };
-        const elementOldPosition = {
-            x: 0,
-            y: 0,
-        };
-        const onMouseUp = (e: MouseEvent) => {
-            console.log('up');
-            Actions.onDropAction();
-            createChangeElementsPositionAction(
-                {
-                    x: e.pageX - startMousePosition.x,
-                    y: e.pageY - startMousePosition.y,
-                },
-                [elemId],
-            );
-            ref.current!.style.position = '';
-            ref.current!.style.zIndex = '';
-            ref.current!.style.border = '';
-
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        };
-
-        const onMouseMove = (e: MouseEvent) => {
-            ref.current!.style.zIndex = '1';
-            ref.current!.style.left =
-                elementOldPosition.x + e.pageX - startMousePosition.x + 'px';
-            ref.current!.style.top =
-                elementOldPosition.y + e.pageY - startMousePosition.y + 'px';
-            Actions.onDragAction();
-        };
-        const onMouseDown = (e: MouseEvent) => {
-            startMousePosition.x = e.pageX;
-            startMousePosition.y = e.pageY;
-            elementOldPosition.x = getNumfromPxString(ref.current!.style.left);
-            elementOldPosition.y = getNumfromPxString(ref.current!.style.top);
-            elementOldPosition.x = elementOldPosition.x
-                ? elementOldPosition.x
-                : 0;
-            elementOldPosition.y = elementOldPosition.y
-                ? elementOldPosition.y
-                : 0;
-            Actions.onClickAction();
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        };
-        console.log('initDragAndDrop');
-        ref.current!.addEventListener('mousedown', onMouseDown);
-        return () => {
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        };
-    }, []);
-};
-
-const AllObjects = (props: { slideElements: SlideElement[] }) => {
-    const objects = props.slideElements.map((elem, i) => {
-        return <SlideObject {...elem} key={i} />;
-    });
-    return <>{objects}</>;
-};
-
-const Rectangle = (props: {
-    elem: RectangleElement;
-    elemRef: React.LegacyRef<SVGSVGElement>;
-}) => {
+const Rectangle = (props: { elem: RectangleElement; onClick: () => void }) => {
     const elem = { ...props.elem };
     return (
         <svg
-            ref={props.elemRef}
+            onClick={() => {
+                props.onClick();
+            }}
             className="svg-space"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             style={{
-                top: elem.position.y + 'px',
-                left: elem.position.x + 'px',
-                width: elem.properties.size.width + 'px',
-                height: 'auto',
+                width: elem.size.width + 'px',
+                height: elem.size.height + 'px',
             }}
         >
             <rect
-                width={elem.properties.size.width}
-                height={elem.properties.size.height}
+                width={elem.size.width}
+                height={elem.size.height}
                 fill={elem.properties.color ? elem.properties.color : 'black'}
                 stroke={elem.properties.border?.color}
             />

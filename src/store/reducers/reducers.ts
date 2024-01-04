@@ -2,7 +2,11 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { BackgroundType, Editor, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
-import { generateRandomId } from '../../model/utils';
+import {
+    generateRandomId,
+    getElementsById,
+    getSlideIndexById,
+} from '../../model/utils';
 import { ObjectType, FigureObjects } from '../../model/figureTypes';
 
 type InitData = Editor;
@@ -10,6 +14,7 @@ const defaultSize = {
     width: 500,
     height: 600,
 };
+
 const initData: InitData = {
     presentation: {
         slides: [
@@ -24,15 +29,34 @@ const initData: InitData = {
                         },
                         elementType: ObjectType.Graphic,
                         figureType: FigureObjects.Rectangle,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
                         properties: {
                             rotateAngle: 0,
                             opacity: 1,
                             rounding: 0,
                             color: 'red',
-                            size: {
-                                width: 150,
-                                height: 200,
-                            },
+                        },
+                    },
+                    {
+                        id: '2',
+                        position: {
+                            x: 10,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Graphic,
+                        figureType: FigureObjects.Rectangle,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
+                        properties: {
+                            rotateAngle: 0,
+                            opacity: 1,
+                            rounding: 0,
+                            color: 'red',
                         },
                     },
                 ],
@@ -59,85 +83,41 @@ const SlideBarReducer = (
 ): InitData => {
     switch (action.type) {
         case PresentationActions.CHANGE_SLIDE_POSITION:
-            return {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i == action.payload.oldPosition) {
-                            return {
-                                ...slide,
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-            };
-
+            return state;
         case PresentationActions.CHANGE_SLIDE_LAYOUT:
             return state;
-        case PresentationActions.ADD_SLIDE:
-            return {
+        case PresentationActions.ADD_SLIDE: {
+            const newState = {
                 ...state,
                 presentation: {
                     ...state.presentation,
                     slides: [...state.presentation.slides, action.payload],
                 },
             };
+            return newState;
+        }
         case PresentationActions.DEELETE_SLIDE:
             return state;
-        case PresentationActions.SELECT_SLIDES:
-            return {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map(slide => {
-                        if (action.payload.includes(slide.id)) {
-                            return {
-                                ...slide,
-                                isSelected: true,
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-            };
         case PresentationActions.REMOVE_SELECT_SLIDES:
-            return {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map(slide => {
-                        if (action.payload.includes(slide.id)) {
-                            return {
-                                ...slide,
-                                isSelected: false,
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-            };
+            return state;
         case PresentationActions.CHANGE_SELECTED_SLIDES: {
-            return {
+            const newState = {
                 ...state,
                 selectedSlides: action.payload,
             };
+            return newState;
         }
         case PresentationActions.CHANGE_SELECTED_ELEMENTS: {
-            // const getSelectedSlide;
-            // const getSelectedElements;
-            // const newSlides;
-            return {
+            const selectedSlidesIndex = getSlideIndexById(
+                state.presentation.slides,
+                state.selectedSlides,
+            );
+            const newState = {
                 ...state,
                 presentation: {
                     ...state.presentation,
-                    slides: state.presentation.slides.map(slide => {
-                        if (
-                            state.selectedSlides[
-                                state.selectedSlides.length - 1
-                            ] === slide.id
-                        ) {
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
                             return {
                                 ...slide,
                                 selectedElements: action.payload,
@@ -147,26 +127,27 @@ const SlideBarReducer = (
                     }),
                 },
             };
+            return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_POSITION: {
-            return {
+            const selectedSlidesIndex = getSlideIndexById(
+                state.presentation.slides,
+                state.selectedSlides,
+            );
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                action.payload.ElementsId,
+            );
+            const newState = {
                 ...state,
                 presentation: {
                     ...state.presentation,
-                    slides: state.presentation.slides.map(slide => {
-                        if (
-                            state.selectedSlides[
-                                state.selectedSlides.length - 1
-                            ] === slide.id
-                        ) {
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
                             return {
                                 ...slide,
-                                elements: slide.elements.map(element => {
-                                    if (
-                                        slide.selectedElements.includes(
-                                            element.id,
-                                        )
-                                    ) {
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
                                         const oldx = element.position.x;
                                         const oldy = element.position.y;
                                         return {
@@ -191,6 +172,49 @@ const SlideBarReducer = (
                     }),
                 },
             };
+            return newState;
+        }
+        case PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT: {
+            const selectedSlidesIndex = getSlideIndexById(
+                state.presentation.slides,
+                state.selectedSlides,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                selectedElements: [action.payload.id],
+                                elements: slide.elements.map(element => {
+                                    if (action.payload.id === element.id) {
+                                        const oldx = element.position.x;
+                                        const oldy = element.position.y;
+                                        return {
+                                            ...element,
+                                            position: {
+                                                x:
+                                                    oldx +
+                                                    action.payload.deltaOffset
+                                                        .x,
+                                                y:
+                                                    oldy +
+                                                    action.payload.deltaOffset
+                                                        .y,
+                                            },
+                                        };
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+            return newState;
         }
         default:
             return state;

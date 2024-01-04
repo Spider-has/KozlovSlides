@@ -1,6 +1,7 @@
 interface DefaultSlideElement {
     id: Id;
     position: Point;
+    size: Size;
     elementType: ObjectType;
 }
 
@@ -20,18 +21,15 @@ interface GraphProperties {
 
 interface RectanglePropreties extends GraphProperties {
     rounding: number;
-    size: Size;
 }
 
 interface TrianglePropreties extends GraphProperties {
     point1: Point;
     point2: Point;
     point3: Point;
-    size: Size;
 }
 
 interface EllipsePropreties extends GraphProperties {
-    size: Size;
     rounding: number;
 }
 
@@ -53,7 +51,6 @@ interface EllipseElement extends GraphicElements {
 interface ImageObject extends DefaultSlideElement {
     elementType: ObjectType.Image;
     properties: {
-        size: Size;
         imgUrl: string;
     };
 }
@@ -61,7 +58,6 @@ interface ImageObject extends DefaultSlideElement {
 interface VideoObject extends DefaultSlideElement {
     elementType: ObjectType.Video;
     properties: {
-        size: Size;
         videoUrl: string;
     };
 }
@@ -69,7 +65,6 @@ interface VideoObject extends DefaultSlideElement {
 interface AudioObject extends DefaultSlideElement {
     elementType: ObjectType.Audio;
     properties: {
-        size: Size;
         audioUrl: string;
     };
 }
@@ -77,7 +72,6 @@ interface AudioObject extends DefaultSlideElement {
 interface FunctionGraphObject extends DefaultSlideElement {
     elementType: ObjectType.FunctionGraph;
     properties: {
-        size: Size;
         func: string;
     };
 }
@@ -98,7 +92,6 @@ interface StrokeObject extends DefaultSlideElement {
     elementType: ObjectType.Text;
     properties: {
         chars: Array<Span>;
-        size: Size;
         rotateAngle: number;
         border?: Border;
     };

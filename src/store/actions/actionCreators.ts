@@ -57,6 +57,19 @@ const createChangeSelectedElementsAction = (ElementsId: Id[]) => {
     };
 };
 
+const createChangePositionAndSelectElementAction = (
+    elementId: Id,
+    deltaOffset: Point,
+) => {
+    return {
+        type: PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT,
+        payload: {
+            id: elementId,
+            deltaOffset: deltaOffset,
+        },
+    };
+};
+
 const createChangeElementsPositionAction = (
     deltaOffset: Point,
     ElementsId: Id[],
@@ -78,4 +91,5 @@ export {
     createChangeSelectedSlidesAction,
     createChangeSelectedElementsAction,
     createChangeElementsPositionAction,
+    createChangePositionAndSelectElementAction,
 };
