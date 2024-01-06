@@ -83,6 +83,16 @@ const createChangeElementsPositionAction = (
     };
 };
 
+const createChangeElementsSize = (deltaOffset: Point, ElementsId: Id[]) => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_SIZE,
+        payload: {
+            id: ElementsId,
+            deltaOffset: deltaOffset,
+        },
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -92,4 +102,5 @@ export {
     createChangeSelectedElementsAction,
     createChangeElementsPositionAction,
     createChangePositionAndSelectElementAction,
+    createChangeElementsSize,
 };

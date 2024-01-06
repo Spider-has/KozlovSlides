@@ -23,17 +23,12 @@ const getSlideById = (slides: Slide[], slideId: Id): Slide => {
 
 const SlidesArea = () => {
     const Slides = useAppSelector(state => state.slideBar.presentation.slides);
-    const selectedSlidesId = useAppSelector(
-        state => state.slideBar.selectedSlides,
-    );
+    const selectedSlidesId = useAppSelector(state => state.slideBar.selectedSlides);
     console.log('SLIDES RERENDERED!');
     const selectedSlide = getSlideById(Slides, selectedSlidesId[0]);
     return (
         <div className="slides-area">
-            <SlidePreviewList
-                slides={Slides}
-                selectedSlides={selectedSlidesId}
-            />
+            <SlidePreviewList slides={Slides} selectedSlides={selectedSlidesId} />
             <SlideEditSpace slide={selectedSlide} />
         </div>
     );

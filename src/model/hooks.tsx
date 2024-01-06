@@ -1,72 +1,65 @@
 import { RefObject, useEffect } from 'react';
-import { Id } from './types';
 import { Point } from './figureTypes';
 
-type OnDragStartFunc = {
-    onDragAction: () => void;
-    onDropAction: (newPosition: Point, id: Id[]) => void;
-    onClickAction: () => void;
+type OnDragStartFunc = (args: {
+    onDragAction: (event: MouseEvent) => void;
+    onDropAction: (event: MouseEvent) => void;
+    onClickAction: (event: MouseEvent) => void;
+}) => void;
+
+const useObjectsDragAndDrop = (ref: RefObject<HTMLElement>, startElemPos: Point) => {
+    const onDragStart: OnDragStartFunc = ({ onDragAction, onDropAction, onClickAction }) => {
+        useEffect(() => {
+            const onMouseUp = (e: MouseEvent) => {
+                onDropAction(e);
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            const onMouseMove = (e: MouseEvent) => {
+                onDragAction(e);
+            };
+
+            const onMouseDown = (e: MouseEvent) => {
+                onClickAction(e);
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            };
+
+            ref.current!.addEventListener('mousedown', onMouseDown);
+            return () => {
+                if (ref.current! != null) ref!.current!.removeEventListener('mousedown', onMouseDown);
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+        }, [startElemPos]);
+    };
+    return onDragStart;
 };
 
-const useObjectsDragAndDrop = (
-    ref: RefObject<HTMLDivElement>,
-    startElemPos: { x: number; y: number },
-    elemId: Id,
-    Actions: OnDragStartFunc,
-) => {
-    useEffect(() => {
-        const startMousePosition = {
-            x: 0,
-            y: 0,
-        };
-        const onMouseUp = (e: MouseEvent) => {
-            console.log('up');
-            if (
-                !(
-                    e.pageX - startMousePosition.x === 0 &&
-                    e.pageY - startMousePosition.y === 0
-                )
-            ) {
-                Actions.onDropAction(
-                    {
-                        x: e.pageX - startMousePosition.x,
-                        y: e.pageY - startMousePosition.y,
-                    },
-                    [elemId],
-                );
-            }
-            ref.current!.style.position = '';
-            ref.current!.style.zIndex = '';
-            ref.current!.style.border = '';
-
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        };
-
-        const onMouseMove = (e: MouseEvent) => {
-            ref.current!.style.zIndex = '1';
-            ref.current!.style.left =
-                startElemPos.x + e.pageX - startMousePosition.x + 'px';
-            ref.current!.style.top =
-                startElemPos.y + e.pageY - startMousePosition.y + 'px';
-            Actions.onDragAction();
-        };
-
-        const onMouseDown = (e: MouseEvent) => {
-            startMousePosition.x = e.pageX;
-            startMousePosition.y = e.pageY;
-            Actions.onClickAction();
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        };
-        ref.current!.addEventListener('mousedown', onMouseDown);
-        return () => {
-            if (ref.current! != null)
-                ref!.current!.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        };
-    }, [startElemPos]);
+type DnDManager = (args: { onDrag: (event: MouseEvent) => void; onDrop: (event: MouseEvent) => void }) => {
+    onDragStart: () => void;
+    clearDragListeners: () => void;
 };
 
-export { useObjectsDragAndDrop };
+const useDnDManager: DnDManager = ({ onDrag, onDrop }) => {
+    const onMouseUp = (e: MouseEvent) => {
+        onDrop(e);
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+        onDrag(e);
+    };
+
+    const onDragStart = () => {
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    };
+    const clearDragListeners = () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    };
+    return { onDragStart, clearDragListeners };
+};
+
+export { useObjectsDragAndDrop, useDnDManager };

@@ -1,15 +1,18 @@
-import { Id, Slide } from '../../model/types';
-import {
-    FigureObjects,
-    ObjectType,
-    Point,
-    RectangleElement,
-    SlideElement,
-} from '../../model/figureTypes';
+import { Slide } from '../../model/types';
+import { FigureObjects, ObjectType, Point, RectangleElement, SlideElement } from '../../model/figureTypes';
 import './EditSlideArea.css';
 import { RefObject, useRef } from 'react';
 import { useAppActions } from '../../store/hooks';
 import { useObjectsDragAndDrop } from '../../model/hooks';
+import {
+    changeStyleHeight,
+    changeStyleLeft,
+    // changeStyleLeft,
+    changeStylePosition,
+    changeStyleSize,
+    changeStyleTop,
+    changeStyleWidth,
+} from '../../model/utils';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
@@ -31,39 +34,56 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
 const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
     const {
         createChangeSelectedElementsAction,
-
         createChangeElementsPositionAction,
         createChangePositionAndSelectElementAction,
     } = useAppActions();
     const elem = { ...props.element };
     let Obj = <></>;
-    const ref = useRef(null);
-    useObjectsDragAndDrop(
-        ref,
-        {
-            x: elem.position.x,
-            y: elem.position.y,
+    const ref = useRef<HTMLDivElement>(null);
+    const svgRef = useRef<HTMLDivElement>(null);
+    const figureDnD = useObjectsDragAndDrop(svgRef, {
+        x: elem.position.x,
+        y: elem.position.y,
+    });
+    console.log('ELEMENT RERENDERED!');
+    const startMousePos = {
+        x: 0,
+        y: 0,
+    };
+    figureDnD({
+        onDragAction(event) {
+            changeStylePosition(ref, elem.position, { x: event.pageX, y: event.pageY }, startMousePos);
+            console.log('МЕНЯ ТАЩАТ');
         },
-        elem.id,
-        {
-            onDragAction: () => {},
-            onDropAction: (newPosition: Point, id: Id[]) => {
+        onDropAction(event) {
+            if (!(event.pageX - startMousePos.x === 0 && event.pageY - startMousePos.y === 0)) {
                 if (props.isSelected) {
-                    createChangeElementsPositionAction(newPosition, id);
-                } else {
-                    createChangePositionAndSelectElementAction(
-                        id[0],
-                        newPosition,
+                    createChangeElementsPositionAction(
+                        {
+                            x: event.pageX - startMousePos.x,
+                            y: event.pageY - startMousePos.y,
+                        },
+                        [elem.id],
                     );
+                } else {
+                    createChangePositionAndSelectElementAction(elem.id, {
+                        x: event.pageX - startMousePos.x,
+                        y: event.pageY - startMousePos.y,
+                    });
                 }
-            },
-            onClickAction: () => {
-                setClass(ref, 'svg-wrapper_selected');
-                if (!props.isSelected)
-                    createChangeSelectedElementsAction([elem.id]);
-            },
+            }
+            console.log('МЕНЯ НЕ ТАЩАТ');
+            ref.current!.style.zIndex = '';
         },
-    );
+        onClickAction(event) {
+            console.log('МЕНЯ СЕЙЧАС ПОТАЩАТ');
+            startMousePos.x = event.pageX;
+            startMousePos.y = event.pageY;
+            setClass(ref, 'svg-wrapper_selected');
+            if (!props.isSelected) createChangeSelectedElementsAction([elem.id]);
+        },
+    });
+
     switch (elem.elementType) {
         case ObjectType.Text: {
             Obj = <></>;
@@ -72,17 +92,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
         case ObjectType.Graphic: {
             switch (elem.figureType) {
                 case FigureObjects.Rectangle: {
-                    Obj = (
-                        <Rectangle
-                            elem={elem}
-                            onClick={() => {
-                                // if (!props.isSelected)
-                                //     createChangeSelectedElementsAction([
-                                //         elem.id,
-                                //     ]);
-                            }}
-                        />
-                    );
+                    Obj = <Rectangle elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 case FigureObjects.Triangle: {
@@ -133,101 +143,287 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
             style={{
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
+                width: elem.size.width + 'px',
+                height: elem.size.height + 'px',
             }}
             ref={ref}
         >
             {Obj}
-            {props.isSelected && <SelectedElementMode {...elem} />}
+            {props.isSelected && <SelectedElementMode element={{ ...elem }} parentRef={ref} />}
         </div>
     );
 };
 
-const SelectedElementMode = (props: SlideElement) => {
-    const elem = { ...props };
+const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObject<HTMLDivElement> }) => {
+    const elem = { ...props.element };
+    const { createChangeElementsPositionAction, createChangeElementsSize } = useAppActions();
+    const parent = props.parentRef;
+    const startMousePos = { x: 0, y: 0 };
+    const elemPos = { x: elem.position.x, y: elem.position.y };
+
+    const changeElementSize = (startMousePos: Point, mousePos: Point) => {
+        if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
+            createChangeElementsSize(
+                {
+                    x: startMousePos.x - mousePos.x,
+                    y: startMousePos.y - mousePos.y,
+                },
+                [elem.id],
+            );
+        }
+    };
+
+    const changeElementPos = (startMousePos: Point, mousePos: Point) => {
+        if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
+            createChangeElementsPositionAction(
+                {
+                    x: mousePos.x - startMousePos.x,
+                    y: mousePos.y - startMousePos.y,
+                },
+                [elem.id],
+            );
+        }
+    };
+
+    const changeElementPosAndSize = (startMousePos: Point, mousePos: Point) => {
+        if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
+            createChangeElementsPositionAction(
+                {
+                    x: mousePos.x - startMousePos.x,
+                    y: mousePos.y - startMousePos.y,
+                },
+                [elem.id],
+            );
+            createChangeElementsSize(
+                {
+                    x: startMousePos.x - mousePos.x,
+                    y: startMousePos.y - mousePos.y,
+                },
+                [elem.id],
+            );
+        }
+    };
+
+    const clickAction = (event: MouseEvent) => {
+        startMousePos.x = event.pageX;
+        startMousePos.y = event.pageY;
+    };
+
     return (
         <>
-            <div
-                className="scale-square"
-                style={{
-                    top: '-5px',
-                    left: '-6px',
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStylePosition(parent, elem.position, mousePostion, startMousePos);
+                    changeStyleSize(parent, elem.size, mousePostion, startMousePos);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    top: '-5px',
-                    left: elem.size.width / 2 - 4 + 'px',
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementPosAndSize(startMousePos, mousePostion);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    top: '-5px',
-                    right: '-6px',
+                clickParams={event => {
+                    clickAction(event);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    top: elem.size.height / 2 - 5 + 'px',
-                    left: '-6px',
+                position={{ x: '-6px', y: '-5px' }}
+                cursor="nwse-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleTop(parent, elem.position.y, mousePostion.y, startMousePos.y);
+                    changeStyleHeight(parent, elem.size.height, mousePostion.y, startMousePos.y);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    top: elem.size.height / 2 - 5 + 'px',
-                    right: '-6px',
+                resizeDropParams={event => {
+                    const mousePostion = { x: startMousePos.x, y: event.pageY };
+                    changeElementPosAndSize(startMousePos, mousePostion);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    bottom: '-5px',
-                    left: '-6px',
+                clickParams={event => {
+                    clickAction(event);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    bottom: '-5px',
-                    left: elem.size.width / 2 - 6 + 'px',
+                position={{ x: 'calc(50% - 4px)', y: '-5px' }}
+                cursor="ns-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleTop(parent, elem.position.y, mousePostion.y, startMousePos.y);
+                    changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
+                    changeStyleHeight(parent, elem.size.height, mousePostion.y, startMousePos.y);
                 }}
-            ></div>
-            <div
-                className="scale-square"
-                style={{
-                    bottom: '-5px',
-                    right: '-6px',
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize(
+                        { x: mousePostion.x, y: startMousePos.y },
+                        { x: startMousePos.x, y: mousePostion.y },
+                    );
+                    changeElementPos({ x: 0, y: startMousePos.y }, { x: 0, y: mousePostion.y });
                 }}
-            ></div>
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: 'calc(100% - 1px)', y: '-5px' }}
+                cursor="nesw-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleLeft(parent, elem.position.x, mousePostion.x, startMousePos.x);
+                    changeStyleWidth(parent, elem.size.width, mousePostion.x, startMousePos.x);
+                }}
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize({ x: startMousePos.x, y: 0 }, { x: mousePostion.x, y: 0 });
+                    changeElementPos({ x: startMousePos.x, y: 0 }, { x: mousePostion.x, y: 0 });
+                }}
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: '-6px', y: 'calc(50% - 5px)' }}
+                cursor="ew-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
+                }}
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize({ x: mousePostion.x, y: 0 }, { x: startMousePos.x, y: 0 });
+                }}
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: 'calc(100% - 1px)', y: 'calc(50% - 5px)' }}
+                cursor="ew-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleLeft(parent, elem.position.x, mousePostion.x, startMousePos.x);
+                    changeStyleWidth(parent, elem.size.width, mousePostion.x, startMousePos.x);
+                    changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                }}
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize(
+                        { x: startMousePos.x, y: mousePostion.y },
+                        { x: mousePostion.x, y: startMousePos.y },
+                    );
+                    changeElementPos({ x: startMousePos.x, y: 0 }, { x: mousePostion.x, y: 0 });
+                }}
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: '-5px', y: 'calc(100% - 1px)' }}
+                cursor="nesw-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                }}
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize({ x: 0, y: mousePostion.y }, { x: 0, y: startMousePos.y });
+                }}
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: 'calc(50% - 4px)', y: 'calc(100% - 1px)' }}
+                cursor="ns-resize"
+            />
+            <ResizeSquare
+                elemPos={elemPos}
+                parentRef={parent}
+                resizeDragParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
+                    changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                }}
+                resizeDropParams={event => {
+                    const mousePostion = { x: event.pageX, y: event.pageY };
+                    changeElementSize(
+                        { x: mousePostion.x, y: mousePostion.y },
+                        { x: startMousePos.x, y: startMousePos.y },
+                    );
+                }}
+                clickParams={event => {
+                    clickAction(event);
+                }}
+                position={{ x: 'calc(100% - 1px)', y: 'calc(100% - 1px)' }}
+                cursor="nwse-resize"
+            />
         </>
     );
 };
 
-const Rectangle = (props: { elem: RectangleElement; onClick: () => void }) => {
-    const elem = { ...props.elem };
+const ResizeSquare = (props: {
+    elemPos: Point;
+    parentRef: RefObject<HTMLDivElement>;
+    resizeDragParams: (e: MouseEvent) => void;
+    resizeDropParams: (e: MouseEvent) => void;
+    clickParams: (e: MouseEvent) => void;
+    position: { x: string; y: string };
+    cursor: string;
+}) => {
+    const squareRef = useRef<HTMLDivElement>(null);
+    const figureResizeDnD = useObjectsDragAndDrop(squareRef, {
+        x: props.elemPos.x,
+        y: props.elemPos.y,
+    });
+    figureResizeDnD({
+        onDragAction(event) {
+            props.parentRef.current!.style.zIndex = '2';
+            props.resizeDragParams(event);
+        },
+        onDropAction(event) {
+            props.resizeDropParams(event);
+        },
+        onClickAction(event) {
+            props.clickParams(event);
+        },
+    });
     return (
-        <svg
-            onClick={() => {
-                props.onClick();
-            }}
-            className="svg-space"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
+        <div
+            ref={squareRef}
+            className="scale-square"
             style={{
-                width: elem.size.width + 'px',
-                height: elem.size.height + 'px',
+                cursor: props.cursor,
+                top: props.position.y,
+                left: props.position.x,
             }}
-        >
-            <rect
-                width={elem.size.width}
-                height={elem.size.height}
-                fill={elem.properties.color ? elem.properties.color : 'black'}
-                stroke={elem.properties.border?.color}
-            />
-        </svg>
+        ></div>
+    );
+};
+
+const Rectangle = (props: { elem: RectangleElement; svgRef: RefObject<HTMLDivElement> }) => {
+    const elem = { ...props.elem };
+    const svgRef = props.svgRef;
+    return (
+        <div className="svg-space" ref={svgRef}>
+            <svg className="svg-space" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <rect
+                    width="100%"
+                    height="100%"
+                    fill={elem.properties.color ? elem.properties.color : 'black'}
+                    stroke={elem.properties.border?.color}
+                />
+            </svg>
+        </div>
     );
 };
 

@@ -2,11 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { BackgroundType, Editor, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
-import {
-    generateRandomId,
-    getElementsById,
-    getSlideIndexById,
-} from '../../model/utils';
+import { generateRandomId, getElementsById, getSlideIndexById } from '../../model/utils';
 import { ObjectType, FigureObjects } from '../../model/figureTypes';
 
 type InitData = Editor;
@@ -77,10 +73,7 @@ const initData: InitData = {
 };
 initData.selectedSlides[0] = initData.presentation.slides[0].id;
 
-const SlideBarReducer = (
-    state: InitData = initData,
-    action: Action,
-): InitData => {
+const SlideBarReducer = (state: InitData = initData, action: Action): InitData => {
     switch (action.type) {
         case PresentationActions.CHANGE_SLIDE_POSITION:
             return state;
@@ -108,10 +101,7 @@ const SlideBarReducer = (
             return newState;
         }
         case PresentationActions.CHANGE_SELECTED_ELEMENTS: {
-            const selectedSlidesIndex = getSlideIndexById(
-                state.presentation.slides,
-                state.selectedSlides,
-            );
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
             const newState = {
                 ...state,
                 presentation: {
@@ -127,13 +117,11 @@ const SlideBarReducer = (
                     }),
                 },
             };
+            console.log(action.payload);
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_POSITION: {
-            const selectedSlidesIndex = getSlideIndexById(
-                state.presentation.slides,
-                state.selectedSlides,
-            );
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
             const selectedElements = getElementsById(
                 state.presentation.slides[selectedSlidesIndex[0]].elements,
                 action.payload.ElementsId,
@@ -154,13 +142,55 @@ const SlideBarReducer = (
                                             ...element,
                                             position: {
                                                 x:
-                                                    oldx +
-                                                    action.payload.deltaOffset
-                                                        .x,
+                                                    oldx + action.payload.deltaOffset.x > 0
+                                                        ? oldx + action.payload.deltaOffset.x
+                                                        : 0,
                                                 y:
-                                                    oldy +
-                                                    action.payload.deltaOffset
-                                                        .y,
+                                                    oldy + action.payload.deltaOffset.y > 0
+                                                        ? oldy + action.payload.deltaOffset.y
+                                                        : 0,
+                                            },
+                                        };
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_ELEMENTS_SIZE: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                action.payload.id,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        const oldWidht = element.size.width;
+                                        const oldHeight = element.size.height;
+                                        return {
+                                            ...element,
+                                            size: {
+                                                width:
+                                                    oldWidht + action.payload.deltaOffset.x > 0
+                                                        ? oldWidht + action.payload.deltaOffset.x
+                                                        : 0,
+                                                height:
+                                                    oldHeight + action.payload.deltaOffset.y > 0
+                                                        ? oldHeight + action.payload.deltaOffset.y
+                                                        : 0,
                                             },
                                         };
                                     }
@@ -175,10 +205,7 @@ const SlideBarReducer = (
             return newState;
         }
         case PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT: {
-            const selectedSlidesIndex = getSlideIndexById(
-                state.presentation.slides,
-                state.selectedSlides,
-            );
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
             const newState = {
                 ...state,
                 presentation: {
@@ -196,13 +223,13 @@ const SlideBarReducer = (
                                             ...element,
                                             position: {
                                                 x:
-                                                    oldx +
-                                                    action.payload.deltaOffset
-                                                        .x,
+                                                    oldx + action.payload.deltaOffset.x > 0
+                                                        ? oldx + action.payload.deltaOffset.x
+                                                        : 0,
                                                 y:
-                                                    oldy +
-                                                    action.payload.deltaOffset
-                                                        .y,
+                                                    oldy + action.payload.deltaOffset.y > 0
+                                                        ? oldy + action.payload.deltaOffset.y
+                                                        : 0,
                                             },
                                         };
                                     }

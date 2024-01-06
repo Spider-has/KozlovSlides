@@ -149,5 +149,5 @@ type Color = string;
 type FontFamily = {
     fontFamily: string;
 };
-export type { RectangleElement, SlideElement, Point };
+export type { RectangleElement, SlideElement, Point, Size };
 export { ObjectType, FigureObjects };
