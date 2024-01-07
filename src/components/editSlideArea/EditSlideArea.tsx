@@ -1,22 +1,30 @@
 import { Slide } from '../../model/types';
-import { FigureObjects, ObjectType, Point, RectangleElement, SlideElement } from '../../model/figureTypes';
-import './EditSlideArea.css';
+import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
+import styles from './EditSlideArea.module.css';
 import { RefObject, useRef } from 'react';
 import { useAppActions } from '../../store/hooks';
 import { useObjectsDragAndDrop } from '../../model/hooks';
 import {
     changeStyleHeight,
     changeStyleLeft,
-    // changeStyleLeft,
     changeStylePosition,
     changeStyleSize,
     changeStyleTop,
     changeStyleWidth,
 } from '../../model/utils';
+import { Ellipse, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../figures/Figures';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     return (
-        <div className="edit-slide-area">
+        <div
+            className={styles.editSlideArea}
+            onSelect={() => {
+                return false;
+            }}
+            onMouseMove={() => {
+                return false;
+            }}
+        >
             {props.slide.id}
             <ActiveSlideArea slide={props.slide} />
         </div>
@@ -28,7 +36,7 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
         const isSelected = props.slide.selectedElements.includes(elem.id);
         return <SlideObject element={elem} key={i} isSelected={isSelected} />;
     });
-    return <div className="main-edit-slide-space">{objects}</div>;
+    return <div className={styles.mainEditSlideSpace}>{objects}</div>;
 };
 
 const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
@@ -45,7 +53,6 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
         x: elem.position.x,
         y: elem.position.y,
     });
-    console.log('ELEMENT RERENDERED!');
     const startMousePos = {
         x: 0,
         y: 0,
@@ -53,7 +60,6 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
     figureDnD({
         onDragAction(event) {
             changeStylePosition(ref, elem.position, { x: event.pageX, y: event.pageY }, startMousePos);
-            console.log('МЕНЯ ТАЩАТ');
         },
         onDropAction(event) {
             if (!(event.pageX - startMousePos.x === 0 && event.pageY - startMousePos.y === 0)) {
@@ -72,21 +78,20 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
                     });
                 }
             }
-            console.log('МЕНЯ НЕ ТАЩАТ');
             ref.current!.style.zIndex = '';
         },
         onClickAction(event) {
-            console.log('МЕНЯ СЕЙЧАС ПОТАЩАТ');
             startMousePos.x = event.pageX;
             startMousePos.y = event.pageY;
-            setClass(ref, 'svg-wrapper_selected');
+            setClass(ref, styles.svgWrapperSelected);
+            console.log('КЛИКНУЛИ');
             if (!props.isSelected) createChangeSelectedElementsAction([elem.id]);
         },
     });
 
     switch (elem.elementType) {
         case ObjectType.Text: {
-            Obj = <></>;
+            Obj = <TextObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Graphic: {
@@ -96,11 +101,11 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
                     break;
                 }
                 case FigureObjects.Triangle: {
-                    Obj = <></>;
+                    Obj = <Triangle elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 case FigureObjects.Ellipse: {
-                    Obj = <></>;
+                    Obj = <Ellipse elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 default:
@@ -110,11 +115,11 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
             break;
         }
         case ObjectType.Image: {
-            Obj = <></>;
+            Obj = <ImageObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Video: {
-            Obj = <></>;
+            Obj = <VideoObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Audio: {
@@ -136,10 +141,10 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
         }
     };
 
-    const SelectedClass = props.isSelected ? 'svg-wrapper_selected' : '';
+    const SelectedClass = props.isSelected ? styles.svgWrapperSelected : '';
     return (
         <div
-            className={`svg-wrapper ${SelectedClass}`}
+            className={`${styles.svgWrapper} ${SelectedClass}`}
             style={{
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
@@ -147,6 +152,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
                 height: elem.size.height + 'px',
             }}
             ref={ref}
+            // onSelect={'refurn false'}
         >
             {Obj}
             {props.isSelected && <SelectedElementMode element={{ ...elem }} parentRef={ref} />}
@@ -400,30 +406,13 @@ const ResizeSquare = (props: {
     return (
         <div
             ref={squareRef}
-            className="scale-square"
+            className={styles.scaleSquare}
             style={{
                 cursor: props.cursor,
                 top: props.position.y,
                 left: props.position.x,
             }}
         ></div>
-    );
-};
-
-const Rectangle = (props: { elem: RectangleElement; svgRef: RefObject<HTMLDivElement> }) => {
-    const elem = { ...props.elem };
-    const svgRef = props.svgRef;
-    return (
-        <div className="svg-space" ref={svgRef}>
-            <svg className="svg-space" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <rect
-                    width="100%"
-                    height="100%"
-                    fill={elem.properties.color ? elem.properties.color : 'black'}
-                    stroke={elem.properties.border?.color}
-                />
-            </svg>
-        </div>
     );
 };
 

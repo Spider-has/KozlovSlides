@@ -1,4 +1,4 @@
-.edit-slide-area{
+.editSlideArea{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,10 +7,12 @@
     color: white;
     background-color: #404040;
     overflow: hidden;
+    user-select: none;
+
 }
 
 
-.main-edit-slide-space{
+.mainEditSlideSpace{
     display: block;
     background-color: #FFFFFF;
     position: relative;
@@ -19,23 +21,17 @@
     height: 450px;
 }
 
-.svg-space{
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.svg-wrapper{
+.svgWrapper{
     display: flex;
     position: absolute;
 }
 
-.svg-wrapper_selected{
+.svgWrapperSelected{
     outline: 3px solid rgb(124 124 250);
     cursor: crosshair;
 }
 
-.scale-square{
+.scaleSquare{
     position: absolute;
     width: 7px;
     height: 7px;

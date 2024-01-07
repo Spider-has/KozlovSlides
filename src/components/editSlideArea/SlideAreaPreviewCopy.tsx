@@ -1,17 +1,12 @@
 import { Slide } from '../../model/types';
-import {
-    FigureObjects,
-    ObjectType,
-    RectangleElement,
-    SlideElement,
-} from '../../model/figureTypes';
-import './EditSlideArea.css';
+import { FigureObjects, ObjectType, RectangleElement, SlideElement } from '../../model/figureTypes';
+import styles from './EditSlideArea.module.css';
 
 const ActiveSlidePreviewArea = (props: { slide: Slide }) => {
     const objects = props.slide.elements.map((elem, i) => {
         return <SlideObject elements={elem} key={i} />;
     });
-    return <div className="main-edit-slide-space">{objects}</div>;
+    return <div className={styles.mainEditSlideSpace}>{objects}</div>;
 };
 
 const SlideObject = (props: { elements: SlideElement }) => {

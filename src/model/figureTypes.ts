@@ -16,7 +16,7 @@ interface GraphProperties {
     border?: Border;
     rotateAngle: number;
     opacity: number;
-    textBlock?: StrokeObject;
+    textBlock?: StringObject;
 }
 
 interface RectanglePropreties extends GraphProperties {
@@ -88,7 +88,7 @@ type Span = {
     underline: boolean;
 };
 
-interface StrokeObject extends DefaultSlideElement {
+interface TextObject extends DefaultSlideElement {
     elementType: ObjectType.Text;
     properties: {
         chars: Array<Span>;
@@ -116,7 +116,7 @@ type SlideElement =
     | VideoObject
     | AudioObject
     | FunctionGraphObject
-    | StrokeObject;
+    | TextObject;
 
 type Point = {
     x: number;
@@ -149,5 +149,15 @@ type Color = string;
 type FontFamily = {
     fontFamily: string;
 };
-export type { RectangleElement, SlideElement, Point, Size };
+export type {
+    VideoObject,
+    ImageObject,
+    TriangleElement,
+    RectangleElement,
+    SlideElement,
+    Point,
+    Size,
+    EllipseElement,
+    TextObject,
+};
 export { ObjectType, FigureObjects };

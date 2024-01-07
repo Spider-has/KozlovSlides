@@ -43,16 +43,102 @@ const initData: InitData = {
                             y: 10,
                         },
                         elementType: ObjectType.Graphic,
-                        figureType: FigureObjects.Rectangle,
+                        figureType: FigureObjects.Ellipse,
                         size: {
                             width: 150,
                             height: 200,
                         },
                         properties: {
                             rotateAngle: 0,
-                            opacity: 1,
+                            opacity: 0,
                             rounding: 0,
-                            color: 'red',
+                        },
+                    },
+                    {
+                        id: '3',
+                        position: {
+                            x: 10,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Graphic,
+                        figureType: FigureObjects.Triangle,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
+                        properties: {
+                            rotateAngle: 0,
+                            opacity: 0,
+                            point1: { x: 0, y: 100 },
+                            point2: { x: 100, y: 100 },
+                            point3: { x: 50, y: 0 },
+                        },
+                    },
+                    {
+                        id: '4',
+                        position: {
+                            x: 10,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Image,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
+                        properties: {
+                            imgUrl: 'https://sun9-37.userapi.com/impg/rO2c_c5dYeOMqrbH8UFtQfNywLczoOdld0_TLg/th78MXnFm7c.jpg?size=2560x1745&quality=95&sign=679e255e69cb82c6fd66b1927150742f&type=album',
+                        },
+                    },
+                    {
+                        id: '5',
+                        position: {
+                            x: 10,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Video,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
+                        properties: {
+                            videoUrl: 'https://youtu.be/pVxvF9FNkXw',
+                        },
+                    },
+                    {
+                        id: '6',
+                        position: {
+                            x: 500,
+                            y: 10,
+                        },
+                        elementType: ObjectType.Text,
+                        size: {
+                            width: 150,
+                            height: 200,
+                        },
+                        properties: {
+                            chars: [
+                                {
+                                    value: 'a',
+                                    fontFamily: {
+                                        fontFamily: 'Times New Roman',
+                                    },
+                                    fontSize: 12,
+                                    color: 'gray',
+                                    bold: false,
+                                    cursive: true,
+                                    underline: false,
+                                },
+                                {
+                                    value: 'abobus',
+                                    fontFamily: { fontFamily: 'Arial' },
+                                    fontSize: 14,
+                                    color: 'gray',
+                                    bold: true,
+                                    cursive: true,
+                                    underline: true,
+                                },
+                            ],
+                            rotateAngle: 0,
                         },
                     },
                 ],
@@ -141,14 +227,8 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                                         return {
                                             ...element,
                                             position: {
-                                                x:
-                                                    oldx + action.payload.deltaOffset.x > 0
-                                                        ? oldx + action.payload.deltaOffset.x
-                                                        : 0,
-                                                y:
-                                                    oldy + action.payload.deltaOffset.y > 0
-                                                        ? oldy + action.payload.deltaOffset.y
-                                                        : 0,
+                                                x: oldx + action.payload.deltaOffset.x,
+                                                y: oldy + action.payload.deltaOffset.y,
                                             },
                                         };
                                     }

@@ -1,25 +1,8 @@
-import { BackgroundType, Id, Slide } from '../../model/types';
+import { getSlideById } from '../../model/utils';
 import { useAppSelector } from '../../store/hooks';
 import { SlideEditSpace } from '../editSlideArea/EditSlideArea';
 import { SlidePreviewList } from '../slideBar/SlideBar';
 import './SlidesArea.css';
-
-const getSlideById = (slides: Slide[], slideId: Id): Slide => {
-    for (const slide of slides) {
-        if (slide.id === slideId) {
-            return slide;
-        }
-    }
-    if (slides[0]) return slides[0];
-    else
-        return {
-            id: '0',
-            elements: [],
-            selectedElements: [],
-            elementsAnimations: [],
-            background: { type: BackgroundType.Color, data: { color: '' } },
-        };
-};
 
 const SlidesArea = () => {
     const Slides = useAppSelector(state => state.slideBar.presentation.slides);

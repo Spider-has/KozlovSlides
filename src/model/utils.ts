@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 import { Point, Size, SlideElement } from './figureTypes';
-import { Id, Slide } from './types';
+import { BackgroundType, Id, Slide } from './types';
 
 function generateRandomId() {
     return 'id' + Math.random().toString(16).slice(2);
@@ -30,6 +30,23 @@ const getElementsById = (elements: SlideElement[], id: Id[]): number[] => {
         }
     });
     return indexs;
+};
+
+const getSlideById = (slides: Slide[], slideId: Id): Slide => {
+    for (const slide of slides) {
+        if (slide.id === slideId) {
+            return slide;
+        }
+    }
+    if (slides[0]) return slides[0];
+    else
+        return {
+            id: '0',
+            elements: [],
+            selectedElements: [],
+            elementsAnimations: [],
+            background: { type: BackgroundType.Color, data: { color: '' } },
+        };
 };
 
 const changeStyleTop = (
@@ -98,4 +115,5 @@ export {
     changeStyleLeft,
     changeStylePosition,
     changeStyleSize,
+    getSlideById,
 };
