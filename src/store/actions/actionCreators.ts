@@ -57,10 +57,7 @@ const createChangeSelectedElementsAction = (ElementsId: Id[]) => {
     };
 };
 
-const createChangePositionAndSelectElementAction = (
-    elementId: Id,
-    deltaOffset: Point,
-) => {
+const createChangePositionAndSelectElementAction = (elementId: Id, deltaOffset: Point) => {
     return {
         type: PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT,
         payload: {
@@ -70,25 +67,30 @@ const createChangePositionAndSelectElementAction = (
     };
 };
 
-const createChangeElementsPositionAction = (
-    deltaOffset: Point,
-    ElementsId: Id[],
-) => {
+const createChangeElementsPositionAction = (deltaOffset: Point) => {
     return {
         type: PresentationActions.CHANGE_ELEMENTS_POSITION,
         payload: {
             deltaOffset: deltaOffset,
-            ElementsId: ElementsId,
         },
     };
 };
 
-const createChangeElementsSize = (deltaOffset: Point, ElementsId: Id[]) => {
+const createChangeElementsSizeAction = (deltaOffset: Point) => {
     return {
         type: PresentationActions.CHANGE_ELEMENTS_SIZE,
         payload: {
-            id: ElementsId,
             deltaOffset: deltaOffset,
+        },
+    };
+};
+
+const createChangeElementTextAction = (newText: string, id: Id) => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENT_TEXT,
+        payload: {
+            newText: newText,
+            id: id,
         },
     };
 };
@@ -102,5 +104,6 @@ export {
     createChangeSelectedElementsAction,
     createChangeElementsPositionAction,
     createChangePositionAndSelectElementAction,
-    createChangeElementsSize,
+    createChangeElementsSizeAction,
+    createChangeElementTextAction,
 };

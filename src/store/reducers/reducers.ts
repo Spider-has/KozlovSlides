@@ -116,28 +116,17 @@ const initData: InitData = {
                             height: 200,
                         },
                         properties: {
-                            chars: [
-                                {
-                                    value: 'a',
-                                    fontFamily: {
-                                        fontFamily: 'Times New Roman',
-                                    },
-                                    fontSize: 12,
-                                    color: 'gray',
-                                    bold: false,
-                                    cursive: true,
-                                    underline: false,
+                            chars: {
+                                value: 'a',
+                                fontFamily: {
+                                    fontFamily: 'Times New Roman',
                                 },
-                                {
-                                    value: 'abobus',
-                                    fontFamily: { fontFamily: 'Arial' },
-                                    fontSize: 14,
-                                    color: 'gray',
-                                    bold: true,
-                                    cursive: true,
-                                    underline: true,
-                                },
-                            ],
+                                fontSize: 12,
+                                color: 'gray',
+                                bold: false,
+                                cursive: true,
+                                underline: false,
+                            },
                             rotateAngle: 0,
                         },
                     },
@@ -210,7 +199,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
             const selectedElements = getElementsById(
                 state.presentation.slides[selectedSlidesIndex[0]].elements,
-                action.payload.ElementsId,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
             );
             const newState = {
                 ...state,
@@ -246,7 +235,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
             const selectedElements = getElementsById(
                 state.presentation.slides[selectedSlidesIndex[0]].elements,
-                action.payload.id,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
             );
             const newState = {
                 ...state,
@@ -312,6 +301,46 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                                                         : 0,
                                             },
                                         };
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_ELEMENT_TEXT: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                [action.payload.id],
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        value: action.payload.newText,
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
                                     }
                                     return element;
                                 }),

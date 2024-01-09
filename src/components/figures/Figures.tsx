@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, useRef } from 'react';
 import {
     EllipseElement,
     ImageObject,
@@ -91,20 +91,12 @@ const VideoObj = (props: { elem: VideoObject; svgRef: RefObject<HTMLDivElement> 
     const svgRef = props.svgRef;
     return (
         <div className={styles.svgSpace} ref={svgRef}>
-            <video controls width={'100%'} height={'100%'}>
+            <video controls className={` ${styles.usualObject}`}>
                 <source src={elem.properties.videoUrl} type="video/webm" />
                 <source src={elem.properties.videoUrl} type="video/mp4" />
                 <a href={elem.properties.videoUrl}>WEBM</a>
                 <a href={elem.properties.videoUrl}>MP4</a>
             </video>
-            {/* <iframe
-                className={styles.usualObject}
-                src="https://www.youtube.com/embed/pVxvF9FNkXw"
-                title="Фильм про ИТ-лицей «Инфотех», Йошкар-Ола, 2023"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-            ></iframe> */}
         </div>
     );
 };
@@ -112,27 +104,65 @@ const VideoObj = (props: { elem: VideoObject; svgRef: RefObject<HTMLDivElement> 
 const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.elem };
     const svgRef = props.svgRef;
-    const TextChars = elem.properties.chars.map((chars, i) => (
-        <div key={i}>
-            <span
-                className={styles.textChars}
-                style={{
-                    fontFamily: chars.fontFamily?.fontFamily,
-                    fontSize: chars.fontSize,
-                    fontWeight: chars.bold ? 'bold' : 'normal',
-                    fontStyle: chars.cursive ? 'italic' : 'normal',
-                    textDecorationLine: chars.underline ? 'underline' : 'none',
-                    color: chars.color ? chars.color : 'black',
-                }}
-            >
-                {chars.value}
-            </span>
-            <input type="text"></input>
-        </div>
-    ));
+    const chars = { ...elem.properties.chars };
+    const spanRef = useRef<HTMLElement>(null);
+    //const { createChangeElementTextAction } = useAppActions();
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const TextChars = elem.properties.chars.map((chars, i) => (
+    //     <div key={i}>
+    //         <span
+    //             className={styles.textChars}
+    //             style={{
+    //                 fontFamily: chars.fontFamily?.fontFamily,
+    //                 fontSize: chars.fontSize,
+    //                 fontWeight: chars.bold ? 'bold' : 'normal',
+    //                 fontStyle: chars.cursive ? 'italic' : 'normal',
+    //                 textDecorationLine: chars.underline ? 'underline' : 'none',
+    //                 color: chars.color ? chars.color : 'black',
+    //             }}
+    //         >
+    //             {chars.value}
+    //         </span>
+    //     </div>
+    // ));
     return (
         <div className={styles.svgSpace} ref={svgRef}>
-            <div className={` ${styles.usualObject} ${styles.textObject}`}>{TextChars}</div>
+            <div className={` ${styles.usualObject} ${styles.textObject}`}>
+                <span
+                    ref={spanRef}
+                    className={styles.textChars}
+                    style={{
+                        fontFamily: chars.fontFamily?.fontFamily,
+                        fontSize: chars.fontSize,
+                        fontWeight: chars.bold ? 'bold' : 'normal',
+                        fontStyle: chars.cursive ? 'italic' : 'normal',
+                        textDecorationLine: chars.underline ? 'underline' : 'none',
+                        color: chars.color ? chars.color : 'black',
+                    }}
+                    contentEditable
+                    suppressContentEditableWarning={true}
+                    onInput={() => {
+                        const newText = spanRef.current!.innerText;
+                        console.log(newText);
+                        //createChangeElementTextAction(newText, elem.id);
+                    }}
+                >
+                    {chars.value}
+                </span>
+                {/* <input
+                    style={{
+                        fontFamily: chars.fontFamily?.fontFamily,
+                        fontSize: chars.fontSize,
+                        fontWeight: chars.bold ? 'bold' : 'normal',
+                        fontStyle: chars.cursive ? 'italic' : 'normal',
+                        textDecorationLine: chars.underline ? 'underline' : 'none',
+                        color: chars.color ? chars.color : 'black',
+                    }}
+                    className={styles.textInput}
+                    type="text"
+                    ref={inputRef}
+                /> */}
+            </div>
         </div>
     );
 };

@@ -38,3 +38,11 @@
     background-color: rgb(124 124 250);
     outline: 1px solid rgb(255 255 255);
 }
+
+
+.multipleSelectionBlock{
+    position: absolute;
+    display: none;
+    background-color: rgb(124 124 250 / 50%);
+    border: 2px solid rgb(4 4 78)
+}

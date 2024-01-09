@@ -12,6 +12,23 @@ const getNumfromPxString = (str: string): number => {
     return num;
 };
 
+const checkElemsCollision = (
+    bigElem: { x: number; y: number; width: number; height: number },
+    smElem: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    },
+) => {
+    return !(
+        smElem.x + smElem.width < bigElem.x ||
+        smElem.x > bigElem.width + bigElem.x ||
+        smElem.y > bigElem.y + bigElem.height ||
+        smElem.y + smElem.height < bigElem.y
+    );
+};
+
 const getSlideIndexById = (slides: Slide[], id: Id[]): number[] => {
     const indexs: Array<number> = [];
     slides.forEach((el, i) => {
@@ -116,4 +133,5 @@ export {
     changeStylePosition,
     changeStyleSize,
     getSlideById,
+    checkElemsCollision,
 };

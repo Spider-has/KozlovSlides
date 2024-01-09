@@ -11,6 +11,7 @@ import {
     changeStyleSize,
     changeStyleTop,
     changeStyleWidth,
+    checkElemsCollision,
 } from '../../model/utils';
 import { Ellipse, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../figures/Figures';
 
@@ -31,12 +32,106 @@ const SlideEditSpace = (props: { slide: Slide }) => {
     );
 };
 
+const MultipleElementSelect = (props: { multipleSelectionRef: RefObject<HTMLDivElement> }) => {
+    return <div className={styles.multipleSelectionBlock} ref={props.multipleSelectionRef}></div>;
+};
+
 const ActiveSlideArea = (props: { slide: Slide }) => {
-    const objects = props.slide.elements.map((elem, i) => {
+    const elems = props.slide.elements;
+    const objects = elems.map((elem, i) => {
         const isSelected = props.slide.selectedElements.includes(elem.id);
         return <SlideObject element={elem} key={i} isSelected={isSelected} />;
     });
-    return <div className={styles.mainEditSlideSpace}>{objects}</div>;
+    const editAreaRef = useRef<HTMLDivElement>(null);
+    const multipleSelectRef = useRef<HTMLDivElement>(null);
+    const { createChangeSelectedElementsAction } = useAppActions();
+    const figureDnD = useObjectsDragAndDrop(editAreaRef, {
+        x: 0,
+        y: 0,
+    });
+    const MultipleSelectionManager = {
+        canSelect: false,
+        startPos: {
+            x: 0,
+            y: 0,
+        },
+        startMousePos: {
+            x: 0,
+            y: 0,
+        },
+        selectedElemsId: new Set<string>(),
+    };
+    figureDnD({
+        onClickAction(event) {
+            const tar = event.target as HTMLElement;
+            if (tar.classList.contains(styles.mainEditSlideSpace)) {
+                console.log('Выделяем');
+                MultipleSelectionManager.canSelect = true;
+                multipleSelectRef.current!.style.display = 'block';
+                multipleSelectRef.current!.style.zIndex = '9999';
+                MultipleSelectionManager.startPos.x =
+                    event.pageX - editAreaRef.current!.getBoundingClientRect().x;
+                MultipleSelectionManager.startPos.y =
+                    event.pageY - editAreaRef.current!.getBoundingClientRect().y;
+                multipleSelectRef.current!.style.left = MultipleSelectionManager.startPos.x + 'px';
+                multipleSelectRef.current!.style.top = MultipleSelectionManager.startPos.y + 'px';
+                MultipleSelectionManager.startMousePos.x = event.pageX;
+                MultipleSelectionManager.startMousePos.y = event.pageY;
+            }
+        },
+        onDragAction(event) {
+            if (MultipleSelectionManager.canSelect) {
+                changeStyleSize(
+                    multipleSelectRef,
+                    { width: 0, height: 0 },
+                    MultipleSelectionManager.startMousePos,
+                    { x: event.pageX, y: event.pageY },
+                );
+                elems.forEach(elem => {
+                    if (
+                        checkElemsCollision(
+                            {
+                                x: MultipleSelectionManager.startPos.x,
+                                y: MultipleSelectionManager.startPos.y,
+                                width: event.pageX - MultipleSelectionManager.startMousePos.x,
+                                height: event.pageY - MultipleSelectionManager.startMousePos.y,
+                            },
+                            {
+                                x: elem.position.x,
+                                y: elem.position.y,
+                                width: elem.size.width,
+                                height: elem.size.height,
+                            },
+                        )
+                    ) {
+                        const elemNode = editAreaRef.current!.querySelector(`#object_${elem.id}`);
+                        elemNode?.classList.add(styles.svgWrapperSelected);
+                        MultipleSelectionManager.selectedElemsId.add(elem.id);
+                    } else {
+                        MultipleSelectionManager.selectedElemsId.delete(elem.id);
+                    }
+                });
+            }
+        },
+        onDropAction() {
+            if (MultipleSelectionManager.canSelect) {
+                MultipleSelectionManager.canSelect = false;
+                multipleSelectRef.current!.style.display = 'none';
+                multipleSelectRef.current!.style.left = '';
+                multipleSelectRef.current!.style.top = '';
+                multipleSelectRef.current!.style.width = '';
+                multipleSelectRef.current!.style.height = '';
+                console.log('не выделяем');
+                createChangeSelectedElementsAction(Array.from(MultipleSelectionManager.selectedElemsId));
+            }
+        },
+    });
+    return (
+        <div className={styles.mainEditSlideSpace} ref={editAreaRef}>
+            <MultipleElementSelect multipleSelectionRef={multipleSelectRef} />
+            {objects}
+        </div>
+    );
 };
 
 const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
@@ -64,13 +159,10 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
         onDropAction(event) {
             if (!(event.pageX - startMousePos.x === 0 && event.pageY - startMousePos.y === 0)) {
                 if (props.isSelected) {
-                    createChangeElementsPositionAction(
-                        {
-                            x: event.pageX - startMousePos.x,
-                            y: event.pageY - startMousePos.y,
-                        },
-                        [elem.id],
-                    );
+                    createChangeElementsPositionAction({
+                        x: event.pageX - startMousePos.x,
+                        y: event.pageY - startMousePos.y,
+                    });
                 } else {
                     createChangePositionAndSelectElementAction(elem.id, {
                         x: event.pageX - startMousePos.x,
@@ -152,6 +244,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
                 height: elem.size.height + 'px',
             }}
             ref={ref}
+            id={`object_${elem.id}`}
             // onSelect={'refurn false'}
         >
             {Obj}
@@ -162,51 +255,39 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
 
 const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.element };
-    const { createChangeElementsPositionAction, createChangeElementsSize } = useAppActions();
+    const { createChangeElementsPositionAction, createChangeElementsSizeAction } = useAppActions();
     const parent = props.parentRef;
     const startMousePos = { x: 0, y: 0 };
     const elemPos = { x: elem.position.x, y: elem.position.y };
 
     const changeElementSize = (startMousePos: Point, mousePos: Point) => {
         if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
-            createChangeElementsSize(
-                {
-                    x: startMousePos.x - mousePos.x,
-                    y: startMousePos.y - mousePos.y,
-                },
-                [elem.id],
-            );
+            createChangeElementsSizeAction({
+                x: startMousePos.x - mousePos.x,
+                y: startMousePos.y - mousePos.y,
+            });
         }
     };
 
     const changeElementPos = (startMousePos: Point, mousePos: Point) => {
         if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
-            createChangeElementsPositionAction(
-                {
-                    x: mousePos.x - startMousePos.x,
-                    y: mousePos.y - startMousePos.y,
-                },
-                [elem.id],
-            );
+            createChangeElementsPositionAction({
+                x: mousePos.x - startMousePos.x,
+                y: mousePos.y - startMousePos.y,
+            });
         }
     };
 
     const changeElementPosAndSize = (startMousePos: Point, mousePos: Point) => {
         if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
-            createChangeElementsPositionAction(
-                {
-                    x: mousePos.x - startMousePos.x,
-                    y: mousePos.y - startMousePos.y,
-                },
-                [elem.id],
-            );
-            createChangeElementsSize(
-                {
-                    x: startMousePos.x - mousePos.x,
-                    y: startMousePos.y - mousePos.y,
-                },
-                [elem.id],
-            );
+            createChangeElementsPositionAction({
+                x: mousePos.x - startMousePos.x,
+                y: mousePos.y - startMousePos.y,
+            });
+            createChangeElementsSizeAction({
+                x: startMousePos.x - mousePos.x,
+                y: startMousePos.y - mousePos.y,
+            });
         }
     };
 

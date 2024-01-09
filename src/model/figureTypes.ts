@@ -16,7 +16,7 @@ interface GraphProperties {
     border?: Border;
     rotateAngle: number;
     opacity: number;
-    textBlock?: StringObject;
+    textBlock?: TextObject;
 }
 
 interface RectanglePropreties extends GraphProperties {
@@ -91,7 +91,7 @@ type Span = {
 interface TextObject extends DefaultSlideElement {
     elementType: ObjectType.Text;
     properties: {
-        chars: Array<Span>;
+        chars: Span;
         rotateAngle: number;
         border?: Border;
     };
