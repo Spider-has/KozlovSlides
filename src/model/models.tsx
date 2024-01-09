@@ -41,19 +41,31 @@ import {
 // };
 
 // const strokeObjectMin: StrokeObject = {
+<<<<<<< Updated upstream
 //     type: 'text',
+=======
+//     type: ButtonType.FullText,
+>>>>>>> Stashed changes
 //     chars: [],
 //     rotateAngle: 0,
 // };
 
 // const strokeObjectMid: StrokeObject = {
+<<<<<<< Updated upstream
 //     type: 'text',
+=======
+//     type: ButtonType.FullText,
+>>>>>>> Stashed changes
 //     chars: [spanMid],
 //     rotateAngle: 0,
 // };
 
 // const strokeObjectMax: StrokeObject = {
+<<<<<<< Updated upstream
 //     type: 'text',
+=======
+//     type: ButtonType.FullText,
+>>>>>>> Stashed changes
 //     chars: [spanMid, spanMax],
 //     rotateAngle: 43.9,
 //     border: {
@@ -264,6 +276,7 @@ import {
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Файл',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -303,6 +316,65 @@ export const FileButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.Preview />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Создать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Create />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Открыть',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Open />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Скачать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Download />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Переименовать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Rename />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Удалить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Предварительный просмотр',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Preview />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
@@ -310,6 +382,7 @@ export const FileButtonList: ButtonWithActionListProps = {
 export const FormatButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Формат',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -349,6 +422,120 @@ export const FormatButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.Line />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Текст',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Text />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Выравнивание и отступы',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Leveling />,
+            },
+            buttonList: [
+                {
+                    text: 'По левому краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextLeft />,
+                },
+                {
+                    text: 'По центру',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextCenterX />,
+                },
+                {
+                    text: 'По правому краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextRight />,
+                },
+                {
+                    text: 'По ширине',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextWidth />,
+                },
+                {
+                    text: 'Увеличить отступ',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.MoreTab />,
+                },
+                {
+                    text: 'Уменьшить отступ',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.LessTab />,
+                },
+                {
+                    text: 'По верхнему краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextUp />,
+                },
+                {
+                    text: 'По центру',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextCenterY />,
+                },
+                {
+                    text: 'По нижнему краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextDown />,
+                },
+            ]
+        },
+        {
+            secondaryButton: {
+                text: 'Интервалы между абзацами или строками',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Intervals />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Маркеры и нумерация',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Numbering />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Изображение',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Photo />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Границы и линии',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Line />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
@@ -356,6 +543,7 @@ export const FormatButtonList: ButtonWithActionListProps = {
 export const SlideButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Слайд',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -401,6 +589,74 @@ export const SlideButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.ChooseLayout />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Новый слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NewSlide />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Дублировать слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Duplication />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Удалить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Пропустить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Skip />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Переместить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Move />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Изменить фон',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.ChangeBg />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Выбрать макет',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.ChooseLayout />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
@@ -408,6 +664,7 @@ export const SlideButtonList: ButtonWithActionListProps = {
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -441,6 +698,56 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.GroupCancel />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Переместить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Remove />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Центрировать на странице',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Center />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Повернуть',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Rotate />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Сгруппировать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Group />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Отменить группировку',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.GroupCancel />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
@@ -448,6 +755,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
 export const EditButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Правка',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -499,6 +807,83 @@ export const EditButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.Copy />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Отменить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Undo />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Повторить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Redo />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Вырезать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Cut />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Копировать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Copy />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Вставить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Insert />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Выбрать все',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.SelectAll />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Удалить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Создать копию',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Copy />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
@@ -506,6 +891,7 @@ export const EditButtonList: ButtonWithActionListProps = {
 export const InsertionButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Вставка',
+<<<<<<< Updated upstream
         type: 'text',
         action: () => {},
     },
@@ -557,6 +943,127 @@ export const InsertionButtonList: ButtonWithActionListProps = {
             type: 'icon-text',
             action: () => {},
             icon: <ButtonIcons.NewSlide />,
+=======
+        type: ButtonType.FullText,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Изображение',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Photo />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Текстовое поле',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.TextField />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Аудио',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Audio />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Видео',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Video />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Фигура',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Figure />,
+            },
+            buttonList: [
+                {
+                    text: 'Круг',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Circle />,
+                },
+                {
+                    text: 'Прямоугольник',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Rectangle />,
+                },
+                {
+                    text: 'Треугольник',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Triangle />,
+                },
+            ]
+        },
+        {
+            secondaryButton: {
+                text: 'График',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Diagram />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Линия',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Line />,
+            },
+            buttonList: [
+                {
+                    text: 'Линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Line />,
+                },
+                {
+                    text: 'Стрелка',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Arrow />,
+                },
+                {
+                    text: 'Ломаная линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Broken />,
+                },
+                {
+                    text: 'Рисованная линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Draw />,
+                },
+            ]
+        },
+        {
+            secondaryButton: {
+                text: 'Новый слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NewSlide />,
+            },
+            buttonList: []
+>>>>>>> Stashed changes
         },
     ],
 };
