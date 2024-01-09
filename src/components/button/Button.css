@@ -4,7 +4,7 @@
 
 
 
-.button-block {
+.button-block{
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -12,34 +12,17 @@
     border: none;
     border-radius: 5px;
     align-items: center;
-<<<<<<< Updated upstream
-=======
-    padding: 9px 5px;
-    width: 50px;
->>>>>>> Stashed changes
 }
 
-.button-block__full {
-    display: flex;
-    flex-direction: row;
-    border: none;
-    border-radius: 5px;
-    align-items: center;
-    padding: 9px 5px;
-    width: 100%;
-}
-
-.button-block__button {
+.button-block__button{
     background-color: transparent;
     border: none;
     padding: 0;
 }
 
 
-.button-block:hover {
-    background-color: #E8E8E8;
+.button-block:hover{
+    background-color:#E8E8E8;
 }
 
-.button-block__full:hover {
-    background-color: #E8E8E8;
-}
+

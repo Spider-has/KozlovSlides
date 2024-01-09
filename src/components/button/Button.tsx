@@ -46,18 +46,15 @@ const AllButtons = () => {
 };
 
 const Button = (props: ButtonProps) => {
-    console.log(props.type, props.type >= 4, props.text)
     return (
-        <div className={props.type >= 4 ? "button-block__full" : 'button-block'} onClick={props.action}>
+        <div className="button-block" onClick={props.action}>
             {(props.type == ButtonType.Icon ||
-                props.type == ButtonType.IconText) || (props.type == ButtonType.FullIcon ||
-                    props.type == ButtonType.FullIconText) &&
+                props.type == ButtonType.IconText) &&
                 props.icon}
             {(props.type == ButtonType.Text ||
-                props.type == ButtonType.IconText) || (props.type == ButtonType.FullText ||
-                    props.type == ButtonType.FullIconText) && (
-                    <button className="button-block__button" id={props.text}>{props.text}</button>
-                )}
+                props.type == ButtonType.IconText) && (
+                <button className="button-block__button">{props.text}</button>
+            )}
         </div>
     );
 };
