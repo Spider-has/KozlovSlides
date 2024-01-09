@@ -75,6 +75,9 @@ enum ButtonType {
     Text,
     IconText,
     Icon,
+    FullText,
+    FullIconText,
+    FullIcon,
 }
 type ButtonProps = {
     text?: string;
@@ -87,7 +90,11 @@ type ButtonProps = {
 
 type ButtonWithActionListProps = {
     mainButton: ButtonProps;
-    buttonList: ButtonProps[];
+    buttonList:
+    {
+        secondaryButton: ButtonProps;
+        buttonList: ButtonProps[]
+    }[];
 };
 
 export type {

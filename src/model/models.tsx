@@ -261,49 +261,66 @@ import {
 //     selectedSlides: ['4', '2'],
 //     viewMode: 'edit',
 // };
-
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Файл',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Создать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Create />,
+            secondaryButton: {
+                text: 'Создать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Create />,
+            },
+            buttonList: []
         },
         {
-            text: 'Открыть',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Open />,
+            secondaryButton: {
+                text: 'Открыть',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Open />,
+            },
+            buttonList: []
         },
         {
-            text: 'Скачать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Download />,
+            secondaryButton: {
+                text: 'Скачать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Download />,
+            },
+            buttonList: []
         },
         {
-            text: 'Переименовать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Rename />,
+            secondaryButton: {
+                text: 'Переименовать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Rename />,
+            },
+            buttonList: []
         },
         {
-            text: 'Удалить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Delete />,
+            secondaryButton: {
+                text: 'Удалить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
         },
         {
-            text: 'Предварительный просмотр',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Preview />,
+            secondaryButton: {
+                text: 'Предварительный просмотр',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Preview />,
+            },
+            buttonList: []
         },
     ],
 };
@@ -311,45 +328,118 @@ export const FileButtonList: ButtonWithActionListProps = {
 export const FormatButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Формат',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Текст',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Text />,
+            secondaryButton: {
+                text: 'Текст',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Text />,
+            },
+            buttonList: []
         },
         {
-            text: 'Выравнивание и отступы',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Leveling />,
+            secondaryButton: {
+                text: 'Выравнивание и отступы',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Leveling />,
+            },
+            buttonList: [
+                {
+                    text: 'По левому краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextLeft />,
+                },
+                {
+                    text: 'По центру',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextCenterX />,
+                },
+                {
+                    text: 'По правому краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextRight />,
+                },
+                {
+                    text: 'По ширине',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextWidth />,
+                },
+                {
+                    text: 'Увеличить отступ',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.MoreTab />,
+                },
+                {
+                    text: 'Уменьшить отступ',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.LessTab />,
+                },
+                {
+                    text: 'По верхнему краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextUp />,
+                },
+                {
+                    text: 'По центру',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextCenterY />,
+                },
+                {
+                    text: 'По нижнему краю',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.TextDown />,
+                },
+            ]
         },
         {
-            text: 'Интервалы между абзацами или строками',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Intervals />,
+            secondaryButton: {
+                text: 'Интервалы между абзацами или строками',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Intervals />,
+            },
+            buttonList: []
         },
         {
-            text: 'Маркеры и нумерация',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Numbering />,
+            secondaryButton: {
+                text: 'Маркеры и нумерация',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Numbering />,
+            },
+            buttonList: []
         },
         {
-            text: 'Изображение',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Photo />,
+            secondaryButton: {
+                text: 'Изображение',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Photo />,
+            },
+            buttonList: []
         },
         {
-            text: 'Границы и линии',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Line />,
+            secondaryButton: {
+                text: 'Границы и линии',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Line />,
+            },
+            buttonList: []
         },
     ],
 };
@@ -357,51 +447,72 @@ export const FormatButtonList: ButtonWithActionListProps = {
 export const SlideButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Слайд',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Новый слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.NewSlide />,
+            secondaryButton: {
+                text: 'Новый слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NewSlide />,
+            },
+            buttonList: []
         },
         {
-            text: 'Дублировать слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Duplication />,
+            secondaryButton: {
+                text: 'Дублировать слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Duplication />,
+            },
+            buttonList: []
         },
         {
-            text: 'Удалить слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Delete />,
+            secondaryButton: {
+                text: 'Удалить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
         },
         {
-            text: 'Пропустить слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Skip />,
+            secondaryButton: {
+                text: 'Пропустить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Skip />,
+            },
+            buttonList: []
         },
         {
-            text: 'Переместить слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Move />,
+            secondaryButton: {
+                text: 'Переместить слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Move />,
+            },
+            buttonList: []
         },
         {
-            text: 'Изменить фон',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.ChangeBg />,
+            secondaryButton: {
+                text: 'Изменить фон',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.ChangeBg />,
+            },
+            buttonList: []
         },
         {
-            text: 'Выбрать макет',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.ChooseLayout />,
+            secondaryButton: {
+                text: 'Выбрать макет',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.ChooseLayout />,
+            },
+            buttonList: []
         },
     ],
 };
@@ -409,39 +520,54 @@ export const SlideButtonList: ButtonWithActionListProps = {
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Переместить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Remove />,
+            secondaryButton: {
+                text: 'Переместить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Remove />,
+            },
+            buttonList: []
         },
         {
-            text: 'Центрировать на странице',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Center />,
+            secondaryButton: {
+                text: 'Центрировать на странице',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Center />,
+            },
+            buttonList: []
         },
         {
-            text: 'Повернуть',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Rotate />,
+            secondaryButton: {
+                text: 'Повернуть',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Rotate />,
+            },
+            buttonList: []
         },
         {
-            text: 'Сгруппировать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Group />,
+            secondaryButton: {
+                text: 'Сгруппировать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Group />,
+            },
+            buttonList: []
         },
         {
-            text: 'Отменить группировку',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.GroupCancel />,
+            secondaryButton: {
+                text: 'Отменить группировку',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.GroupCancel />,
+            },
+            buttonList: []
         },
     ],
 };
@@ -449,57 +575,81 @@ export const ObjectButtonList: ButtonWithActionListProps = {
 export const EditButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Правка',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Отменить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Undo />,
+            secondaryButton: {
+                text: 'Отменить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Undo />,
+            },
+            buttonList: []
         },
         {
-            text: 'Повторить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Redo />,
+            secondaryButton: {
+                text: 'Повторить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Redo />,
+            },
+            buttonList: []
         },
         {
-            text: 'Вырезать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Cut />,
+            secondaryButton: {
+                text: 'Вырезать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Cut />,
+            },
+            buttonList: []
         },
         {
-            text: 'Копировать',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Copy />,
+            secondaryButton: {
+                text: 'Копировать',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Copy />,
+            },
+            buttonList: []
         },
         {
-            text: 'Вставить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Insert />,
+            secondaryButton: {
+                text: 'Вставить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Insert />,
+            },
+            buttonList: []
         },
         {
-            text: 'Выбрать все',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.SelectAll />,
+            secondaryButton: {
+                text: 'Выбрать все',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.SelectAll />,
+            },
+            buttonList: []
         },
         {
-            text: 'Удалить',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Delete />,
+            secondaryButton: {
+                text: 'Удалить',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Delete />,
+            },
+            buttonList: []
         },
         {
-            text: 'Создать копию',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Copy />,
+            secondaryButton: {
+                text: 'Создать копию',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Copy />,
+            },
+            buttonList: []
         },
     ],
 };
@@ -507,57 +657,125 @@ export const EditButtonList: ButtonWithActionListProps = {
 export const InsertionButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Вставка',
-        type: ButtonType.Text,
-        action: () => {},
+        type: ButtonType.FullText,
+        action: () => { },
     },
     buttonList: [
         {
-            text: 'Изображение',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Photo />,
+            secondaryButton: {
+                text: 'Изображение',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Photo />,
+            },
+            buttonList: []
         },
         {
-            text: 'Текстовое поле',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.TextField />,
+            secondaryButton: {
+                text: 'Текстовое поле',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.TextField />,
+            },
+            buttonList: []
         },
         {
-            text: 'Аудио',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Audio />,
+            secondaryButton: {
+                text: 'Аудио',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Audio />,
+            },
+            buttonList: []
         },
         {
-            text: 'Видео',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Video />,
+            secondaryButton: {
+                text: 'Видео',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Video />,
+            },
+            buttonList: []
         },
         {
-            text: 'Фигура',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Figure />,
+            secondaryButton: {
+                text: 'Фигура',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Figure />,
+            },
+            buttonList: [
+                {
+                    text: 'Круг',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Circle />,
+                },
+                {
+                    text: 'Прямоугольник',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Rectangle />,
+                },
+                {
+                    text: 'Треугольник',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Triangle />,
+                },
+            ]
         },
         {
-            text: 'График',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Diagram />,
+            secondaryButton: {
+                text: 'График',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Diagram />,
+            },
+            buttonList: []
         },
         {
-            text: 'Линия',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.Line />,
+            secondaryButton: {
+                text: 'Линия',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Line />,
+            },
+            buttonList: [
+                {
+                    text: 'Линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Line />,
+                },
+                {
+                    text: 'Стрелка',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Arrow />,
+                },
+                {
+                    text: 'Ломаная линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Broken />,
+                },
+                {
+                    text: 'Рисованная линия',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Draw />,
+                },
+            ]
         },
         {
-            text: 'Новый слайд',
-            type: ButtonType.IconText,
-            action: () => {},
-            icon: <ButtonIcons.NewSlide />,
+            secondaryButton: {
+                text: 'Новый слайд',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NewSlide />,
+            },
+            buttonList: []
         },
     ],
 };

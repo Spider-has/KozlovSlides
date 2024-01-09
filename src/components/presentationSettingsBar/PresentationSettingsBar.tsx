@@ -163,15 +163,33 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
             {visible && (
                 <div ref={ButtonListBar} className="button-list__list">
                     {buttonList.map((button, index) => (
-                        <Button
-                            key={index}
-                            text={button.text}
-                            type={button.type}
-                            icon={button.icon}
-                            action={button.action || null}
-                            iconSize={button.iconSize || undefined}
-                        />
-                    ))}
+                        <div key={index} className='button-list__list__vertical-area'>
+                            {
+                                <div ref={ButtonListBar} className="button-list__list__vertical">
+                                    {button.buttonList.map((button, index) => (
+                                        <Button
+                                            key={index}
+                                            text={button.text}
+                                            type={button.type}
+                                            icon={button.icon}
+                                            action={button.action || null}
+                                            iconSize={button.iconSize || undefined}
+                                        />
+                                    ))
+                                    }
+                                </div>
+                            }
+                            <Button
+                                key={index}
+                                text={button.secondaryButton.text}
+                                type={button.secondaryButton.type}
+                                icon={button.secondaryButton.icon}
+                                action={button.secondaryButton.action || null}
+                                iconSize={button.secondaryButton.iconSize || undefined}
+                            />
+                        </div>
+                    ))
+                    }
                 </div>
             )}
         </div>
@@ -186,7 +204,7 @@ const MainSettingsBar = () => {
         InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
-    SlideButtonList.buttonList[0].action = () => {
+    SlideButtonList.buttonList[0].secondaryButton.action = () => {
         createAddSlideAction();
         console.log('create');
     };
@@ -238,72 +256,72 @@ const Title = () => {
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.NewSlide />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className="create-line"></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Undo />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Redo />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.CopyFormatting />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className="create-line"></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Cursor />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.TextField />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Photo />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Figure />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Line />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className="create-line"></div>
                     <Button
                         text={'Фон'}
                         type={ButtonType.Text}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className="create-line"></div>
                     <Button
                         text={'Макет'}
                         type={ButtonType.Text}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className="create-line"></div>
                     <Button
                         text={'Тема'}
                         type={ButtonType.Text}
-                        action={() => {}}
+                        action={() => { }}
                     />
                 </div>
             </div>

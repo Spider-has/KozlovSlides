@@ -3,8 +3,13 @@
 }
 
 
+* {
+    margin: 0;
+    padding: 0;
+    color: #444746;
+}
 
-.button-block{
+.button-block {
     display: flex;
     flex-direction: row;
     border: none;
@@ -13,16 +18,28 @@
     padding: 9px 5px;
 }
 
-.button-block__button{
+.button-block__full {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    align-items: center;
+    padding: 9px 0px;
+    width: 100%;
+}
+
+.button-block__button {
     background-color: transparent;
     border: none;
-    padding: 0;
+    padding: 0px;
     margin: 0 5px;
+    color: #444746;
+}
+
+.button-block__full:hover {
+    background-color: #FFC527;
 }
 
 
-.button-block:hover{
-    background-color:#E8E8E8;
+.button-block:hover {
+    background-color: #FFC527;
 }
-
-

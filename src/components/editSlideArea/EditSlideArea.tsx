@@ -245,7 +245,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
             }}
             ref={ref}
             id={`object_${elem.id}`}
-            // onSelect={'refurn false'}
+        // onSelect={'refurn false'}
         >
             {Obj}
             {props.isSelected && <SelectedElementMode element={{ ...elem }} parentRef={ref} />}

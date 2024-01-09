@@ -1,4 +1,4 @@
-.editSlideArea{
+.editSlideArea {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,8 +11,7 @@
 
 }
 
-
-.mainEditSlideSpace{
+.mainEditSlideSpace {
     display: block;
     background-color: #FFFFFF;
     position: relative;
@@ -21,17 +20,17 @@
     height: 450px;
 }
 
-.svgWrapper{
+.svgWrapper {
     display: flex;
     position: absolute;
 }
 
-.svgWrapperSelected{
+.svgWrapperSelected {
     outline: 3px solid rgb(124 124 250);
     cursor: crosshair;
 }
 
-.scaleSquare{
+.scaleSquare {
     position: absolute;
     width: 7px;
     height: 7px;
@@ -40,7 +39,7 @@
 }
 
 
-.multipleSelectionBlock{
+.multipleSelectionBlock {
     position: absolute;
     display: none;
     background-color: rgb(124 124 250 / 50%);
