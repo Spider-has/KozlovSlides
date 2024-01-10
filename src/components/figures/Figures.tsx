@@ -57,13 +57,10 @@ const Triangle = (props: { elem: TriangleElement; svgRef: RefObject<HTMLDivEleme
                     className={`${styles.usualObject}`}
                     width={'100%'}
                     height={'100%'}
-                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${
-                        (elem.properties.point1.y * elem.size.height) / 100
-                    } L ${(elem.properties.point2.x * elem.size.width) / 100} ${
-                        (elem.properties.point2.y * elem.size.height) / 100
-                    } L ${(elem.properties.point3.x * elem.size.width) / 100} ${
-                        (elem.properties.point3.y * elem.size.height) / 100
-                    }`}
+                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${(elem.properties.point1.y * elem.size.height) / 100
+                        } L ${(elem.properties.point2.x * elem.size.width) / 100} ${(elem.properties.point2.y * elem.size.height) / 100
+                        } L ${(elem.properties.point3.x * elem.size.width) / 100} ${(elem.properties.point3.y * elem.size.height) / 100
+                        }`}
                     fill={elem.properties.color ? elem.properties.color : 'black'}
                     stroke={elem.properties.border?.color}
                 />

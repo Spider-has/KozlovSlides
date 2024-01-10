@@ -1,4 +1,4 @@
-.lmega-class {
+.lmegaClass {
     color: #FFFFFF;
 }
 
@@ -9,7 +9,7 @@
     color: #444746;
 }
 
-.button-block {
+.buttonBlock {
     display: flex;
     flex-direction: row;
     border: none;
@@ -18,7 +18,7 @@
     padding: 9px 5px;
 }
 
-.button-block__full {
+.buttonBlockFull {
     display: flex;
     flex-direction: row;
     border-radius: 5px;
@@ -27,7 +27,7 @@
     width: 100%;
 }
 
-.button-block__button {
+.buttonBlockButton {
     background-color: transparent;
     border: none;
     padding: 0px;
@@ -35,11 +35,11 @@
     color: #444746;
 }
 
-.button-block__full:hover {
+.buttonBlockFull:hover {
     background-color: #FFC527;
 }
 
 
-.button-block:hover {
+.buttonBlock:hover {
     background-color: #FFC527;
 }

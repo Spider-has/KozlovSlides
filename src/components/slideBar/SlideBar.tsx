@@ -1,13 +1,13 @@
 import { Id, Slide } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
 import { ActiveSlidePreviewArea } from '../editSlideArea/SlideAreaPreviewCopy';
-import './SlideBar.css';
+import styles from './SlideBar.module.css';
 import { useEffect, useState } from 'react';
 
 const SlidePreview = (props: { slide: Slide }) => {
     return (
-        <div className="slide-preview ">
-            <div className="slide-preview__main-area">
+        <div className={styles.slidePreview}>
+            <div className={styles.slidePreviewMainArea}>
                 <ActiveSlidePreviewArea slide={props.slide} />
             </div>
         </div>
@@ -48,11 +48,11 @@ const SlidePreviewArea = (props: {
     const { createChangeSelectedSlidesAction } = useAppActions();
     const selectedSlides = [...props.selectedSlides];
     const selectedSlideClass = props.isSelected
-        ? 'slide-preview-area__preview-area_selected'
+        ? styles.slidePreviewAreaPreviewAreaSelected
         : '';
     return (
         <div
-            className="slide-preview-area"
+            className={styles.slidePreviewArea}
             onClick={() => {
                 if (!props.isSelected && !props.isShifted) {
                     createChangeSelectedSlidesAction([props.slide.id]);
@@ -68,9 +68,9 @@ const SlidePreviewArea = (props: {
                 console.log(selectedSlides);
             }}
         >
-            <div className="slide-preview-area__id-area">{props.id}</div>
+            <div className={styles.slidePreviewAreaIdArea}>{props.id}</div>
             <div
-                className={`slide-preview-area__preview-area ${selectedSlideClass}`}
+                className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}
             >
                 <SlidePreview slide={props.slide} />
             </div>
@@ -103,7 +103,7 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
         );
     });
 
-    return <div className="slide-preview-list">{slidesPreviewList}</div>;
+    return <div className={styles.slidePreviewList}>{slidesPreviewList}</div>;
 };
 
 export { SlidePreviewList };

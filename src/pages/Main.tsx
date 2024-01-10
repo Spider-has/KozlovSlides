@@ -13,7 +13,7 @@ import './Main.css';
 const MainPage = () => {
     console.log('rendered!');
     return (
-        <div className="main-container">
+        <div className="mainContainer">
             <Title />
             {/*<FileSettingsPanel />*/}
             <SlidesArea />

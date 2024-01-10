@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import './PresentationSettingsBar.css';
 import { Button } from '../button/Button';
 import { ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
@@ -13,6 +12,7 @@ import {
 import * as ButtonIcon from '../button/icons/ButtonIcons';
 import { Logo } from '../../logo';
 import { useAppActions } from '../../store/hooks';
+import styles from './PresentationSettingsBar.module.css';
 
 const InputText = () => {
     const [name, setName] = useState('Презентация без названия');
@@ -23,7 +23,7 @@ const InputText = () => {
         if (inputRef.current) {
             inputRef.current.addEventListener('keydown', enterDownHandler);
             document.addEventListener('click', closeOnClick);
-            inputRef.current.classList.add('input-text__input_active');
+            inputRef.current.classList.add(styles.inputTextInputActive);
             inputRef.current.focus();
         }
     };
@@ -31,7 +31,7 @@ const InputText = () => {
     const enterDownHandler = (event: { code: string }) => {
         if (event.code == 'Enter') {
             if (inputRef.current) {
-                inputRef.current.classList.remove('input-text__input_active');
+                inputRef.current.classList.remove(styles.inputTextInputActive);
                 inputRef.current.blur();
                 if (inputRef.current.value.length) {
                     setName(inputRef.current.value);
@@ -58,14 +58,14 @@ const InputText = () => {
 
     const closeOnClick = (event: { target: Node | null }) => {
         if (
-            inputRef.current?.classList.contains('input-text__input_active') &&
+            inputRef.current?.classList.contains(styles.inputTextInputActive) &&
             !(
                 inputRef.current?.contains(event.target) ||
                 spanRef.current?.contains(event.target)
             ) &&
             inputRef.current
         ) {
-            inputRef.current.classList.remove('input-text__input_active');
+            inputRef.current.classList.remove(styles.inputTextInputActive);
             inputRef.current.blur();
             document.removeEventListener('click', closeOnClick);
         }
@@ -75,16 +75,16 @@ const InputText = () => {
         console.log('Привет, Иван!');
     }, []);
     return (
-        <div className="input-text">
+        <div className={styles.inputText}>
             <span
                 onClick={handleClick}
-                className="input-text__text"
+                className={styles.inputTextText}
                 ref={spanRef}
             >
                 {name}
             </span>
             <input
-                className="input-text__input"
+                className={styles.inputTextInput}
                 type="text"
                 ref={inputRef}
                 placeholder={name}
@@ -152,7 +152,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     );
 
     return (
-        <div className="button-list">
+        <div className={styles.buttonList}>
             <Button
                 text={mainButton.text}
                 type={mainButton.type}
@@ -161,11 +161,11 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                 iconSize={mainButton.iconSize || undefined}
             />
             {visible && (
-                <div ref={ButtonListBar} className="button-list__list">
+                <div ref={ButtonListBar} className={styles.buttonListList}>
                     {buttonList.map((button, index) => (
-                        <div key={index} className='button-list__list__vertical-area'>
+                        <div key={index} className={styles.buttonListListVerticalArea}>
                             {
-                                <div ref={ButtonListBar} className="button-list__list__vertical">
+                                <div ref={ButtonListBar} className={styles.buttonListListVertical}>
                                     {button.buttonList.map((button, index) => (
                                         <Button
                                             key={index}
@@ -195,16 +195,17 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         </div>
     );
 };
+
 const Colors = () => {
     const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Olive", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse"], ["LawnGreen", "Lime", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "Blue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
     return (
-        <div className='color-palitra'>
+        <div className={styles.colorPalitra}>
             {
                 colorList.map((elem, i, index) => (
-                    <div className='color-palitra-row' key={index[i][0]}>
+                    <div className={styles.colorPalitraRow} key={index[i][0]}>
                         {
                             elem.map((elem, i, index) => (
-                                <button key={index[i]} className='color-palitra-row-element' style={{ backgroundColor: elem }}>
+                                <button key={index[i]} className={styles.colorPalitraRowElement} style={{ backgroundColor: elem }}>
                                 </button>
                             ))
                         }
@@ -229,7 +230,7 @@ const MainSettingsBar = () => {
     };
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
-        <div className="docs-menubars">
+        <div className={styles.docsMenubars}>
             <ButtonWithActionList
                 mainButton={FileButtonSection.mainButton}
                 buttonList={FileButtonSection.buttonList}
@@ -260,18 +261,18 @@ const MainSettingsBar = () => {
 
 const Title = () => {
     return (
-        <header className="docs-bars">
-            <div className="docs-titlebar-container">
-                <div className="logo">
+        <header className={styles.docsBars}>
+            <div className={styles.docsTitlebarContainer}>
+                <div className={styles.logo}>
                     <Logo />
                 </div>
-                <div className="docs-bars__activity-panel">
+                <div className={styles.docsBarsActivityPanel}>
                     <InputText />
                     <MainSettingsBar />
                 </div>
             </div>
-            <div className="docs-primary-toolbars">
-                <div className="docs-primary-toolbars__buttons-place">
+            <div className={styles.docsPrimaryToolbars}>
+                <div className={styles.docsPrimaryToolbarsButtonsPlace}>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.NewSlide />}
@@ -282,7 +283,7 @@ const Title = () => {
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
                         action={() => { }}
                     />
-                    <div className="create-line"></div>
+                    <div className={styles.createLine}></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Undo />}
@@ -298,7 +299,7 @@ const Title = () => {
                         icon={<ButtonIcon.CopyFormatting />}
                         action={() => { }}
                     />
-                    <div className="create-line"></div>
+                    <div className={styles.createLine}></div>
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Cursor />}
@@ -324,19 +325,19 @@ const Title = () => {
                         icon={<ButtonIcon.Line />}
                         action={() => { }}
                     />
-                    <div className="create-line"></div>
+                    <div className={styles.createLine}></div>
                     <Button
                         text={'Фон'}
                         type={ButtonType.Text}
                         action={() => { }}
                     />
-                    <div className="create-line"></div>
+                    <div className={styles.createLine}></div>
                     <Button
                         text={'Макет'}
                         type={ButtonType.Text}
                         action={() => { }}
                     />
-                    <div className="create-line"></div>
+                    <div className={styles.createLine}></div>
                     <Button
                         text={'Тема'}
                         type={ButtonType.Text}

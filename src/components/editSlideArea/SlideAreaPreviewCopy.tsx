@@ -60,7 +60,7 @@ const SlideObject = (props: { elements: SlideElement }) => {
 
     return (
         <div
-            className="svg-wrapper"
+            className={styles.svgWrapper}
             style={{
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
@@ -75,7 +75,7 @@ const Rectangle = (props: { elem: RectangleElement }) => {
     const elem = { ...props.elem };
     return (
         <svg
-            className="svg-space"
+            className={styles.svgSpace}
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             style={{

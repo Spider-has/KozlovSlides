@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.input-text {
+.inputText {
     display: block;
     position: relative;
     padding: 9px 2px 1px 5px;
@@ -10,7 +10,7 @@
     width: auto;
 }
 
-.input-text__input2 {
+.inputTextInput2 {
     display: block;
     font-family: 'Times New Roman', Times, serif;
     max-width: 90%;
@@ -22,15 +22,15 @@
 }
 
 
-.input-text__input2:hover {
+.inputTextInput2:hover {
     outline: 1px solid gray;
 }
 
-.input-text__input2:focus {
+.inputTextInput2:focus {
     outline: 1px solid blue;
 }
 
-.input-text__text {
+.inputTextText {
     display: block;
     font-family: 'Times New Roman', Times, serif;
     font-size: 18px;
@@ -45,11 +45,11 @@
     box-shadow: inset 1px 1px 0 rgba(0 0 0 .1), inset 0 -1px 0 rgba(0 0 0 .0);
 }
 
-.input-text__text:hover {
+.inputTextText:hover {
     outline: 1px solid gray;
 }
 
-.input-text__input {
+.inputTextInput {
     display: none;
     font-family: 'Times New Roman', Times, serif;
     position: absolute;
@@ -66,37 +66,37 @@
     border: none;
 }
 
-.input-text__input:focus {
+.inputTextInput:focus {
     outline: 1px solid blue;
 }
 
-.input-text__input_active {
+.inputTextInputActive {
     display: block;
 }
 
-.single-line {
+.singleLine {
     font-size: 18px;
 }
 
-.docs-bars {
+.docsBars {
     height: 113.8px;
     display: flex;
     flex-direction: column;
 }
 
-.docs-titlebar-container {
+.docsTitlebarContainer {
     display: flex;
     flex-direction: row;
 
     justify-content: center;
 }
 
-.button-list__list__vertical-area {
+.buttonListListVerticalArea {
     display: flex;
     position: relative;
 }
 
-.button-list__list__vertical {
+.buttonListListVertical {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -109,25 +109,25 @@
     z-index: 1;
 }
 
-.docs-menubars {
+.docsMenubars {
     display: flex;
     flex-direction: row;
     height: 33px;
 }
 
-.color-palitra {
+.colorPalitra {
     display: flex;
     flex-direction: column;
 
 }
 
-.color-palitra-row {
+.colorPalitraRow {
     display: flex;
     flex-direction: row;
 
 }
 
-.color-palitra-row-element {
+.colorPalitraRowElement {
     display: flex;
     padding: 5px;
     height: 10px;
@@ -135,7 +135,7 @@
     border-radius: 5px;
 }
 
-.docs-primary-toolbars {
+.docsPrimaryToolbars {
     height: 40px;
     display: flex;
     flex-direction: row;
@@ -145,11 +145,11 @@
     border-color: #EDF2FA;
 }
 
-.docs-bars__logo-area {
+.docsBarsLogoArea {
     width: 50px;
 }
 
-.docs-primary-toolbars__buttons-place {
+.docsPrimaryToolbarsButtonsPlace {
     display: flex;
     flex-direction: row;
     height: 26px;
@@ -157,7 +157,7 @@
     width: 100%;
 }
 
-.create-line {
+.createLine {
     content: " ";
     background: #C7C7C7;
     width: 2px;
@@ -165,13 +165,13 @@
     margin: 0 5px;
 }
 
-.docs-bars__activity-panel {
+.docsBarsActivityPanel {
     display: flex;
     width: 100%;
     flex-direction: column;
 }
 
-.docs-titlebar {
+.docsTitlebar {
     padding-top: 8px;
     width: 926px;
     height: 24px;
@@ -184,14 +184,14 @@
     height: 36px;
 }
 
-.button-list {
+.buttonList {
     display: flex;
     position: relative;
     height: 23px;
     padding: 2px 7px;
 }
 
-.button-list__list {
+.buttonListList {
     display: flex;
     flex-direction: column;
     position: absolute;

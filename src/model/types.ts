@@ -93,7 +93,7 @@ type ButtonWithActionListProps = {
     buttonList:
     {
         secondaryButton: ButtonProps;
-        buttonList: ButtonProps[]
+        buttonList: ButtonProps[];
     }[];
 };
 
