@@ -122,8 +122,7 @@
 
 .colorPalitraRow {
     display: flex;
-    flex-direction: row;
-
+    flex-flow: row wrap;
 }
 
 .colorPalitraRowElement {
@@ -195,10 +194,22 @@
     flex-direction: column;
     position: absolute;
     top: 28px;
-    padding: 10px 2px;
+    padding: 10px 5px;
     background-color: #FFFFFF;
     box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
     border-radius: 1px 5px 5px;
     min-width: 322px;
     z-index: 1;
+}
+
+
+.colorPanel {
+    display: flex;
+    flex-flow: row wrap;
+    width: 200px;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid black;
+    z-index: 100;
+    background-color: white;
 }

@@ -258,24 +258,38 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
 
 const Colors = () => {
     const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Olive", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse"], ["LawnGreen", "Lime", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "Blue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
+    const [visible, setVisible] = useState(false);
+    const colorRef = useRef(null);
+    useClickOut(
+        () => {
+            setVisible(!visible);
+        },
+        visible,
+        colorRef,
+    );
     return (
         <div className={styles.colorPalitra}>
-            {
-                colorList.map((elem, i, index) => (
-                    <div className={styles.colorPalitraRow} key={index[i][0]}>
-                        {
-                            elem.map((elem, i, index) => (
-                                <button key={index[i]} className={styles.colorPalitraRowElement} style={{ backgroundColor: elem }}>
-                                </button>
-                            ))
-                        }
-                    </div>
-                ))
+            <Button type={ButtonType.Icon} icon={<ButtonIcon.FillIcon />} action={() => { setVisible(true) }} />
+            {visible &&
+                <div ref={colorRef} className={styles.colorPanel}>
+                    {
+                        colorList.map((elem, i, index) => (
+                            <div className={styles.colorPalitraRow} key={index[i][0]}>
+                                {
+                                    elem.map((elem, i, index) => (
+                                        <button key={index[i]} className={styles.colorPalitraRowElement} style={{ backgroundColor: elem }}>
+                                        </button>
+                                    ))
+                                }
+                            </div>
+                        ))
+                    }
+                </div>
             }
         </div>
     )
 };
-Colors;
+
 const MainSettingsBar = () => {
     const { createAddSlideAction } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
@@ -403,7 +417,7 @@ const Title = () => {
                         type={ButtonType.Text}
                         action={() => { }}
                     />
-                    <Colors></Colors>
+                    <Colors />
                 </div>
             </div>
         </header>

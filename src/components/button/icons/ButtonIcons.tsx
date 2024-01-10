@@ -1053,4 +1053,17 @@ const LittleUp = () => (
     </svg>
 
 );
+
 export { LittleUp };
+
+const FillIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.51333 12.5212L11.9996 8.69532H3L7.51333 12.5212Z" fill="#2D2D2D" />
+            <path d="M4.49982 2L7.51371 4.75507M11.9996 8.69532L7.51333 12.5212L3 8.69532M11.9996 8.69532L7.51371 4.75507M11.9996 8.69532H3M3 8.69532L7.51371 4.75507" stroke="#2D2D2D" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12.3719 10.4995C10.634 11.3177 10.4536 13.4994 12.3719 13.4994C14.6744 13.4994 14.4065 11.3177 12.3719 10.4995Z" fill="#2D2D2D" />
+        </svg>
+    )
+}
+
+export { FillIcon }
