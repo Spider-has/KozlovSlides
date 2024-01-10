@@ -464,7 +464,7 @@ export const FormatButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Интервалы между абзацами или строками',
+                text: 'Интервалы',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.Intervals />,
@@ -573,7 +573,42 @@ export const SlideButtonList: ButtonWithActionListProps = {
         },
     ],
 };
-
+export const FigureButtonList: ButtonWithActionListProps = {
+    mainButton: {
+        type: ButtonType.Icon,
+        icon: <ButtonIcons.Figure></ButtonIcons.Figure>,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Круг',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Circle />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Прямоугольник',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Rectangle />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Треугольник',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.Triangle />,
+            },
+            buttonList: []
+        },
+    ],
+};
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',

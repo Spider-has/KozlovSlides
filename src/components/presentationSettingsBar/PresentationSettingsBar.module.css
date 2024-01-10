@@ -27,7 +27,7 @@
 }
 
 .inputTextInput2:focus {
-    outline: 1px solid blue;
+    outline: 1px solid #FFC527;
 }
 
 .inputTextText {
@@ -67,7 +67,7 @@
 }
 
 .inputTextInput:focus {
-    outline: 1px solid blue;
+    outline: 1px solid #FFC527;
 }
 
 .inputTextInputActive {
@@ -114,6 +114,16 @@
     height: 33px;
 }
 
+.newColorArea {
+    display: flex;
+    flex-direction: column;
+}
+
+.newColorButtonsArea {
+    display: flex;
+    flex-direction: row;
+}
+
 .colorPalitra {
     display: flex;
     flex-direction: column;
@@ -125,12 +135,40 @@
     flex-flow: row wrap;
 }
 
+.colorText {
+    margin-bottom: 5px;
+}
+
+.noColorButton {
+    display: flex;
+    width: 170%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border-color: #444746;
+    border: solid 1px;
+    margin-top: 5px;
+}
+
+.noColorButton:hover {
+
+    background-color: #FFC527;
+}
+
 .colorPalitraRowElement {
     display: flex;
     padding: 5px;
-    height: 10px;
-    width: 10px;
-    border-radius: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border-width: 1px;
+    border-color: #444746;
+    margin: 1px;
+}
+
+.noColorButtonArea {
+    margin-left: 10px;
+    width: 60%;
 }
 
 .docsPrimaryToolbars {

@@ -1058,12 +1058,43 @@ export { LittleUp };
 
 const FillIcon = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M7.51333 12.5212L11.9996 8.69532H3L7.51333 12.5212Z" fill="#2D2D2D" />
-            <path d="M4.49982 2L7.51371 4.75507M11.9996 8.69532L7.51333 12.5212L3 8.69532M11.9996 8.69532L7.51371 4.75507M11.9996 8.69532H3M3 8.69532L7.51371 4.75507" stroke="#2D2D2D" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12.3719 10.4995C10.634 11.3177 10.4536 13.4994 12.3719 13.4994C14.6744 13.4994 14.4065 11.3177 12.3719 10.4995Z" fill="#2D2D2D" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path d="M8.64166 16.1515L14.2495 11.3691H3L8.64166 16.1515Z" fill="#2D2D2D" />
+            <path d="M4.87478 3L8.64214 6.44384M8.64214 6.44384L14.2495 11.3692M8.64214 6.44384L3 11.3692M14.2495 11.3692L8.64166 16.1515L3 11.3692M14.2495 11.3692H3" stroke="#2D2D2D" strokeWidth="1.25" />
+            <path d="M14.7149 13.6245C12.5425 14.6473 12.317 17.3744 14.7149 17.3744C17.593 17.3744 17.2581 14.6473 14.7149 13.6245Z" fill="#2D2D2D" />
         </svg>
     )
 }
 
 export { FillIcon }
+
+const NewColor = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M11 9V6H9V9H6V11H9V14H11V11H14V9H11Z" fill="#444746" />
+            <circle cx="10" cy="10" r="6.25" stroke="#444746" strokeWidth="1.5" />
+        </svg>
+    )
+}
+
+export { NewColor }
+
+const Pipka = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" viewBox="0 0 20 20" fill="none">
+            <path d="M3 17.025V13.3872L9.8686 6.5186L8.8561 5.50611L9.9442 4.41891L11.2942 5.7689L13.8381 3.225C13.9881 3.075 14.1816 3 14.4186 3C14.6562 3 14.85 3.075 15 3.225L16.8189 5.0439C16.9689 5.1939 17.0439 5.3814 17.0439 5.6064C17.0439 5.8314 16.9689 6.0189 16.8189 6.1689L14.275 8.71281L15.625 10.0628L14.5378 11.15L13.5253 10.1375L6.6378 17.025H3ZM4.575 15.45H6.0186L12.4003 9.06921L10.9558 7.62471L4.575 14.0064V15.45ZM13.1689 7.58781L15.1503 5.6064L14.4186 4.8747L12.4372 6.8561L13.1689 7.58781Z" fill="#444746" />
+        </svg>
+    )
+}
+
+export { Pipka }
+
+const NoColor = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M14.73 12C14.73 8.67 9.73 3 9.73 3C9.73 3 8.88 3.97 7.88 5.33L14.71 12.16L14.73 12ZM4.28 4.27L3 5.55L5.89 8.44C5.22 9.69 4.73 10.96 4.73 12C4.73 14.76 6.97 17 9.73 17C11.04 17 12.22 16.48 13.12 15.66L15.46 18L16.73 16.73L4.28 4.27Z" fill="#444746" />
+        </svg>
+    )
+}
+
+export { NoColor }

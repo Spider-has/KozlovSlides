@@ -25,7 +25,7 @@
 }
 
 .svgWrapperSelected {
-    outline: 3px solid rgb(124 124 250);
+    outline: 3px solid #444746;
     cursor: crosshair;
 }
 
@@ -33,7 +33,7 @@
     position: absolute;
     width: 7px;
     height: 7px;
-    background-color: rgb(124 124 250);
+    background-color: #444746;
     outline: 1px solid rgb(255 255 255);
 }
 
@@ -41,6 +41,7 @@
 .multipleSelectionBlock {
     position: absolute;
     display: none;
-    background-color: rgb(124 124 250 / 50%);
-    border: 2px solid rgb(4 4 78)
+    background-color: #FFC527;
+    opacity: 50%;
+    border: 2px solid #444746;
 }

@@ -3,6 +3,7 @@ import { Button } from '../button/Button';
 import { ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
+    FigureButtonList,
     FileButtonList,
     FormatButtonList,
     InsertionButtonList,
@@ -257,7 +258,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
 };
 
 const Colors = () => {
-    const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Olive", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse"], ["LawnGreen", "Lime", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "Blue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
+    const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse", "LawnGreen", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
     const [visible, setVisible] = useState(false);
     const colorRef = useRef(null);
     useClickOut(
@@ -284,6 +285,19 @@ const Colors = () => {
                             </div>
                         ))
                     }
+
+                    <div className={styles.newColorArea}>
+                        <div className={styles.colorText}>Другой</div>
+                        <div className={styles.newColorButtonsArea}>
+                            <Button type={ButtonType.Icon} icon={<ButtonIcon.NewColor></ButtonIcon.NewColor>} action={() => { setVisible(true) }}></Button>
+                            <Button type={ButtonType.Icon} icon={<ButtonIcon.Pipka></ButtonIcon.Pipka>} action={() => { setVisible(true) }}></Button>
+                        </div>
+                        <div className={styles.noColorButton}>
+                            <div className={styles.noColorButtonArea}>
+                                <Button type={ButtonType.FullIconText} icon={<ButtonIcon.NoColor></ButtonIcon.NoColor>} text={'Прозрачный'} action={() => { setVisible(true) }}></Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
@@ -334,6 +348,17 @@ const MainSettingsBar = () => {
 };
 
 const Title = () => {
+
+    const [visible, setVisible] = useState(false);
+    const ButtonListBar = useRef<HTMLDivElement>(null);
+    useClickOut(
+        () => {
+            setVisible(!visible);
+        },
+        visible,
+        ButtonListBar,
+    );
+    const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
     return (
         <header className={styles.docsBars}>
             <div className={styles.docsTitlebarContainer}>
@@ -350,7 +375,8 @@ const Title = () => {
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.NewSlide />}
-                        action={() => { }}
+                        action={() => { }
+                        }
                     />
                     <Button
                         type={ButtonType.Icon}
@@ -389,10 +415,9 @@ const Title = () => {
                         icon={<ButtonIcon.Photo />}
                         action={() => { }}
                     />
-                    <Button
-                        type={ButtonType.Icon}
-                        icon={<ButtonIcon.Figure />}
-                        action={() => { }}
+                    <ButtonWithActionList
+                        mainButton={FigureButtonSection.mainButton}
+                        buttonList={FigureButtonSection.buttonList}
                     />
                     <Button
                         type={ButtonType.Icon}
