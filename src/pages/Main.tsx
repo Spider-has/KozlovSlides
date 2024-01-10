@@ -1,6 +1,6 @@
 import { Title } from '../components/presentationSettingsBar/PresentationSettingsBar';
 import { SlidesArea } from '../components/slidesArea/SlidesArea';
-import './Main.css';
+import styles from './Main.module.css';
 
 // const FileSettingsPanel = () => {
 //     return (
@@ -13,7 +13,7 @@ import './Main.css';
 const MainPage = () => {
     console.log('rendered!');
     return (
-        <div className="mainContainer">
+        <div className={styles.mainContainer}>
             <Title />
             {/*<FileSettingsPanel />*/}
             <SlidesArea />

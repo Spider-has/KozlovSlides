@@ -799,40 +799,7 @@ export const InsertionButtonList: ButtonWithActionListProps = {
                 icon: <ButtonIcons.Line />,
             },
             buttonList: [
-                {
-                    text: 'Линия',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.Line />,
-                },
-                {
-                    text: 'Стрелка',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.Arrow />,
-                },
-                {
-                    text: 'Ломаная линия',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.Broken />,
-                },
-                {
-                    text: 'Рисованная линия',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.Draw />,
-                },
-            ]
-        },
-        {
-            secondaryButton: {
-                text: 'Новый слайд',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.NewSlide />,
-            },
-            buttonList: []
-        },
+            ],
+        }
     ],
 };

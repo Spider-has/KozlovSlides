@@ -1,5 +1,5 @@
 import * as Buttons from './icons/ButtonIcons';
-import './Button.css';
+import styles from './Button.module.css';
 import { ButtonProps, ButtonType } from '../../model/types';
 const AllButtons = () => {
     return (
@@ -71,7 +71,7 @@ const AllButtons = () => {
 
 const Button = (props: ButtonProps) => {
     return (
-        <div className={props.type >= 4 ? "buttonBlockFull" : 'buttonBlock'} onClick={props.action}>
+        <div className={props.type >= 4 ? styles.buttonBlockFull : styles.buttonBlock} onClick={props.action}>
             {
                 ((props.type == ButtonType.Icon) || (props.type == ButtonType.IconText) || (props.type == ButtonType.FullIcon) ||
                     (props.type == ButtonType.FullIconText)) && props.icon
@@ -79,7 +79,7 @@ const Button = (props: ButtonProps) => {
             {
                 ((props.type == ButtonType.Text) || (props.type == ButtonType.IconText) || (props.type == ButtonType.FullText) ||
                     (props.type == ButtonType.FullIconText)) && (
-                    <button className="buttonBlockButton" id={props.text}>{props.text}</button>
+                    <button className={styles.buttonBlockButton} id={props.text}>{props.text}</button>
                 )
             }
         </div>

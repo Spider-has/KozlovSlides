@@ -125,19 +125,63 @@ const useClickOut = (
 const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const [visible, setVisible] = useState(false);
     const ButtonListBar = useRef<HTMLDivElement>(null);
-
+    const [visible2, setVisible2] = useState(false);
+    const ButtonListBar2 = useRef<HTMLDivElement>(null);
+    const [visible3, setVisible3] = useState(false);
+    const ButtonListBar3 = useRef<HTMLDivElement>(null);
     const { mainButton, buttonList } = props;
+    switch (mainButton.text) {
+        case "Вставка":
+            buttonList.forEach(element => {
+                switch (element.secondaryButton.text) {
+                    case "Фигура":
+                        element.secondaryButton.action = () => {
+                            setVisible2(!visible2);
+                        };
 
-    // const Buttons = buttonList.map((button, index) => (
-    //     <Button
-    //         key={index}
-    //         text={button.text}
-    //         type={button.type}
-    //         icon={button.icon}
-    //         action={button.action || null}
-    //         iconSize={button.iconSize || undefined}
-    //     />
-    // ));
+                        useClickOut(
+                            () => {
+                                setVisible2(!visible2);
+                            },
+                            visible2,
+                            ButtonListBar2,
+                        );
+                }
+            });
+            break;
+        case "Формат":
+            buttonList.forEach(element => {
+                switch (element.secondaryButton.text) {
+                    case "Текст":
+                        element.secondaryButton.action = () => {
+                            setVisible2(!visible2);
+                        };
+
+                        useClickOut(
+                            () => {
+                                setVisible2(!visible2);
+                            },
+                            visible2,
+                            ButtonListBar2,
+                        );
+                        break;
+                    case "Выравнивание и отступы":
+                        element.secondaryButton.action = () => {
+                            setVisible3(!visible3);
+                        };
+
+                        useClickOut(
+                            () => {
+                                setVisible3(!visible3);
+                            },
+                            visible3,
+                            ButtonListBar3,
+                        );
+                        break;
+                }
+            });
+            break;
+    }
 
     mainButton.action = () => {
         setVisible(!visible);
@@ -165,19 +209,35 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                     {buttonList.map((button, index) => (
                         <div key={index} className={styles.buttonListListVerticalArea}>
                             {
-                                <div ref={ButtonListBar} className={styles.buttonListListVertical}>
-                                    {button.buttonList.map((button, index) => (
-                                        <Button
-                                            key={index}
-                                            text={button.text}
-                                            type={button.type}
-                                            icon={button.icon}
-                                            action={button.action || null}
-                                            iconSize={button.iconSize || undefined}
-                                        />
-                                    ))
-                                    }
-                                </div>
+                                ((visible2 && ((button.secondaryButton.text == 'Фигура') || (button.secondaryButton.text == 'Текст'))) &&
+                                    <div ref={ButtonListBar2} className={styles.buttonListListVertical}>
+                                        {button.buttonList.map((button, index) => (
+                                            <Button
+                                                key={index}
+                                                text={button.text}
+                                                type={button.type}
+                                                icon={button.icon}
+                                                action={button.action || null}
+                                                iconSize={button.iconSize || undefined}
+                                            />
+                                        ))
+                                        }
+                                    </div>) || (
+                                    (visible3 && ((button.secondaryButton.text == 'Выравнивание и отступы'))) && <div ref={ButtonListBar3} className={styles.buttonListListVertical}>
+                                        {button.buttonList.map((button, index) => (
+                                            <Button
+                                                key={index}
+                                                text={button.text}
+                                                type={button.type}
+                                                icon={button.icon}
+                                                action={button.action || null}
+                                                iconSize={button.iconSize || undefined}
+                                            />
+                                        ))
+                                        }
+                                    </div>
+                                )
+
                             }
                             <Button
                                 key={index}

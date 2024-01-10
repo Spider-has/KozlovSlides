@@ -23,14 +23,14 @@
     flex-direction: row;
     border-radius: 5px;
     align-items: center;
-    padding: 9px 0px;
+    padding: 9px 0;
     width: 100%;
 }
 
 .buttonBlockButton {
     background-color: transparent;
     border: none;
-    padding: 0px;
+    padding: 0;
     margin: 0 5px;
     color: #444746;
 }

@@ -87,7 +87,6 @@
 .docsTitlebarContainer {
     display: flex;
     flex-direction: row;
-
     justify-content: center;
 }
 
@@ -101,7 +100,7 @@
     flex-direction: column;
     position: absolute;
     left: 320px;
-    padding: 0px 2px;
+    padding: 0 2px;
     background-color: #FFFFFF;
     box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
     border-radius: 5px;
