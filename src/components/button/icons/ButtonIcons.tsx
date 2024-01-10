@@ -991,3 +991,66 @@ const Video = () => (
     </svg>
 );
 export { Video };
+const Italic = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path fillRule="evenodd" clipRule="evenodd" d="M8 4V6H10.58L6.92 14H4V16H12V14H9.42L13.08 6H16V4H8Z" fill="#444746" />
+    </svg>
+);
+export { Italic };
+const Underlined = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path d="M0 14V12.5H11.666V14H0ZM5.833 11C4.569 11 3.503 10.566 2.635 9.698C1.767 8.83 1.333 7.764 1.333 6.5V0H3.333V6.5C3.333 7.19467 3.576 7.785 4.062 8.271C4.548 8.757 5.13833 9 5.833 9C6.52767 9 7.118 8.757 7.604 8.271C8.09 7.785 8.333 7.19467 8.333 6.5V0H10.333V6.5C10.333 7.764 9.899 8.83 9.031 9.698C8.163 10.566 7.097 11 5.833 11Z" fill="#444746" />
+    </svg>
+);
+export { Underlined };
+const NotText = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path d="M10.05 8C10.49 8.97 9.87 10.28 8.16 10.28C6.29 10.28 5.75 8.35 5.69 8.13L3.99 8.82C4.92 12.09 8.05 12 8.13 12C10.33 12 11.29 10.69 11.43 10.5C11.78 10.04 12.11 9.03 11.96 8H10.05ZM8.69 5C8 4.76 7.21 4.51 6.69 4.09C5.7 3.3 6.24 1.68 8.06 1.68C9.41 1.68 9.9 2.7 10.02 3.06L11.64 2.37C11.62 2.31 10.92 0 8.03 0C7.22 0 5.73 0.24 4.87 1.57C4.32 2.43 4.13 3.95 5.08 5H0V6.5H16V5H8.69Z" fill="#444746" />
+    </svg>
+
+);
+export { NotText };
+const LittleDown = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path fillRule="evenodd" clipRule="evenodd" d="M13 6H11V7H13V8H12C11.448 8 11 8.4475 11 9V11H14V10H12V9H13C13.5525 9 14 8.5525 14 8V7C14 6.4475 13.5525 6 13 6ZM5 6.5L8 11H9.88503L6.5 5.5L10 0H8L5 4.5L2 0H0L3.5 5.5L0 11H2L5 6.5Z" fill="#444746" />
+    </svg>
+
+);
+export { LittleDown };
+const LittleUp = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+    >
+        <path fillRule="evenodd" clipRule="evenodd" d="M16 5H14V6H16V7H15C14.448 7 14 7.4475 14 8V10H17V9H15V8H16C16.5525 8 17 7.5525 17 7V6C17 5.4475 16.5525 5 16 5ZM8 11.5L11 16H12.885L9.5 10.5L13 5H11L8 9.5L5 5H3L6.5 10.5L3 16H5L8 11.5Z" fill="#444746" />
+    </svg>
+
+);
+export { LittleUp };

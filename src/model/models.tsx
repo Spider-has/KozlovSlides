@@ -339,7 +339,64 @@ export const FormatButtonList: ButtonWithActionListProps = {
                 action: () => { },
                 icon: <ButtonIcons.Text />,
             },
-            buttonList: []
+            buttonList: [
+                {
+                    text: 'Полужирный',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Text />,
+                },
+                {
+                    text: 'Курсив',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Italic />,
+                },
+                {
+                    text: 'Подчеркнутый',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.Underlined />,
+                },
+                {
+                    text: 'Зачеркнутый',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.NotText />,
+                },
+                {
+                    text: 'Надстрочный',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.LittleUp />,
+                },
+                {
+                    text: 'Подстрочный',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.LittleDown />,
+                },
+                {
+                    text: 'Увеличить размер',
+                    type: ButtonType.FullText,
+                    action: () => { },
+                },
+                {
+                    text: 'Уменьшить размер',
+                    type: ButtonType.FullText,
+                    action: () => { },
+                },
+                {
+                    text: 'Цвет',
+                    type: ButtonType.FullText,
+                    action: () => { },
+                },
+                {
+                    text: 'Цвет фона',
+                    type: ButtonType.FullText,
+                    action: () => { },
+                },
+            ]
         },
         {
             secondaryButton: {

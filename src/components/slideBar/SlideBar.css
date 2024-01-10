@@ -26,11 +26,11 @@
 }
 
 .slide-preview-area__preview-area_selected {
-    outline: 4px solid #0B57D0;
+    outline: 4px solid #FFC527;
 }
 
 .slide-preview-area__preview-area_selected:hover {
-    outline: 4px solid #0B57D0;
+    outline: 4px solid #FFC527;
 }
 
 .slide-preview-list {

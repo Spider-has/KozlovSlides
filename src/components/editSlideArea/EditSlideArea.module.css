@@ -4,8 +4,7 @@
     align-items: center;
     position: relative;
     flex-grow: 1;
-    color: white;
-    background-color: #404040;
+    background-color: #F9FBFD;
     overflow: hidden;
     user-select: none;
 
@@ -13,7 +12,7 @@
 
 .mainEditSlideSpace {
     display: block;
-    background-color: #FFFFFF;
+    background-color: white;
     position: relative;
     margin: auto;
     width: 800px;

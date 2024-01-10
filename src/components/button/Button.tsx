@@ -70,8 +70,6 @@ const AllButtons = () => {
 };
 
 const Button = (props: ButtonProps) => {
-    console.log((props.type == ButtonType.Icon || props.type == ButtonType.IconText) || (props.type == ButtonType.FullIcon ||
-        props.type == ButtonType.FullIconText), props.icon, props)
     return (
         <div className={props.type >= 4 ? "button-block__full" : 'button-block'} onClick={props.action}>
             {
