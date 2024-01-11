@@ -1,8 +1,9 @@
+import { useObjectsDragAndDrop } from '../../model/hooks';
 import { Id, Slide } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
 import { ActiveSlideAreaPreview } from '../editSlideArea/SlideAreaPreviewCopy';
 import styles from './SlideBar.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SlidePreview = (props: { slide: Slide }) => {
     return (
@@ -40,16 +41,43 @@ const useShiftAction = (DownAction: () => void, UpAction: () => void) => {
 
 const SlidePreviewArea = (props: {
     slide: Slide;
-    id: number;
+    index: number;
     isShifted: boolean;
     isSelected: boolean;
     selectedSlides: Id[];
 }) => {
     const { createChangeSelectedSlidesAction } = useAppActions();
+    const slideRef = useRef<HTMLDivElement>(null)
+    const slideIndex = props.index - 1;
     const selectedSlides = [...props.selectedSlides];
     const selectedSlideClass = props.isSelected
         ? styles.slidePreviewAreaPreviewAreaSelected
         : '';
+    const slideDnD = useObjectsDragAndDrop(slideRef, { x: slideIndex, y: 0 });
+    const slideParams = {
+        y: 0
+    }
+    slideDnD({
+        onClickAction(event) {
+            if (props.isSelected) {
+                console.log('сюда!')
+                slideRef.current!.style.position = 'absolute'
+                slideParams.y = slideRef.current!.getBoundingClientRect().y;
+                slideRef.current!.style.top = event.pageY - slideParams.y + 'px';
+            }
+        },
+        onDragAction(event) {
+            if (props.isSelected) {
+                slideRef.current!.style.top = event.pageY - slideParams.y + 'px';
+            }
+        },
+        onDropAction() {
+            if (props.isSelected) {
+                slideRef.current!.style.position = ''
+                slideRef.current!.style.top = '';
+            }
+        },
+    })
     return (
         <div
             className={styles.slidePreviewArea}
@@ -66,8 +94,9 @@ const SlidePreviewArea = (props: {
                     }
                 }
             }}
+            ref={slideRef}
         >
-            <div className={styles.slidePreviewAreaIdArea}>{props.id}</div>
+            <div className={styles.slidePreviewAreaIdArea}>{props.index}</div>
             <div
                 className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}
             >
@@ -93,7 +122,7 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
         return (
             <SlidePreviewArea
                 key={i}
-                id={i + 1}
+                index={i + 1}
                 slide={slide}
                 isShifted={isShifted}
                 isSelected={selected}
@@ -101,6 +130,7 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
             />
         );
     });
+
 
     return <div className={styles.slidePreviewList}>{slidesPreviewList}</div>;
 };
