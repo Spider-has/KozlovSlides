@@ -1,10 +1,11 @@
 import * as Buttons from './icons/ButtonIcons';
-import './Button.css';
+import styles from './Button.module.css';
 import { ButtonProps, ButtonType } from '../../model/types';
 const AllButtons = () => {
     return (
         <div>
-            <Buttons.ArrowThatOpensTheList />
+            <Buttons.ArrowThatOpensTheListHorisontal />
+            <Buttons.ArrowThatOpensTheListVertical />
             <Buttons.Audio />
             <Buttons.Border />
             <Buttons.Center />
@@ -41,22 +42,48 @@ const AllButtons = () => {
             <Buttons.TextField />
             <Buttons.Undo />
             <Buttons.Video />
+            <Buttons.Cursor />
+            <Buttons.ArrowThatCloseTheList />
+            <Buttons.Pattern />
+            <Buttons.BorderColor />
+            <Buttons.BorderWidth />
+            <Buttons.BorderStyle />
+            <Buttons.Draw />
+            <Buttons.Arrow />
+            <Buttons.Broken />
+            <Buttons.Circle />
+            <Buttons.Triangle />
+            <Buttons.Rectangle />
+            <Buttons.TextLeft />
+            <Buttons.TextCenterX />
+            <Buttons.TextRight />
+            <Buttons.TextWidth />
+            <Buttons.MoreTab />
+            <Buttons.LessTab />
+            <Buttons.TextCenterY />
+            <Buttons.TextUp />
+            <Buttons.NumList />
+            <Buttons.TextDown />
+            <Buttons.MarkList />
         </div>
     );
 };
 
 const Button = (props: ButtonProps) => {
     return (
-        <div className="button-block" onClick={props.action}>
-            {(props.type == ButtonType.Icon ||
-                props.type == ButtonType.IconText) &&
-                props.icon}
-            {(props.type == ButtonType.Text ||
-                props.type == ButtonType.IconText) && (
-                <button className="button-block__button">{props.text}</button>
-            )}
+        <div className={props.type >= 4 ? styles.buttonBlockFull : styles.buttonBlock} onClick={props.action}>
+            {
+                ((props.type == ButtonType.Icon) || (props.type == ButtonType.IconText) || (props.type == ButtonType.FullIcon) ||
+                    (props.type == ButtonType.FullIconText)) && props.icon
+            }
+            {
+                ((props.type == ButtonType.Text) || (props.type == ButtonType.IconText) || (props.type == ButtonType.FullText) ||
+                    (props.type == ButtonType.FullIconText)) && (
+                    <button className={styles.buttonBlockButton} id={props.text}>{props.text}</button>
+                )
+            }
         </div>
-    );
+    )
 };
 
 export { AllButtons, Button };

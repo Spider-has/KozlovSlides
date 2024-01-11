@@ -1,0 +1,46 @@
+.lmegaClass {
+    color: #FFFFFF;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    color: #444746;
+}
+
+.buttonBlock {
+    display: flex;
+    flex-direction: row;
+    border: none;
+    border-radius: 5px;
+    align-items: center;
+    padding: 9px 7px;
+    margin: -4px 0;
+}
+
+.buttonBlockFull {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    align-items: center;
+    padding: 9px 0;
+    width: 90%;
+}
+
+.buttonBlockButton {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    color: #444746;
+}
+
+.buttonBlockFull:hover {
+    background-color: #FFC527;
+}
+
+
+.buttonBlock:hover {
+    background-color: #FFC527;
+}

@@ -1,0 +1,253 @@
+.ivan {
+    display: flex;
+}
+
+.inputText {
+    display: block;
+    position: relative;
+    padding: 9px 2px 1px 5px;
+    max-width: 90%;
+    width: auto;
+}
+
+.inputTextInput2 {
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    max-width: 90%;
+    font-size: 18px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+
+.inputTextInput2:hover {
+    outline: 1px solid gray;
+}
+
+.inputTextInput2:focus {
+    outline: 1px solid #FFC527;
+}
+
+.inputTextText {
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 90%;
+    width: fit-content;
+    padding: 1px 6px;
+    border-radius: 10px;
+    color: "#444746";
+    box-shadow: inset 1px 1px 0 rgba(0 0 0 .1), inset 0 -1px 0 rgba(0 0 0 .0);
+}
+
+.inputTextText:hover {
+    outline: 1px solid gray;
+}
+
+.inputTextInput {
+    display: none;
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    max-width: 90%;
+    font-size: 18px;
+    margin: 4px;
+    padding: 1px;
+    padding-left: 6px;
+    margin-left: -1px;
+    padding-right: 0;
+    border-radius: 10px;
+    border: none;
+}
+
+.inputTextInput:focus {
+    outline: 1px solid #FFC527;
+}
+
+.inputTextInputActive {
+    display: block;
+}
+
+.singleLine {
+    font-size: 18px;
+}
+
+.docsBars {
+    height: 113.8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.docsTitlebarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.buttonListListVerticalArea {
+    display: flex;
+    position: relative;
+}
+
+.buttonListListVertical {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 320px;
+    padding: 0 2px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    min-width: 322px;
+    z-index: 1;
+}
+
+.docsMenubars {
+    display: flex;
+    flex-direction: row;
+    height: 33px;
+}
+
+.newColorArea {
+    display: flex;
+    flex-direction: column;
+}
+
+.newColorButtonsArea {
+    display: flex;
+    flex-direction: row;
+}
+
+.colorPalitra {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.colorPalitraRow {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.colorText {
+    margin-bottom: 5px;
+}
+
+.noColorButton {
+    display: flex;
+    width: 170%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border-color: #444746;
+    border: solid 1px;
+    margin-top: 5px;
+}
+
+.noColorButton:hover {
+
+    background-color: #FFC527;
+}
+
+.colorPalitraRowElement {
+    display: flex;
+    padding: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border-width: 1px;
+    border-color: #444746;
+    margin: 1px;
+}
+
+.noColorButtonArea {
+    margin-left: 10px;
+    width: 60%;
+}
+
+.docsPrimaryToolbars {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #EDF2FA;
+    border-radius: 16px;
+    border-color: #EDF2FA;
+}
+
+.docsBarsLogoArea {
+    width: 50px;
+}
+
+.docsPrimaryToolbarsButtonsPlace {
+    display: flex;
+    flex-direction: row;
+    height: 26px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.createLine {
+    content: " ";
+    background: #C7C7C7;
+    width: 2px;
+    height: 26px;
+    margin: 0 5px;
+}
+
+.docsBarsActivityPanel {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.docsTitlebar {
+    padding-top: 8px;
+    width: 926px;
+    height: 24px;
+}
+
+.logo {
+    margin: 7px 0 4px 8px;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+}
+
+.buttonList {
+    display: flex;
+    position: relative;
+    height: 23px;
+    padding: 2px 7px;
+}
+
+.buttonListList {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 28px;
+    padding: 10px 5px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 1px 5px 5px;
+    min-width: 322px;
+    z-index: 1;
+}
+
+
+.colorPanel {
+    display: flex;
+    flex-flow: row wrap;
+    width: 200px;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid black;
+    z-index: 100;
+    background-color: white;
+}

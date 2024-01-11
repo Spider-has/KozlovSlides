@@ -1,0 +1,51 @@
+.editSlideArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+    background-color: rgb(74 83 94);
+    overflow: hidden;
+    user-select: none;
+
+}
+
+.mainEditSlideSpace {
+    display: block;
+    background-color: white;
+    position: relative;
+    margin: auto;
+    width: 800px;
+    height: 450px;
+}
+
+.svgWrapper {
+    display: flex;
+    position: absolute;
+}
+
+.svgWrapperSelected {
+    outline: 3px solid #444746;
+    cursor: crosshair;
+}
+
+.scaleSquare {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: #444746;
+    outline: 1px solid rgb(255 255 255);
+}
+
+
+.multipleSelectionBlock {
+    position: absolute;
+    display: none;
+    background-color: #FFC527;
+    opacity: 0.5;
+    border: 2px solid #444746;
+}
+
+.figurePreview {
+    opacity: 0.55;
+}
