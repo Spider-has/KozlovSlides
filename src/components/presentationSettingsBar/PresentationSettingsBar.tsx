@@ -9,6 +9,7 @@ import {
     InsertionButtonList,
     ObjectButtonList,
     SlideButtonList,
+    TextFamilyList,
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
 import { Logo } from '../../logo';
@@ -207,6 +208,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                 action={mainButton.action}
                 icon={mainButton.icon || null}
                 iconSize={mainButton.iconSize || undefined}
+                right={props.right}
             />
             {visible && (
                 <div ref={ButtonListBar} className={styles.buttonListList}>
@@ -425,6 +427,7 @@ const MainSettingsBar = () => {
 
 const Title = () => {
     const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
+    const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const { createChangeAddElementAction } = useAppActions();
 
     FigureButtonList.buttonList[0].secondaryButton.action = () => {
@@ -437,6 +440,7 @@ const Title = () => {
     FigureButtonList.buttonList[2].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle)
     }
+
     return (
         <header className={styles.docsBars}>
             <div className={styles.docsTitlebarContainer}>
@@ -519,6 +523,12 @@ const Title = () => {
                         text={'Тема'}
                         type={ButtonType.Text}
                         action={() => { }}
+                    />
+                    <div className={styles.createLine}></div>
+                    <ButtonWithActionList
+                        mainButton={TextFamilySection.mainButton}
+                        buttonList={TextFamilySection.buttonList}
+                        right={TextFamilySection.right}
                     />
                 </div>
             </div>

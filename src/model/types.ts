@@ -103,6 +103,7 @@ type ButtonProps = {
     list?: boolean;
     icon?: JSX.Element | null;
     iconSize?: number;
+    right?: boolean | false
     action: () => void;
 };
 
@@ -113,6 +114,7 @@ type ButtonWithActionListProps = {
         secondaryButton: ButtonProps;
         buttonList: ButtonProps[];
     }[];
+    right?: boolean | false;
 };
 
 export type {

@@ -363,6 +363,44 @@ export const FigureButtonList: ButtonWithActionListProps = {
         },
     ],
 };
+export const TextFamilyList: ButtonWithActionListProps = {
+    mainButton: {
+        type: ButtonType.IconText,
+        text: 'Arial',
+        icon: <ButtonIcons.ArrowThatOpensTheListVertical />,
+        action: () => { },
+    },
+    buttonList: [
+        {
+            secondaryButton: {
+                text: 'Arial',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.SelectedFont />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Times New Roman',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Roboto',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+    ],
+    right: true,
+};
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',

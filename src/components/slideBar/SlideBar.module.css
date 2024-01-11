@@ -28,10 +28,12 @@
 
 .slidePreviewAreaPreviewAreaSelected {
     outline: 4px solid #FFC527;
+    z-index: 2;
 }
 
 .slidePreviewAreaPreviewAreaSelected:hover {
     outline: 4px solid #FFC527;
+    z-index: 2;
 }
 
 .slidePreviewList {

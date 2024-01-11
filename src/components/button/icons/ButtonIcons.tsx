@@ -1107,3 +1107,23 @@ const Uploader = () => {
 }
 
 export { Uploader }
+
+const NoIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+
+        </svg>
+    )
+}
+
+export { NoIcon }
+
+const SelectedFont = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.189 12.938L4.062 9.811L3 10.872L7.189 15.061L16.189 6.061L15.128 5L7.189 12.938Z" fill="#444746" />
+        </svg>
+    )
+}
+
+export { SelectedFont }

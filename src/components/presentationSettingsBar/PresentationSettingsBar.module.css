@@ -132,11 +132,10 @@
     display: flex;
     color: #444746;
     margin-left: 5px;
-    font-family: 'Arial';
+    font-family: Arial;
 }
 
 .inputFile {
-
     display: flex;
     opacity: 0;
     visibility: hidden;
@@ -179,7 +178,6 @@
 }
 
 .noColorButton:hover {
-
     background-color: #FFC527;
 }
 
@@ -273,11 +271,8 @@
     display: flex;
     position: absolute;
     left: 320px;
-    padding: 0 2px;
-    background-color: #FFFFFF;
     box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
     border-radius: 5px;
-    z-index: 1;
     flex-flow: row wrap;
     width: 200px;
     gap: 5px;
