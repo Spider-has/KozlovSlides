@@ -1098,3 +1098,12 @@ const NoColor = () => {
 }
 
 export { NoColor }
+const ImageFileUploader = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M14.73 12C14.73 8.67 9.73 3 9.73 3C9.73 3 8.88 3.97 7.88 5.33L14.71 12.16L14.73 12ZM4.28 4.27L3 5.55L5.89 8.44C5.22 9.69 4.73 10.96 4.73 12C4.73 14.76 6.97 17 9.73 17C11.04 17 12.22 16.48 13.12 15.66L15.46 18L16.73 16.73L4.28 4.27Z" fill="#444746" />
+        </svg>
+    )
+}
+
+export { ImageFileUploader }
