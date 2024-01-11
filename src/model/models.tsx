@@ -509,8 +509,7 @@ export const InsertionButtonList: ButtonWithActionListProps = {
     buttonList: [
         {
             secondaryButton: {
-                text: 'Изображение',
-                type: ButtonType.FullIconText,
+                type: ButtonType.FullIcon,
                 action: () => { },
                 icon: <ButtonIcons.Photo />,
             },

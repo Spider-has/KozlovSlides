@@ -119,6 +119,30 @@
     flex-direction: column;
 }
 
+.buttonInputBlockFull {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.inputTextUploader {
+    display: flex;
+    color: #444746;
+    margin-left: 5px;
+    font-family: 'Arial';
+}
+
+.inputFile {
+
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
 .newColorButtonsArea {
     display: flex;
     flex-direction: row;

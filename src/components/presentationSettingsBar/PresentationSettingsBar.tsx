@@ -333,19 +333,22 @@ const ImageFileUploader = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { createChangeAddElementAction } = useAppActions();
     return (
-        <label>
-            <ButtonIcon.Photo />
-            <input type="file" accept="image/*" ref={inputRef} onChange={() => {
+        <div>
+            <input id="inputFile" className={styles.inputFile} type="file" accept="image/*" ref={inputRef} onChange={() => {
                 if (inputRef.current!.files) {
                     const imgReader = new FileReader();
                     imgReader.onload = () => {
-                        //console.log(imgReader.result);
                         createChangeAddElementAction(ObjectType.Image, undefined, imgReader.result as string)
                     }
                     imgReader.readAsDataURL(inputRef.current!.files[0])
                 }
+
             }} />
-        </label>
+            <label htmlFor="inputFile" className={styles.buttonInputBlockFull}>
+                <ButtonIcon.Uploader />
+                <span className={styles.inputTextUploader}>Загрузить фото с компьютера</span>
+            </label>
+        </div>
     )
 }
 
