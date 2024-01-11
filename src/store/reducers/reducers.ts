@@ -529,6 +529,20 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             };
             return newState;
         }
+        case PresentationActions.CHANGE_SLIDES_ORDER: {
+            const newSlides = [...state.presentation.slides];
+            const removedSlides = newSlides.splice(action.payload.from, 1)
+            newSlides.splice(action.payload.to, 0, removedSlides[0])
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: newSlides,
+                },
+                selectedSlides: [removedSlides[0].id]
+            }
+            return newState;
+        }
         default:
             return state;
     }

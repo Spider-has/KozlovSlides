@@ -150,6 +150,16 @@ const createChangeTextFontFamily = (fontFamily: string) => {
     };
 };
 
+const createChangeSlidesOrderAction = (oldPos: number, newPos: number) => {
+    return {
+        type: PresentationActions.CHANGE_SLIDES_ORDER,
+        payload: {
+            from: oldPos,
+            to: newPos
+        }
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -168,5 +178,6 @@ export {
     createChangeTextUnderline,
     createChangeTextCursive,
     createChangeTextSize,
-    createChangeTextFontFamily
+    createChangeTextFontFamily,
+    createChangeSlidesOrderAction
 };

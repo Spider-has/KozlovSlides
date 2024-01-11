@@ -22,7 +22,8 @@ enum PresentationActions {
     CHANGE_TEXT_UNDERLINE = 'CHANGE_TEXT_UNDERLINE',
     CHANGE_TEXT_CURSIVE = 'CHANGE_TEXT_CURSIVE',
     CHANGE_TEXT_SIZE = 'CHANGE_TEXT_SIZE',
-    CHANGE_TEXT_FONT_FAMILY = 'CHANGE_TEXT_FONT_FAMILY'
+    CHANGE_TEXT_FONT_FAMILY = 'CHANGE_TEXT_FONT_FAMILY',
+    CHANGE_SLIDES_ORDER = 'CHANGE_SLIDES_ORDER'
 }
 
 type ChangeSlidePosition = {
@@ -147,6 +148,14 @@ type ChangeTextFontFamily = {
 };
 
 
+type ChangeSlidesOrder = {
+    type: PresentationActions.CHANGE_SLIDES_ORDER;
+    payload: {
+        from: number,
+        to: number
+    }
+};
+
 
 type Action =
     | ChangeSlidePosition
@@ -169,6 +178,7 @@ type Action =
     | ChangeTextUnderline
     | ChangeTextUnderCursive
     | ChangeTextSize
-    | ChangeTextFontFamily;
+    | ChangeTextFontFamily
+    | ChangeSlidesOrder;
 export type { Action };
 export { PresentationActions };
