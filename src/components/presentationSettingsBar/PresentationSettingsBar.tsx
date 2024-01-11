@@ -238,18 +238,25 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                             />
                                         ))
                                         }
+
                                     </div>
                                 )
 
                             }
-                            <Button
-                                key={index}
-                                text={button.secondaryButton.text}
-                                type={button.secondaryButton.type}
-                                icon={button.secondaryButton.icon}
-                                action={button.secondaryButton.action || null}
-                                iconSize={button.secondaryButton.iconSize || undefined}
-                            />
+                            {
+                                ((button.secondaryButton.text !== 'Цвет') && (button.secondaryButton.text !== 'Цвет фона') &&
+                                    <Button
+                                        key={index}
+                                        text={button.secondaryButton.text}
+                                        type={button.secondaryButton.type}
+                                        icon={button.secondaryButton.icon}
+                                        action={button.secondaryButton.action || null}
+                                        iconSize={button.secondaryButton.iconSize || undefined}
+                                    />)
+                            }
+                            {
+                                (((button.secondaryButton.text == 'Цвет') || (button.secondaryButton.text == 'Цвет фона')) && <Colors name={button.secondaryButton.text}></Colors>)
+                            }
                         </div>
                     ))
                     }
@@ -258,8 +265,22 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         </div>
     );
 };
-
-const Colors = () => {
+// window.onload = function () {
+//     (function (H, D, s, h, r: number) {
+//         for (; r < H; r += D) {
+//             for (let g = 256; g < H; g += D)
+//                 for (let b = 256; b < H; b += D) {
+//                     const v = h(r) + h(g) + h(b);
+//                     s += '<b class=picker style="background-color:' + v
+//                         + '" onmouseover=this.title="' + v
+//                         + '" onclick=prompt("' + v.replace(/(.)./g, '$1') + '","' + v + '") ></b>';
+//                 }
+//             s += '<br>';
+//         }
+//         document.body.innerHTML += s;
+//     })(512, 51, '', function (a: number) { return a.toString(16).substr(1); }, 256)
+// }
+const Colors = (name: { name: string }) => {
     const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Olive", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse"], ["LawnGreen", "Lime", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "Blue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
     const [visible, setVisible] = useState(false);
     const colorRef = useRef(null);
@@ -272,7 +293,7 @@ const Colors = () => {
     );
     return (
         <div className={styles.colorPalitra}>
-            <Button type={ButtonType.Icon} icon={<ButtonIcon.FillIcon />} action={() => { setVisible(true) }} />
+            <Button type={ButtonType.FullIconText} icon={<ButtonIcon.FillIcon />} text={name.name} action={() => { setVisible(true) }} />
             {visible &&
                 <div ref={colorRef} className={styles.colorPanel}>
                     {
@@ -292,26 +313,6 @@ const Colors = () => {
         </div>
     )
 };
-
-const ImageFileUploader = () => {
-    const inputRef = useRef<HTMLInputElement>(null)
-    const { createChangeAddElementAction } = useAppActions();
-    return (
-        <label>
-            <ButtonIcon.Photo />
-            <input type="file" accept="image/*" ref={inputRef} onChange={() => {
-                if (inputRef.current!.files) {
-                    const imgReader = new FileReader();
-                    imgReader.onload = () => {
-                        //console.log(imgReader.result);
-                        createChangeAddElementAction(ObjectType.Image, undefined, imgReader.result as string)
-                    }
-                    imgReader.readAsDataURL(inputRef.current!.files[0])
-                }
-            }} />
-        </label>
-    )
-}
 
 const MainSettingsBar = () => {
     const { createAddSlideAction, createChangeAddElementAction, createChangeTextBold, createChangeTextCursive, createChangeTextUnderline, createChangeTextSize } = useAppActions();
@@ -468,7 +469,6 @@ const Title = () => {
                         type={ButtonType.Text}
                         action={() => { }}
                     />
-                    <Colors />
                 </div>
             </div>
         </header>

@@ -12,7 +12,7 @@ import {
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Файл',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
@@ -76,7 +76,7 @@ export const FileButtonList: ButtonWithActionListProps = {
 export const FormatButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Формат',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
@@ -131,16 +131,6 @@ export const FormatButtonList: ButtonWithActionListProps = {
                 },
                 {
                     text: 'Уменьшить размер',
-                    type: ButtonType.FullText,
-                    action: () => { },
-                },
-                {
-                    text: 'Цвет',
-                    type: ButtonType.FullText,
-                    action: () => { },
-                },
-                {
-                    text: 'Цвет фона',
                     type: ButtonType.FullText,
                     action: () => { },
                 },
@@ -246,13 +236,29 @@ export const FormatButtonList: ButtonWithActionListProps = {
             },
             buttonList: []
         },
+        {
+            secondaryButton: {
+                text: 'Цвет',
+                type: ButtonType.FullText,
+                action: () => { },
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Цвет фона',
+                type: ButtonType.FullText,
+                action: () => { },
+            },
+            buttonList: []
+        },
     ],
 };
 
 export const SlideButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Слайд',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
@@ -360,7 +366,7 @@ export const FigureButtonList: ButtonWithActionListProps = {
 export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
@@ -415,7 +421,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
 export const EditButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Правка',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
@@ -497,7 +503,7 @@ export const EditButtonList: ButtonWithActionListProps = {
 export const InsertionButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Вставка',
-        type: ButtonType.FullText,
+        type: ButtonType.Text,
         action: () => { },
     },
     buttonList: [
