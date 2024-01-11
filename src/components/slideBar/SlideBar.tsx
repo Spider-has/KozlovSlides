@@ -1,6 +1,6 @@
 import { Id, Slide } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
-import { ActiveSlidePreviewArea } from '../editSlideArea/SlideAreaPreviewCopy';
+import { ActiveSlideAreaPreview } from '../editSlideArea/SlideAreaPreviewCopy';
 import styles from './SlideBar.module.css';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,7 @@ const SlidePreview = (props: { slide: Slide }) => {
     return (
         <div className={styles.slidePreview}>
             <div className={styles.slidePreviewMainArea}>
-                <ActiveSlidePreviewArea slide={props.slide} />
+                <ActiveSlideAreaPreview slide={props.slide} />
             </div>
         </div>
     );
@@ -65,7 +65,6 @@ const SlidePreviewArea = (props: {
                             createChangeSelectedSlidesAction([props.slide.id]);
                     }
                 }
-                console.log(selectedSlides);
             }}
         >
             <div className={styles.slidePreviewAreaIdArea}>{props.id}</div>

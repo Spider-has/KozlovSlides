@@ -1,34 +1,43 @@
 import { Slide } from '../../model/types';
-import { FigureObjects, ObjectType, RectangleElement, SlideElement } from '../../model/figureTypes';
+import { FigureObjects, ObjectType, SlideElement } from '../../model/figureTypes';
 import styles from './EditSlideArea.module.css';
+import { useRef } from 'react';
 
-const ActiveSlidePreviewArea = (props: { slide: Slide }) => {
-    const objects = props.slide.elements.map((elem, i) => {
-        return <SlideObject elements={elem} key={i} />;
+import { Ellipse, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../figures/Figures';
+
+const ActiveSlideAreaPreview = (props: { slide: Slide }) => {
+    const elems = props.slide.elements;
+    const objects = elems.map((elem, i) => {
+        return <SlideObject element={elem} key={i} />;
     });
-    return <div className={styles.mainEditSlideSpace}>{objects}</div>;
+    return (
+        <div className={styles.mainEditSlideSpace}>
+            {objects}
+        </div>
+    );
 };
 
-const SlideObject = (props: { elements: SlideElement }) => {
-    const elem = { ...props.elements };
+const SlideObject = (props: { element: SlideElement; }) => {
+    const elem = { ...props.element };
     let Obj = <></>;
+    const svgRef = useRef<HTMLDivElement>(null)
     switch (elem.elementType) {
         case ObjectType.Text: {
-            Obj = <></>;
+            Obj = <TextObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Graphic: {
             switch (elem.figureType) {
                 case FigureObjects.Rectangle: {
-                    Obj = <Rectangle elem={elem} />;
+                    Obj = <Rectangle elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 case FigureObjects.Triangle: {
-                    Obj = <></>;
+                    Obj = <Triangle elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 case FigureObjects.Ellipse: {
-                    Obj = <></>;
+                    Obj = <Ellipse elem={elem} svgRef={svgRef} />;
                     break;
                 }
                 default:
@@ -38,11 +47,11 @@ const SlideObject = (props: { elements: SlideElement }) => {
             break;
         }
         case ObjectType.Image: {
-            Obj = <></>;
+            Obj = <ImageObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Video: {
-            Obj = <></>;
+            Obj = <VideoObj elem={elem} svgRef={svgRef} />;
             break;
         }
         case ObjectType.Audio: {
@@ -57,40 +66,20 @@ const SlideObject = (props: { elements: SlideElement }) => {
             Obj = <></>;
         }
     }
-
     return (
         <div
-            className={styles.svgWrapper}
+            className={`${styles.svgWrapper}`}
             style={{
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
+                width: elem.size.width + 'px',
+                height: elem.size.height + 'px',
             }}
+            id={`object_${elem.id}`}
         >
             {Obj}
         </div>
     );
 };
 
-const Rectangle = (props: { elem: RectangleElement }) => {
-    const elem = { ...props.elem };
-    return (
-        <svg
-            className={styles.svgSpace}
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{
-                width: elem.size.width + 'px',
-                height: elem.size.height + 'px',
-            }}
-        >
-            <rect
-                width={elem.size.width}
-                height={elem.size.height}
-                fill={elem.properties.color ? elem.properties.color : 'black'}
-                stroke={elem.properties.border?.color}
-            />
-        </svg>
-    );
-};
-
-export { ActiveSlidePreviewArea };
+export { ActiveSlideAreaPreview };

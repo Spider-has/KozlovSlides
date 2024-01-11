@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { BackgroundType, Editor, ViewMode } from '../../model/types';
+import { BackgroundType, Editor, SelectModeTypes, UserActions, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
 import { generateRandomId, getElementsById, getSlideIndexById } from '../../model/utils';
-import { ObjectType, FigureObjects } from '../../model/figureTypes';
+import { ObjectType } from '../../model/figureTypes';
 
 type InitData = Editor;
 const defaultSize = {
@@ -16,121 +16,7 @@ const initData: InitData = {
         slides: [
             {
                 id: generateRandomId(),
-                elements: [
-                    {
-                        id: '1',
-                        position: {
-                            x: 10,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Graphic,
-                        figureType: FigureObjects.Rectangle,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            rotateAngle: 0,
-                            opacity: 1,
-                            rounding: 0,
-                            color: 'red',
-                        },
-                    },
-                    {
-                        id: '2',
-                        position: {
-                            x: 10,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Graphic,
-                        figureType: FigureObjects.Ellipse,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            rotateAngle: 0,
-                            opacity: 0,
-                            rounding: 0,
-                        },
-                    },
-                    {
-                        id: '3',
-                        position: {
-                            x: 10,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Graphic,
-                        figureType: FigureObjects.Triangle,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            rotateAngle: 0,
-                            opacity: 0,
-                            point1: { x: 0, y: 100 },
-                            point2: { x: 100, y: 100 },
-                            point3: { x: 50, y: 0 },
-                        },
-                    },
-                    {
-                        id: '4',
-                        position: {
-                            x: 10,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Image,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            imgUrl: 'https://sun9-37.userapi.com/impg/rO2c_c5dYeOMqrbH8UFtQfNywLczoOdld0_TLg/th78MXnFm7c.jpg?size=2560x1745&quality=95&sign=679e255e69cb82c6fd66b1927150742f&type=album',
-                        },
-                    },
-                    {
-                        id: '5',
-                        position: {
-                            x: 10,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Video,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            videoUrl: 'https://youtu.be/pVxvF9FNkXw',
-                        },
-                    },
-                    {
-                        id: '6',
-                        position: {
-                            x: 500,
-                            y: 10,
-                        },
-                        elementType: ObjectType.Text,
-                        size: {
-                            width: 150,
-                            height: 200,
-                        },
-                        properties: {
-                            chars: {
-                                value: 'a',
-                                fontFamily: {
-                                    fontFamily: 'Times New Roman',
-                                },
-                                fontSize: 12,
-                                color: 'gray',
-                                bold: false,
-                                cursive: true,
-                                underline: false,
-                            },
-                            rotateAngle: 0,
-                        },
-                    },
-                ],
+                elements: [],
                 selectedElements: [],
                 elementsAnimations: [],
                 background: {
@@ -141,10 +27,17 @@ const initData: InitData = {
         ],
         size: defaultSize,
         name: 'Презентация',
+        userAction: {
+            ActionType: UserActions.SLIDE_EDIT,
+            AddedElementType: null,
+            AddedFigureType: null,
+            Url: ""
+        }
     },
     history: [],
     selectedSlides: [],
     viewMode: ViewMode.Edit,
+    selectMode: SelectModeTypes.Slides
 };
 initData.selectedSlides[0] = initData.presentation.slides[0].id;
 
@@ -161,17 +54,49 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                     ...state.presentation,
                     slides: [...state.presentation.slides, action.payload],
                 },
+                selectMode: SelectModeTypes.Slides
             };
             return newState;
         }
-        case PresentationActions.DEELETE_SLIDE:
-            return state;
+        case PresentationActions.DELETE_SLIDES: {
+            const newSlides = state.presentation.slides.filter(slide => !state.selectedSlides.includes(slide.id))
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: newSlides.length ? newSlides : state.presentation.slides
+                }
+            }
+            return newState;
+        }
         case PresentationActions.REMOVE_SELECT_SLIDES:
             return state;
         case PresentationActions.CHANGE_SELECTED_SLIDES: {
             const newState = {
                 ...state,
                 selectedSlides: action.payload,
+                selectMode: SelectModeTypes.Slides
+            };
+            return newState;
+        }
+        case PresentationActions.DELETE_ELEMENTS: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const newElements = state.presentation.slides[selectedSlidesIndex[0]].elements.filter(elem => !state.presentation.slides[selectedSlidesIndex[0]].selectedElements.includes(elem.id))
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: newElements
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
             };
             return newState;
         }
@@ -191,8 +116,8 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
+                selectMode: SelectModeTypes.Elements
             };
-            console.log(action.payload);
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_POSITION: {
@@ -228,6 +153,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
+                selectMode: SelectModeTypes.Elements
             };
             return newState;
         }
@@ -270,6 +196,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
+                selectMode: SelectModeTypes.Elements
             };
             return newState;
         }
@@ -309,6 +236,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
+                selectMode: SelectModeTypes.Elements
             };
             return newState;
         }
@@ -349,6 +277,255 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.ADD_ELEMENT_ACTION: {
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    userAction: {
+                        ActionType: UserActions.ADD_ELEMENT,
+                        AddedElementType: action.payload.elementType,
+                        AddedFigureType: action.payload.figureType ? action.payload.figureType : null,
+                        Url: action.payload.url ? action.payload.url : ""
+                    }
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CREATE_ELEMENT: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    userAction: {
+                        ActionType: UserActions.SLIDE_EDIT,
+                        AddedElementType: null,
+                        AddedFigureType: null,
+                        Url: ""
+                    },
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: [...slide.elements, action.payload.element],
+                                selectedElements: [action.payload.element.id]
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_BOLD: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        bold: !element.properties.chars.bold
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_CURSIVE: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        cursive: !element.properties.chars.cursive
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_UNDERLINE: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        underline: !element.properties.chars.underline
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_SIZE: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        fontSize: element.properties.chars.fontSize + action.payload
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
+            };
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_FONT_FAMILY: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const selectedElements = getElementsById(
+                state.presentation.slides[selectedSlidesIndex[0]].elements,
+                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            );
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (i === selectedSlidesIndex[0]) {
+                            return {
+                                ...slide,
+                                elements: slide.elements.map((element, j) => {
+                                    if (selectedElements.includes(j)) {
+                                        if (element.elementType === ObjectType.Text) {
+                                            return {
+                                                ...element,
+                                                properties: {
+                                                    ...element.properties,
+                                                    chars: {
+                                                        ...element.properties.chars,
+                                                        fontFamily: { fontFamily: action.payload }
+                                                    },
+                                                },
+                                            };
+                                        }
+                                        return element;
+                                    }
+                                    return element;
+                                }),
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Elements
             };
             return newState;
         }

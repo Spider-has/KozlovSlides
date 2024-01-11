@@ -7,6 +7,12 @@ type OnDragStartFunc = (args: {
     onClickAction: (event: MouseEvent) => void;
 }) => void;
 
+type OnDragStartFuncWithClick = (args: {
+    onDragAction: (event: MouseEvent) => void;
+    onClick: (event: MouseEvent) => void;
+}) => void;
+
+
 const useObjectsDragAndDrop = (ref: RefObject<HTMLElement>, startElemPos: Point) => {
     const onDragStart: OnDragStartFunc = ({ onDragAction, onDropAction, onClickAction }) => {
         useEffect(() => {
@@ -62,4 +68,32 @@ const useDnDManager: DnDManager = ({ onDrag, onDrop }) => {
     return { onDragStart, clearDragListeners };
 };
 
-export { useObjectsDragAndDrop, useDnDManager };
+const useObjectsDragAndDropWithClick = (startElemPos: Point) => {
+    const onDragStart: OnDragStartFuncWithClick = ({ onDragAction, onClick }) => {
+        useEffect(() => {
+            const onMouseDown = (e: MouseEvent) => {
+                onClick(e);
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseDown);
+            };
+
+            const onMouseMove = (e: MouseEvent) => {
+                onDragAction(e);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mousedown', onMouseDown);
+
+            return () => {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mousedown', onMouseDown);
+            };
+        }, [startElemPos]);
+    };
+    return onDragStart;
+};
+
+export { useObjectsDragAndDrop, useDnDManager, useObjectsDragAndDropWithClick };
+
+
+

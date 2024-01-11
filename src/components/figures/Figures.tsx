@@ -8,6 +8,7 @@ import {
     VideoObject,
 } from '../../model/figureTypes';
 import styles from './Figures.module.css';
+import { useAppActions } from '../../store/hooks';
 
 const Rectangle = (props: { elem: RectangleElement; svgRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.elem };
@@ -103,7 +104,7 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
     const svgRef = props.svgRef;
     const chars = { ...elem.properties.chars };
     const spanRef = useRef<HTMLElement>(null);
-    //const { createChangeElementTextAction } = useAppActions();
+    const { createChangeElementTextAction } = useAppActions();
     // const inputRef = useRef<HTMLInputElement>(null);
     // const TextChars = elem.properties.chars.map((chars, i) => (
     //     <div key={i}>
@@ -122,6 +123,13 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
     //         </span>
     //     </div>
     // ));
+    const onBlur = () => {
+        if (spanRef.current!) {
+            const newText = spanRef.current!.innerText;
+            createChangeElementTextAction(newText, elem.id)
+        }
+        console.log('кончили печатать');
+    }
     return (
         <div className={styles.svgSpace} ref={svgRef}>
             <div className={` ${styles.usualObject} ${styles.textObject}`}>
@@ -138,10 +146,11 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
                     }}
                     contentEditable
                     suppressContentEditableWarning={true}
-                    onInput={() => {
-                        const newText = spanRef.current!.innerText;
-                        console.log(newText);
-                        //createChangeElementTextAction(newText, elem.id);
+                    onFocus={() => {
+
+                        console.log('печатаем')
+
+                        spanRef.current!.addEventListener('blur', onBlur, { once: true })
                     }}
                 >
                     {chars.value}

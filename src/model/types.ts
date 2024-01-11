@@ -1,4 +1,4 @@
-import { SlideElement } from './figureTypes';
+import { FigureObjects, ObjectType, SlideElement } from './figureTypes';
 
 type Id = string;
 
@@ -48,7 +48,19 @@ type Presentation = {
     size: Size;
     name: string;
     menuValues?: MenuValues;
+    userAction: {
+        ActionType: UserActions,
+        AddedElementType: ObjectType | null,
+        AddedFigureType: FigureObjects | null,
+        Url: string
+    };
 };
+
+enum UserActions {
+    SLIDE_EDIT = 'SLIDE_EDIT',
+    ADD_ELEMENT = 'ADD_ELEMENT',
+
+}
 type MenuValues = {
     fontFamily?: FontFamily;
     fontSize: number;
@@ -65,8 +77,14 @@ type Editor = {
     history: Array<Presentation>;
     selectedSlides: Array<Id>;
     viewMode: ViewMode;
-    selectMode?: 'slides' | 'elements';
+    selectMode: SelectModeTypes;
 };
+
+enum SelectModeTypes {
+    Slides = "Slides",
+    Elements = "Elements"
+}
+
 enum ViewMode {
     Edit,
     View,
@@ -106,4 +124,4 @@ export type {
     ButtonProps,
     Id,
 };
-export { ButtonType, BackgroundType, ViewMode };
+export { SelectModeTypes, ButtonType, BackgroundType, ViewMode, UserActions };

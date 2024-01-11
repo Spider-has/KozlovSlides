@@ -98,14 +98,14 @@ interface TextObject extends DefaultSlideElement {
 }
 
 enum ObjectType {
-    Text,
-    Graphic,
-    Triangle,
-    Ellipse,
-    Image,
-    Video,
-    Audio,
-    FunctionGraph,
+    Text = "Text",
+    Graphic = "Graphic",
+    Triangle = "Triangle",
+    Ellipse = "Ellipse",
+    Image = "Image",
+    Video = "Video",
+    Audio = "Audio",
+    FunctionGraph = "FunctionGraph",
 }
 
 type SlideElement =
@@ -135,9 +135,9 @@ type Border = {
 };
 
 enum FigureObjects {
-    Ellipse,
-    Triangle,
-    Rectangle,
+    Ellipse = "Ellipse",
+    Triangle = "Triangle",
+    Rectangle = "Rectangle",
 }
 
 type Size = {
@@ -159,5 +159,6 @@ export type {
     Size,
     EllipseElement,
     TextObject,
+    Span
 };
 export { ObjectType, FigureObjects };

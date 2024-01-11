@@ -1,4 +1,4 @@
-import { Point } from '../../model/figureTypes';
+import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
 import { BackgroundType, Id } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
@@ -20,12 +20,9 @@ const createAddSlideAction = () => {
     };
 };
 
-const createDeleteSlideAction = (slideId: string) => {
+const createDeleteSlideAction = () => {
     return {
-        type: PresentationActions.DEELETE_SLIDE,
-        payload: {
-            slideLayoutType: slideId,
-        },
+        type: PresentationActions.DELETE_SLIDES,
     };
 };
 
@@ -95,6 +92,64 @@ const createChangeElementTextAction = (newText: string, id: Id) => {
     };
 };
 
+const createChangeAddElementAction = (elementType: ObjectType, figureType?: FigureObjects, url?: string) => {
+    return {
+        type: PresentationActions.ADD_ELEMENT_ACTION,
+        payload: {
+            elementType: elementType,
+            figureType: figureType ? figureType : null,
+            url: url ? url : ""
+        }
+    };
+};
+
+const createCreateNewAlementAction = (elem: SlideElement) => {
+    return {
+        type: PresentationActions.CREATE_ELEMENT,
+        payload: {
+            element: elem
+        }
+    };
+};
+
+const createDeleteElementsAction = () => {
+    return {
+        type: PresentationActions.DELETE_ELEMENTS,
+    };
+};
+
+const createChangeTextBold = () => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_BOLD,
+    };
+};
+
+const createChangeTextUnderline = () => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_UNDERLINE,
+    };
+};
+
+const createChangeTextCursive = () => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_CURSIVE,
+    };
+};
+
+const createChangeTextSize = (size: number) => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_SIZE,
+        payload: size
+    };
+};
+
+const createChangeTextFontFamily = (fontFamily: string) => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_FONT_FAMILY,
+        payload: fontFamily
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -106,4 +161,12 @@ export {
     createChangePositionAndSelectElementAction,
     createChangeElementsSizeAction,
     createChangeElementTextAction,
+    createChangeAddElementAction,
+    createCreateNewAlementAction,
+    createDeleteElementsAction,
+    createChangeTextBold,
+    createChangeTextUnderline,
+    createChangeTextCursive,
+    createChangeTextSize,
+    createChangeTextFontFamily
 };
