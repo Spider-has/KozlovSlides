@@ -47,31 +47,20 @@ type Presentation = {
     slides: Array<Slide>;
     size: Size;
     name: string;
-    menuValues?: MenuValues;
     userAction: {
-        ActionType: UserActions,
-        AddedElementType: ObjectType | null,
-        AddedFigureType: FigureObjects | null,
-        Url: string
+        ActionType: UserActions;
+        AddedElementType: ObjectType | null;
+        AddedFigureType: FigureObjects | null;
+        Url: string;
     };
 };
 
 enum UserActions {
     SLIDE_EDIT = 'SLIDE_EDIT',
     ADD_ELEMENT = 'ADD_ELEMENT',
-
 }
-type MenuValues = {
-    fontFamily?: FontFamily;
-    fontSize: number;
-    textColor?: Color;
-    graphColor?: Color;
-};
 
 type Color = string;
-type FontFamily = {
-    fontFamily: string;
-};
 type Editor = {
     presentation: Presentation;
     history: Array<Presentation>;
@@ -81,8 +70,8 @@ type Editor = {
 };
 
 enum SelectModeTypes {
-    Slides = "Slides",
-    Elements = "Elements"
+    Slides = 'Slides',
+    Elements = 'Elements',
 }
 
 enum ViewMode {
@@ -103,27 +92,18 @@ type ButtonProps = {
     list?: boolean;
     icon?: JSX.Element | null;
     iconSize?: number;
-    right?: boolean | false
+    right?: boolean | false;
     action: () => void;
 };
 
 type ButtonWithActionListProps = {
     mainButton: ButtonProps;
-    buttonList:
-    {
+    buttonList: {
         secondaryButton: ButtonProps;
         buttonList: ButtonProps[];
     }[];
     right?: boolean | false;
 };
 
-export type {
-    Slide,
-    Presentation,
-    Editor,
-    ElementAnimation,
-    ButtonWithActionListProps,
-    ButtonProps,
-    Id,
-};
+export type { Slide, Presentation, Editor, ElementAnimation, ButtonWithActionListProps, ButtonProps, Id };
 export { SelectModeTypes, ButtonType, BackgroundType, ViewMode, UserActions };

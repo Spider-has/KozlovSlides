@@ -58,10 +58,13 @@ const Triangle = (props: { elem: TriangleElement; svgRef: RefObject<HTMLDivEleme
                     className={`${styles.usualObject}`}
                     width={'100%'}
                     height={'100%'}
-                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${(elem.properties.point1.y * elem.size.height) / 100
-                        } L ${(elem.properties.point2.x * elem.size.width) / 100} ${(elem.properties.point2.y * elem.size.height) / 100
-                        } L ${(elem.properties.point3.x * elem.size.width) / 100} ${(elem.properties.point3.y * elem.size.height) / 100
-                        }`}
+                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${
+                        (elem.properties.point1.y * elem.size.height) / 100
+                    } L ${(elem.properties.point2.x * elem.size.width) / 100} ${
+                        (elem.properties.point2.y * elem.size.height) / 100
+                    } L ${(elem.properties.point3.x * elem.size.width) / 100} ${
+                        (elem.properties.point3.y * elem.size.height) / 100
+                    }`}
                     fill={elem.properties.color ? elem.properties.color : 'black'}
                     stroke={elem.properties.border?.color}
                 />
@@ -105,31 +108,13 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
     const chars = { ...elem.properties.chars };
     const spanRef = useRef<HTMLElement>(null);
     const { createChangeElementTextAction } = useAppActions();
-    // const inputRef = useRef<HTMLInputElement>(null);
-    // const TextChars = elem.properties.chars.map((chars, i) => (
-    //     <div key={i}>
-    //         <span
-    //             className={styles.textChars}
-    //             style={{
-    //                 fontFamily: chars.fontFamily?.fontFamily,
-    //                 fontSize: chars.fontSize,
-    //                 fontWeight: chars.bold ? 'bold' : 'normal',
-    //                 fontStyle: chars.cursive ? 'italic' : 'normal',
-    //                 textDecorationLine: chars.underline ? 'underline' : 'none',
-    //                 color: chars.color ? chars.color : 'black',
-    //             }}
-    //         >
-    //             {chars.value}
-    //         </span>
-    //     </div>
-    // ));
     const onBlur = () => {
         if (spanRef.current!) {
             const newText = spanRef.current!.innerText;
-            createChangeElementTextAction(newText, elem.id)
+            createChangeElementTextAction(newText, elem.id);
         }
         console.log('кончили печатать');
-    }
+    };
     return (
         <div className={styles.svgSpace} ref={svgRef}>
             <div className={` ${styles.usualObject} ${styles.textObject}`}>
@@ -147,27 +132,13 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
                     contentEditable
                     suppressContentEditableWarning={true}
                     onFocus={() => {
+                        console.log('печатаем');
 
-                        console.log('печатаем')
-
-                        spanRef.current!.addEventListener('blur', onBlur, { once: true })
+                        spanRef.current!.addEventListener('blur', onBlur, { once: true });
                     }}
                 >
                     {chars.value}
                 </span>
-                {/* <input
-                    style={{
-                        fontFamily: chars.fontFamily?.fontFamily,
-                        fontSize: chars.fontSize,
-                        fontWeight: chars.bold ? 'bold' : 'normal',
-                        fontStyle: chars.cursive ? 'italic' : 'normal',
-                        textDecorationLine: chars.underline ? 'underline' : 'none',
-                        color: chars.color ? chars.color : 'black',
-                    }}
-                    className={styles.textInput}
-                    type="text"
-                    ref={inputRef}
-                /> */}
             </div>
         </div>
     );

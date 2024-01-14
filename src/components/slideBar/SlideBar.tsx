@@ -45,26 +45,26 @@ const SlidePreviewArea = (props: {
     isShifted: boolean;
     isSelected: boolean;
     selectedSlides: Id[];
-    setRef: (ref: RefObject<HTMLDivElement>) => void
-    getNewOrder: (ref: RefObject<HTMLDivElement>) => number
+    setRef: (ref: RefObject<HTMLDivElement>) => void;
+    getNewOrder: (ref: RefObject<HTMLDivElement>) => number;
 }) => {
     const { createChangeSelectedSlidesAction, createChangeSlidesOrderAction } = useAppActions();
-    console.log('slidePreviewArea ' + props.slide.id)
+    console.log('slidePreviewArea ' + props.slide.id);
     const slideIndex = props.index - 1;
     const selectedSlides = [...props.selectedSlides];
-    const selectedSlideClass = props.isSelected
-        ? styles.slidePreviewAreaPreviewAreaSelected
-        : '';
+    const selectedSlideClass = props.isSelected ? styles.slidePreviewAreaPreviewAreaSelected : '';
     const slideRef = useRef<HTMLDivElement>(null);
-    const slideDnD = useObjectsDragAndDrop(slideRef, { x: slideIndex, y: 0 });
+    const slideDnD = useObjectsDragAndDrop(slideRef, {
+        x: slideIndex,
+        y: 0,
+    });
     const slideParams = {
-        y: 0
-    }
+        y: 0,
+    };
     slideDnD({
         onClickAction(event) {
             if (props.isSelected) {
-                console.log('сюда!')
-                slideRef.current!.style.position = 'absolute'
+                slideRef.current!.style.position = 'absolute';
                 slideParams.y = slideRef.current!.getBoundingClientRect().y;
                 slideRef.current!.style.top = event.pageY - slideParams.y + 'px';
             }
@@ -76,16 +76,16 @@ const SlidePreviewArea = (props: {
         },
         onDropAction() {
             if (props.isSelected) {
-                console.log(props.getNewOrder(slideRef))
-                createChangeSlidesOrderAction(slideIndex, props.getNewOrder(slideRef))
-                slideRef.current!.style.position = ''
+                console.log(props.getNewOrder(slideRef));
+                createChangeSlidesOrderAction(slideIndex, props.getNewOrder(slideRef));
+                slideRef.current!.style.position = '';
                 slideRef.current!.style.top = '';
             }
         },
-    })
+    });
     useEffect(() => {
-        props.setRef(slideRef)
-    }, [slideRef])
+        props.setRef(slideRef);
+    }, [slideRef]);
     return (
         <div
             className={styles.slidePreviewArea}
@@ -105,9 +105,7 @@ const SlidePreviewArea = (props: {
             ref={slideRef}
         >
             <div className={styles.slidePreviewAreaIdArea}>{props.index}</div>
-            <div
-                className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}
-            >
+            <div className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}>
                 <SlidePreview slide={props.slide} />
             </div>
         </div>
@@ -125,24 +123,24 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
             setShifted(false);
         },
     );
-    const allSlides = useRef<Array<RefObject<HTMLDivElement>>>([])
+    const allSlides = useRef<Array<RefObject<HTMLDivElement>>>([]);
     const setRef = (i: number, refobj: RefObject<HTMLDivElement>) => {
-        allSlides.current[i] = refobj
-    }
+        allSlides.current[i] = refobj;
+    };
     const getNewIndex = (currRef: RefObject<HTMLDivElement>) => {
-        const currTop = currRef.current?.getBoundingClientRect().top
+        const currTop = currRef.current?.getBoundingClientRect().top;
         let newIndex = 0;
         console.log(currTop);
         for (let i = 0; i < allSlides.current.length; i++) {
-            const elemTop = allSlides.current[i].current?.getBoundingClientRect().top
+            const elemTop = allSlides.current[i].current?.getBoundingClientRect().top;
 
-            console.log(elemTop)
-            if ((currTop && elemTop) && currTop > elemTop) {
-                newIndex++
+            console.log(elemTop);
+            if (currTop && elemTop && currTop > elemTop) {
+                newIndex++;
             }
         }
-        return newIndex
-    }
+        return newIndex;
+    };
     const slidesPreviewList = props.slides.map((slide, i) => {
         const selected = selectedSlides.includes(slide.id);
         return (
@@ -153,12 +151,13 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
                 isShifted={isShifted}
                 isSelected={selected}
                 selectedSlides={selectedSlides}
-                setRef={(ref: RefObject<HTMLDivElement>) => { setRef(i, ref) }}
+                setRef={(ref: RefObject<HTMLDivElement>) => {
+                    setRef(i, ref);
+                }}
                 getNewOrder={getNewIndex}
             />
         );
     });
-
 
     return <div className={styles.slidePreviewList}>{slidesPreviewList}</div>;
 };

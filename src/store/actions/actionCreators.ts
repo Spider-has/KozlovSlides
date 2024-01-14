@@ -1,5 +1,5 @@
 import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
-import { BackgroundType, Id } from '../../model/types';
+import { BackgroundType, Id, Presentation } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
 
@@ -54,16 +54,6 @@ const createChangeSelectedElementsAction = (ElementsId: Id[]) => {
     };
 };
 
-const createChangePositionAndSelectElementAction = (elementId: Id, deltaOffset: Point) => {
-    return {
-        type: PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT,
-        payload: {
-            id: elementId,
-            deltaOffset: deltaOffset,
-        },
-    };
-};
-
 const createChangeElementsPositionAction = (deltaOffset: Point) => {
     return {
         type: PresentationActions.CHANGE_ELEMENTS_POSITION,
@@ -98,8 +88,8 @@ const createChangeAddElementAction = (elementType: ObjectType, figureType?: Figu
         payload: {
             elementType: elementType,
             figureType: figureType ? figureType : null,
-            url: url ? url : ""
-        }
+            url: url ? url : '',
+        },
     };
 };
 
@@ -107,8 +97,8 @@ const createCreateNewAlementAction = (elem: SlideElement) => {
     return {
         type: PresentationActions.CREATE_ELEMENT,
         payload: {
-            element: elem
-        }
+            element: elem,
+        },
     };
 };
 
@@ -139,14 +129,14 @@ const createChangeTextCursive = () => {
 const createChangeTextSize = (size: number) => {
     return {
         type: PresentationActions.CHANGE_TEXT_SIZE,
-        payload: size
+        payload: size,
     };
 };
 
 const createChangeTextFontFamily = (fontFamily: string) => {
     return {
         type: PresentationActions.CHANGE_TEXT_FONT_FAMILY,
-        payload: fontFamily
+        payload: fontFamily,
     };
 };
 
@@ -155,8 +145,15 @@ const createChangeSlidesOrderAction = (oldPos: number, newPos: number) => {
         type: PresentationActions.CHANGE_SLIDES_ORDER,
         payload: {
             from: oldPos,
-            to: newPos
-        }
+            to: newPos,
+        },
+    };
+};
+
+const createUpdatePresentationFromFileAction = (presentation: Presentation) => {
+    return {
+        type: PresentationActions.UPDATE_PRESENTATION,
+        payload: presentation,
     };
 };
 
@@ -168,7 +165,6 @@ export {
     createChangeSelectedSlidesAction,
     createChangeSelectedElementsAction,
     createChangeElementsPositionAction,
-    createChangePositionAndSelectElementAction,
     createChangeElementsSizeAction,
     createChangeElementTextAction,
     createChangeAddElementAction,
@@ -179,5 +175,6 @@ export {
     createChangeTextCursive,
     createChangeTextSize,
     createChangeTextFontFamily,
-    createChangeSlidesOrderAction
+    createChangeSlidesOrderAction,
+    createUpdatePresentationFromFileAction,
 };

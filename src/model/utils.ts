@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject } from 'react';
 import { Point, Size, SlideElement } from './figureTypes';
 import { BackgroundType, Id, Slide } from './types';
@@ -121,6 +122,36 @@ const changeStyleSize = (
     changeStyleWidth(elemRef, elemSize.width, eventPos.x, startMousePos.x);
 };
 
+const checkPresentationFileType = (jsonObject: any) => {
+    if (typeof jsonObject == 'object') {
+        if (jsonObject.slides && typeof jsonObject.slides == 'object') {
+            if (Array.isArray(jsonObject.slides)) {
+                if (jsonObject.slides) {
+                    jsonObject.slides.forEach((slide: any) => {
+                        if (!(slide.id && typeof slide.id == 'string')) return false;
+                        if (!(slide.elements && typeof slide.elements == 'object')) return false;
+                        if (!(slide.selectedElements && typeof slide.selectedElements == 'object'))
+                            return false;
+                        if (!(slide.background && typeof slide.background == 'object')) return false;
+                        if (!(slide.elementsAnimations && typeof slide.elementsAnimations == 'object'))
+                            return false;
+                    });
+                }
+            } else return false;
+        } else return false;
+        if (jsonObject.size && typeof jsonObject.size == 'object') {
+            if (!(jsonObject.size.width && typeof jsonObject.size.width == 'number')) return false;
+            if (!(jsonObject.size.height && typeof jsonObject.size.height == 'number')) return false;
+        }
+        if (!(jsonObject.name && typeof jsonObject.name == 'string')) return false;
+        if (jsonObject.userAction && typeof jsonObject.userAction == 'object') {
+            if (!(jsonObject.userAction.ActionType && typeof jsonObject.userAction.ActionType == 'string'))
+                return false;
+        } else return false;
+    }
+    return true;
+};
+
 export {
     generateRandomId,
     getNumfromPxString,
@@ -133,5 +164,6 @@ export {
     changeStylePosition,
     changeStyleSize,
     getSlideById,
+    checkPresentationFileType,
     checkElemsCollision,
 };

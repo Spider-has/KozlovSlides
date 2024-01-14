@@ -1,5 +1,5 @@
 import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
-import { Id, Slide } from '../../model/types';
+import { Id, Presentation, Slide } from '../../model/types';
 
 enum PresentationActions {
     CHANGE_SLIDE_POSITION = 'CHANGE_POSITION',
@@ -12,7 +12,6 @@ enum PresentationActions {
     CHANGE_SELECTED_SLIDES = 'CHANGE_SELECTED_SLIDES',
     CHANGE_ELEMENTS_POSITION = 'CHANGE_ELEMENTS_POSITION',
     CHANGE_SELECTED_ELEMENTS = 'CHANGE_SELECTED_ELEMENTS',
-    CHANGE_POSITION_AND_SELECT_ELEMENT = 'CHANGE_POSITION_AND_SELECT_ELEMENT',
     CHANGE_ELEMENTS_SIZE = 'CHANGE_ELEMENTS_SIZE',
     CHANGE_ELEMENT_TEXT = 'CHANGE_ELEMENT_TEXT',
     ADD_ELEMENT_ACTION = 'ADD_ELEMENT_ACTION',
@@ -23,7 +22,8 @@ enum PresentationActions {
     CHANGE_TEXT_CURSIVE = 'CHANGE_TEXT_CURSIVE',
     CHANGE_TEXT_SIZE = 'CHANGE_TEXT_SIZE',
     CHANGE_TEXT_FONT_FAMILY = 'CHANGE_TEXT_FONT_FAMILY',
-    CHANGE_SLIDES_ORDER = 'CHANGE_SLIDES_ORDER'
+    CHANGE_SLIDES_ORDER = 'CHANGE_SLIDES_ORDER',
+    UPDATE_PRESENTATION = 'UPDATE_PRESENTATION',
 }
 
 type ChangeSlidePosition = {
@@ -82,14 +82,6 @@ type ChangeSelectedElements = {
     payload: Id[];
 };
 
-type ChangePositionAndSelectedElement = {
-    type: PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT;
-    payload: {
-        id: Id;
-        deltaOffset: Point;
-    };
-};
-
 type ChangeElementsSize = {
     type: PresentationActions.CHANGE_ELEMENTS_SIZE;
     payload: {
@@ -108,17 +100,17 @@ type ChangeElementText = {
 type ChangeToAddElementAction = {
     type: PresentationActions.ADD_ELEMENT_ACTION;
     payload: {
-        elementType: ObjectType,
-        figureType?: FigureObjects,
-        url?: string
-    }
+        elementType: ObjectType;
+        figureType?: FigureObjects;
+        url?: string;
+    };
 };
 
 type CreateElementOnSlide = {
     type: PresentationActions.CREATE_ELEMENT;
     payload: {
-        element: SlideElement
-    }
+        element: SlideElement;
+    };
 };
 
 type DeleteElements = {
@@ -139,23 +131,26 @@ type ChangeTextUnderCursive = {
 
 type ChangeTextSize = {
     type: PresentationActions.CHANGE_TEXT_SIZE;
-    payload: number
+    payload: number;
 };
 
 type ChangeTextFontFamily = {
     type: PresentationActions.CHANGE_TEXT_FONT_FAMILY;
-    payload: string
+    payload: string;
 };
-
 
 type ChangeSlidesOrder = {
     type: PresentationActions.CHANGE_SLIDES_ORDER;
     payload: {
-        from: number,
-        to: number
-    }
+        from: number;
+        to: number;
+    };
 };
 
+type UpdatePresentationFromFile = {
+    type: PresentationActions.UPDATE_PRESENTATION;
+    payload: Presentation;
+};
 
 type Action =
     | ChangeSlidePosition
@@ -168,7 +163,6 @@ type Action =
     | ChangeSelectedSlides
     | ChangeElementPosition
     | ChangeSelectedElements
-    | ChangePositionAndSelectedElement
     | ChangeElementsSize
     | ChangeElementText
     | ChangeToAddElementAction
@@ -179,6 +173,7 @@ type Action =
     | ChangeTextUnderCursive
     | ChangeTextSize
     | ChangeTextFontFamily
-    | ChangeSlidesOrder;
+    | ChangeSlidesOrder
+    | UpdatePresentationFromFile;
 export type { Action };
 export { PresentationActions };

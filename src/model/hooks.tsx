@@ -12,6 +12,26 @@ type OnDragStartFuncWithClick = (args: {
     onClick: (event: MouseEvent) => void;
 }) => void;
 
+const useClickOut = (action: () => void, visibility: boolean, elementRef: React.RefObject<Node>) => {
+    useEffect(() => {
+        if (visibility) {
+            const handle = (event: MouseEvent) => {
+                const tar = event.target as HTMLElement;
+                if (visibility && elementRef.current && !elementRef.current.contains(tar)) {
+                    action();
+                }
+            };
+
+            setTimeout(() => {
+                document.addEventListener('click', handle);
+            }, 0);
+
+            return () => {
+                document.removeEventListener('click', handle);
+            };
+        }
+    }, [visibility]);
+};
 
 const useObjectsDragAndDrop = (ref: RefObject<HTMLElement>, startElemPos: Point) => {
     const onDragStart: OnDragStartFunc = ({ onDragAction, onDropAction, onClickAction }) => {
@@ -43,31 +63,6 @@ const useObjectsDragAndDrop = (ref: RefObject<HTMLElement>, startElemPos: Point)
     return onDragStart;
 };
 
-type DnDManager = (args: { onDrag: (event: MouseEvent) => void; onDrop: (event: MouseEvent) => void }) => {
-    onDragStart: () => void;
-    clearDragListeners: () => void;
-};
-
-const useDnDManager: DnDManager = ({ onDrag, onDrop }) => {
-    const onMouseUp = (e: MouseEvent) => {
-        onDrop(e);
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-        onDrag(e);
-    };
-
-    const onDragStart = () => {
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-    };
-    const clearDragListeners = () => {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-    };
-    return { onDragStart, clearDragListeners };
-};
-
 const useObjectsDragAndDropWithClick = (startElemPos: Point) => {
     const onDragStart: OnDragStartFuncWithClick = ({ onDragAction, onClick }) => {
         useEffect(() => {
@@ -93,7 +88,4 @@ const useObjectsDragAndDropWithClick = (startElemPos: Point) => {
     return onDragStart;
 };
 
-export { useObjectsDragAndDrop, useDnDManager, useObjectsDragAndDropWithClick };
-
-
-
+export { useObjectsDragAndDrop, useObjectsDragAndDropWithClick, useClickOut };

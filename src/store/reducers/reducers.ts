@@ -2,8 +2,12 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { BackgroundType, Editor, SelectModeTypes, UserActions, ViewMode } from '../../model/types';
 import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
-import { generateRandomId, getElementsById, getSlideIndexById } from '../../model/utils';
-import { ObjectType } from '../../model/figureTypes';
+import { generateRandomId, getSlideIndexById } from '../../model/utils';
+import {
+    getStateWithNewSelectedElemsPosition,
+    getStateWithNewSelectedElemsSize,
+    getStateWithNewSelectedElemsTextParams,
+} from './reducerUtils';
 
 type InitData = Editor;
 const defaultSize = {
@@ -31,13 +35,13 @@ const initData: InitData = {
             ActionType: UserActions.SLIDE_EDIT,
             AddedElementType: null,
             AddedFigureType: null,
-            Url: ""
-        }
+            Url: '',
+        },
     },
     history: [],
     selectedSlides: [],
     viewMode: ViewMode.Edit,
-    selectMode: SelectModeTypes.Slides
+    selectMode: SelectModeTypes.Slides,
 };
 initData.selectedSlides[0] = initData.presentation.slides[0].id;
 
@@ -54,19 +58,21 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                     ...state.presentation,
                     slides: [...state.presentation.slides, action.payload],
                 },
-                selectMode: SelectModeTypes.Slides
+                selectMode: SelectModeTypes.Slides,
             };
             return newState;
         }
         case PresentationActions.DELETE_SLIDES: {
-            const newSlides = state.presentation.slides.filter(slide => !state.selectedSlides.includes(slide.id))
+            const newSlides = state.presentation.slides.filter(
+                slide => !state.selectedSlides.includes(slide.id),
+            );
             const newState = {
                 ...state,
                 presentation: {
                     ...state.presentation,
-                    slides: newSlides.length ? newSlides : state.presentation.slides
-                }
-            }
+                    slides: newSlides.length ? newSlides : state.presentation.slides,
+                },
+            };
             return newState;
         }
         case PresentationActions.REMOVE_SELECT_SLIDES:
@@ -75,13 +81,15 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             const newState = {
                 ...state,
                 selectedSlides: action.payload,
-                selectMode: SelectModeTypes.Slides
+                selectMode: SelectModeTypes.Slides,
             };
             return newState;
         }
         case PresentationActions.DELETE_ELEMENTS: {
             const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const newElements = state.presentation.slides[selectedSlidesIndex[0]].elements.filter(elem => !state.presentation.slides[selectedSlidesIndex[0]].selectedElements.includes(elem.id))
+            const newElements = state.presentation.slides[selectedSlidesIndex[0]].elements.filter(
+                elem => !state.presentation.slides[selectedSlidesIndex[0]].selectedElements.includes(elem.id),
+            );
             const newState = {
                 ...state,
                 presentation: {
@@ -90,13 +98,13 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         if (i === selectedSlidesIndex[0]) {
                             return {
                                 ...slide,
-                                elements: newElements
+                                elements: newElements,
                             };
                         }
                         return slide;
                     }),
                 },
-                selectMode: SelectModeTypes.Elements
+                selectMode: SelectModeTypes.Elements,
             };
             return newState;
         }
@@ -116,169 +124,28 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         return slide;
                     }),
                 },
-                selectMode: SelectModeTypes.Elements
+                selectMode: SelectModeTypes.Elements,
             };
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_POSITION: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            const newState = getStateWithNewSelectedElemsPosition(
+                state,
+                action.payload.deltaOffset.x,
+                action.payload.deltaOffset.y,
             );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        const oldx = element.position.x;
-                                        const oldy = element.position.y;
-                                        return {
-                                            ...element,
-                                            position: {
-                                                x: oldx + action.payload.deltaOffset.x,
-                                                y: oldy + action.payload.deltaOffset.y,
-                                            },
-                                        };
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_SIZE: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+            const newState = getStateWithNewSelectedElemsSize(
+                state,
+                action.payload.deltaOffset.x,
+                action.payload.deltaOffset.y,
             );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        const oldWidht = element.size.width;
-                                        const oldHeight = element.size.height;
-                                        return {
-                                            ...element,
-                                            size: {
-                                                width:
-                                                    oldWidht + action.payload.deltaOffset.x > 0
-                                                        ? oldWidht + action.payload.deltaOffset.x
-                                                        : 0,
-                                                height:
-                                                    oldHeight + action.payload.deltaOffset.y > 0
-                                                        ? oldHeight + action.payload.deltaOffset.y
-                                                        : 0,
-                                            },
-                                        };
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
-            return newState;
-        }
-        case PresentationActions.CHANGE_POSITION_AND_SELECT_ELEMENT: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                selectedElements: [action.payload.id],
-                                elements: slide.elements.map(element => {
-                                    if (action.payload.id === element.id) {
-                                        const oldx = element.position.x;
-                                        const oldy = element.position.y;
-                                        return {
-                                            ...element,
-                                            position: {
-                                                x:
-                                                    oldx + action.payload.deltaOffset.x > 0
-                                                        ? oldx + action.payload.deltaOffset.x
-                                                        : 0,
-                                                y:
-                                                    oldy + action.payload.deltaOffset.y > 0
-                                                        ? oldy + action.payload.deltaOffset.y
-                                                        : 0,
-                                            },
-                                        };
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENT_TEXT: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                [action.payload.id],
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        value: action.payload.newText,
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, { value: action.payload.newText });
             return newState;
         }
         case PresentationActions.ADD_ELEMENT_ACTION: {
@@ -290,10 +157,10 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         ActionType: UserActions.ADD_ELEMENT,
                         AddedElementType: action.payload.elementType,
                         AddedFigureType: action.payload.figureType ? action.payload.figureType : null,
-                        Url: action.payload.url ? action.payload.url : ""
-                    }
+                        Url: action.payload.url ? action.payload.url : '',
+                    },
                 },
-                selectMode: SelectModeTypes.Elements
+                selectMode: SelectModeTypes.Elements,
             };
             return newState;
         }
@@ -307,240 +174,66 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                         ActionType: UserActions.SLIDE_EDIT,
                         AddedElementType: null,
                         AddedFigureType: null,
-                        Url: ""
+                        Url: '',
                     },
                     slides: state.presentation.slides.map((slide, i) => {
                         if (i === selectedSlidesIndex[0]) {
                             return {
                                 ...slide,
                                 elements: [...slide.elements, action.payload.element],
-                                selectedElements: [action.payload.element.id]
+                                selectedElements: [action.payload.element.id],
                             };
                         }
                         return slide;
                     }),
                 },
-                selectMode: SelectModeTypes.Elements
+                selectMode: SelectModeTypes.Elements,
             };
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_BOLD: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        bold: !element.properties.chars.bold
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, { bold: true });
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_CURSIVE: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        cursive: !element.properties.chars.cursive
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, { cursive: true });
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_UNDERLINE: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        underline: !element.properties.chars.underline
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, { underline: true });
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_SIZE: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        fontSize: element.properties.chars.fontSize + action.payload
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, { deltaTextSize: action.payload });
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_FONT_FAMILY: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const selectedElements = getElementsById(
-                state.presentation.slides[selectedSlidesIndex[0]].elements,
-                state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
-            );
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: slide.elements.map((element, j) => {
-                                    if (selectedElements.includes(j)) {
-                                        if (element.elementType === ObjectType.Text) {
-                                            return {
-                                                ...element,
-                                                properties: {
-                                                    ...element.properties,
-                                                    chars: {
-                                                        ...element.properties.chars,
-                                                        fontFamily: { fontFamily: action.payload }
-                                                    },
-                                                },
-                                            };
-                                        }
-                                        return element;
-                                    }
-                                    return element;
-                                }),
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements
-            };
+            const newState = getStateWithNewSelectedElemsTextParams(state, {
+                fontFamily: { fontFamily: action.payload },
+            });
             return newState;
         }
         case PresentationActions.CHANGE_SLIDES_ORDER: {
             const newSlides = [...state.presentation.slides];
-            const removedSlides = newSlides.splice(action.payload.from, 1)
-            newSlides.splice(action.payload.to, 0, removedSlides[0])
+            const removedSlides = newSlides.splice(action.payload.from, 1);
+            newSlides.splice(action.payload.to, 0, removedSlides[0]);
             const newState = {
                 ...state,
                 presentation: {
                     ...state.presentation,
                     slides: newSlides,
                 },
-                selectedSlides: [removedSlides[0].id]
-            }
+                selectedSlides: [removedSlides[0].id],
+            };
+            return newState;
+        }
+        case PresentationActions.UPDATE_PRESENTATION: {
+            const SelectedSlidesId = action.payload.slides[0].id ? [action.payload.slides[0].id] : [];
+            const newState = {
+                ...state,
+                presentation: action.payload,
+                selectedSlides: SelectedSlidesId,
+            };
             return newState;
         }
         default:
