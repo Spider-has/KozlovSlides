@@ -418,6 +418,15 @@ const Colors = (name: { name: string }) => {
         colorRef,
     );
     const { createChangeElementsColorAction } = useAppActions();
+    const [visible2, setVisible2] = useState(false);
+    const colorRef2 = useRef(null);
+    useClickOut(
+        () => {
+            setVisible2(!visible2);
+        },
+        visible2,
+        colorRef2,
+    );
     return (
         <div className={styles.colorPalitra}>
             {name.name === 'Цвет' && (
@@ -448,11 +457,11 @@ const Colors = (name: { name: string }) => {
                                 <button
                                     key={index[i]}
                                     className={styles.colorPalitraRowElement}
+                                    style={{ backgroundColor: elem }}
                                     onClick={() => {
                                         const newColor = elem;
                                         createChangeElementsColorAction(newColor);
                                     }}
-                                    style={{ backgroundColor: elem }}
                                 ></button>
                             ))}
                         </div>
@@ -466,6 +475,7 @@ const Colors = (name: { name: string }) => {
                                 icon={<ButtonIcon.NewColor></ButtonIcon.NewColor>}
                                 action={() => {
                                     setVisible(true);
+                                    setVisible2(true);
                                 }}
                             ></Button>
                             <Button
@@ -491,6 +501,7 @@ const Colors = (name: { name: string }) => {
                     </div>
                 </div>
             )}
+            {(visible2 && <ColorSelected></ColorSelected>)}
         </div>
     );
 };
@@ -538,9 +549,9 @@ const SavePresentationButton = () => {
         return { href: href, name: name };
     };
     return (
-        <div>
+        <div className={styles.buttonBlockFull}>
             <ButtonIcon.Download />
-            <a className={styles.buttonBlockButton} href={getJsonHref().href} download={getJsonHref().name}>
+            <a className={styles.DownloadButton} href={getJsonHref().href} download={getJsonHref().name}>
                 Скачать
             </a>
         </div>
@@ -578,6 +589,14 @@ const OpenPresentationButton = () => {
         </div>
     );
 };
+
+const ColorSelected = () => {
+    return <div className={styles.ColorSelectedArea}>
+        <div className={styles.ColorSelected}>
+            гыгы
+        </div>
+    </div>
+}
 
 const MainSettingsBar = () => {
     const {
