@@ -683,17 +683,17 @@ const Title = () => {
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const TextButtonSection: ButtonWithActionListProps = TextButtonList;
     const { createChangeAddElementAction, createChangeTextFontFamily } = useAppActions();
-    TextButtonList.mainButton.action = () => {
+    TextButtonSection.mainButton.action = () => {
         createChangeAddElementAction(ObjectType.Text);
     };
-    FigureButtonList.buttonList[0].secondaryButton.action = () => {
+    FigureButtonSection.buttonList[0].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
 
-    FigureButtonList.buttonList[1].secondaryButton.action = () => {
+    FigureButtonSection.buttonList[1].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Rectangle);
     };
-    FigureButtonList.buttonList[2].secondaryButton.action = () => {
+    FigureButtonSection.buttonList[2].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
 
