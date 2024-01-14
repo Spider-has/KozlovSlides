@@ -45,15 +45,17 @@ const SlidePreviewArea = (props: {
     isShifted: boolean;
     isSelected: boolean;
     selectedSlides: Id[];
-    setRef: (ref: RefObject<HTMLDivElement>) => void;
+    setRef: (slideRef: RefObject<HTMLDivElement>, newPosRef: RefObject<HTMLDivElement>) => void;
     getNewOrder: (ref: RefObject<HTMLDivElement>) => number;
+    showNewPosition: (slideRef: RefObject<HTMLDivElement>, newPosRef: RefObject<HTMLDivElement>) => void;
 }) => {
     const { createChangeSelectedSlidesAction, createChangeSlidesOrderAction } = useAppActions();
-    console.log('slidePreviewArea ' + props.slide.id);
     const slideIndex = props.index - 1;
     const selectedSlides = [...props.selectedSlides];
     const selectedSlideClass = props.isSelected ? styles.slidePreviewAreaPreviewAreaSelected : '';
     const slideRef = useRef<HTMLDivElement>(null);
+    const newPosRef = useRef<HTMLDivElement>(null);
+    const clearSpace = useRef<HTMLDivElement>(null);
     const slideDnD = useObjectsDragAndDrop(slideRef, {
         x: slideIndex,
         y: 0,
@@ -61,10 +63,14 @@ const SlidePreviewArea = (props: {
     const slideParams = {
         y: 0,
     };
+    const slideIndexRef = useRef<HTMLDivElement>(null);
     slideDnD({
         onClickAction(event) {
             if (props.isSelected) {
+                clearSpace.current!.style.display = 'block';
+                slideIndexRef.current!.style.opacity = '0';
                 slideRef.current!.style.position = 'absolute';
+                slideRef.current!.style.zIndex = '100';
                 slideParams.y = slideRef.current!.getBoundingClientRect().y;
                 slideRef.current!.style.top = event.pageY - slideParams.y + 'px';
             }
@@ -72,44 +78,66 @@ const SlidePreviewArea = (props: {
         onDragAction(event) {
             if (props.isSelected) {
                 slideRef.current!.style.top = event.pageY - slideParams.y + 'px';
+                props.showNewPosition(slideRef, newPosRef);
             }
         },
         onDropAction() {
             if (props.isSelected) {
+                slideIndexRef.current!.style.opacity = '1';
+                slideRef.current!.style.zIndex = '0';
                 console.log(props.getNewOrder(slideRef));
                 createChangeSlidesOrderAction(slideIndex, props.getNewOrder(slideRef));
                 slideRef.current!.style.position = '';
                 slideRef.current!.style.top = '';
+                clearSpace.current!.style.display = 'none';
             }
         },
     });
     useEffect(() => {
-        props.setRef(slideRef);
-    }, [slideRef]);
+        if (slideRef && newPosRef) props.setRef(slideRef, newPosRef);
+    }, [slideRef, newPosRef]);
     return (
-        <div
-            className={styles.slidePreviewArea}
-            onClick={() => {
-                if (!props.isSelected && !props.isShifted) {
-                    createChangeSelectedSlidesAction([props.slide.id]);
-                } else {
-                    if (props.isShifted) {
-                        console.log('mnogo');
+        <>
+            <div ref={clearSpace} className={styles.clearSlideSpace}></div>
+            <div
+                className={styles.slidePreviewArea}
+                onClick={() => {
+                    if (!props.isSelected && !props.isShifted) {
+                        createChangeSelectedSlidesAction([props.slide.id]);
+                    } else {
+                        if (props.isShifted) {
+                            console.log('mnogo');
+                        }
+                        if (props.isSelected) {
+                            if (!selectedSlides.includes(props.slide.id))
+                                createChangeSelectedSlidesAction([props.slide.id]);
+                        }
                     }
-                    if (props.isSelected) {
-                        if (!selectedSlides.includes(props.slide.id))
-                            createChangeSelectedSlidesAction([props.slide.id]);
-                    }
-                }
-            }}
-            ref={slideRef}
-        >
-            <div className={styles.slidePreviewAreaIdArea}>{props.index}</div>
-            <div className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}>
-                <SlidePreview slide={props.slide} />
+                }}
+                ref={slideRef}
+            >
+                <div ref={slideIndexRef} className={styles.slidePreviewAreaIdArea}>
+                    {props.index}
+                </div>
+                <div>
+                    <div className={`${styles.slidePreviewAreaPreviewArea} ${selectedSlideClass}`}>
+                        <SlidePreview slide={props.slide} />
+                    </div>
+                    <NewSlidePositionArea newPosRef={newPosRef} />
+                </div>
             </div>
-        </div>
+        </>
     );
+};
+
+const NewSlidePositionArea = (props: { newPosRef: RefObject<HTMLDivElement> }) => {
+    //const posRef = props.newPosRef;
+    return <div ref={props.newPosRef} className={styles.newSlidePosition}></div>;
+};
+
+type SlidePreviewRefs = {
+    slideRef: RefObject<HTMLDivElement>;
+    newPositionRef: RefObject<HTMLDivElement>;
 };
 
 const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
@@ -123,23 +151,59 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
             setShifted(false);
         },
     );
-    const allSlides = useRef<Array<RefObject<HTMLDivElement>>>([]);
-    const setRef = (i: number, refobj: RefObject<HTMLDivElement>) => {
-        allSlides.current[i] = refobj;
+    const allSlides = useRef<Array<SlidePreviewRefs>>([]);
+    const setRef = (
+        i: number,
+        slideRefObj: RefObject<HTMLDivElement>,
+        newPositionRef: RefObject<HTMLDivElement>,
+    ) => {
+        allSlides.current[i] = {
+            slideRef: slideRefObj,
+            newPositionRef: newPositionRef,
+        };
     };
     const getNewIndex = (currRef: RefObject<HTMLDivElement>) => {
         const currTop = currRef.current?.getBoundingClientRect().top;
+        const currHeight = currRef.current?.getBoundingClientRect().height;
+        console.log(currHeight);
         let newIndex = 0;
-        console.log(currTop);
         for (let i = 0; i < allSlides.current.length; i++) {
-            const elemTop = allSlides.current[i].current?.getBoundingClientRect().top;
-
+            const elemTop = allSlides.current[i].slideRef.current?.getBoundingClientRect().top;
+            console.log(currTop);
             console.log(elemTop);
-            if (currTop && elemTop && currTop > elemTop) {
+
+            const newPosRef = allSlides.current[i].newPositionRef.current;
+            if (currTop && elemTop && currHeight && currTop + currHeight / 2 > elemTop) {
                 newIndex++;
             }
+            if (newPosRef) {
+                newPosRef.style.display = 'none';
+            }
         }
-        return newIndex;
+        return newIndex - 1;
+    };
+    const showNewSlidePosition = (
+        currRef: RefObject<HTMLDivElement>,
+        currNewPos: RefObject<HTMLDivElement>,
+    ) => {
+        const currTop = currRef.current?.getBoundingClientRect().top;
+        const currHeight = currRef.current?.getBoundingClientRect().height;
+        let found = false;
+        for (let i = allSlides.current.length - 1; i > 0; i--) {
+            const elemTop = allSlides.current[i].slideRef.current?.getBoundingClientRect().top;
+
+            const newPosRef = allSlides.current[i].newPositionRef.current;
+            if (currTop && elemTop && currHeight && newPosRef && currTop + currHeight / 2 > elemTop) {
+                if (currNewPos.current! != newPosRef && !found) {
+                    newPosRef.style.display = 'block';
+                    found = true;
+                } else {
+                    newPosRef.style.display = 'none';
+                }
+            } else {
+                if (newPosRef) newPosRef.style.display = 'none';
+            }
+        }
     };
     const slidesPreviewList = props.slides.map((slide, i) => {
         const selected = selectedSlides.includes(slide.id);
@@ -151,10 +215,11 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
                 isShifted={isShifted}
                 isSelected={selected}
                 selectedSlides={selectedSlides}
-                setRef={(ref: RefObject<HTMLDivElement>) => {
-                    setRef(i, ref);
+                setRef={(slideRef: RefObject<HTMLDivElement>, newPosRef: RefObject<HTMLDivElement>) => {
+                    setRef(i, slideRef, newPosRef);
                 }}
                 getNewOrder={getNewIndex}
+                showNewPosition={showNewSlidePosition}
             />
         );
     });
