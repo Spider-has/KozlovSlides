@@ -7,7 +7,14 @@ import {
 } from './types';
 
 
-
+export const TextButtonList: ButtonWithActionListProps = {
+    mainButton: {
+        icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
+        type: ButtonType.Icon,
+        action: () => { },
+    },
+    buttonList: []
+};
 
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
@@ -18,17 +25,7 @@ export const FileButtonList: ButtonWithActionListProps = {
     buttonList: [
         {
             secondaryButton: {
-                text: 'Создать',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Create />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Открыть',
-                type: ButtonType.FullIconText,
+                type: ButtonType.FullIcon,
                 action: () => { },
                 icon: <ButtonIcons.Open />,
             },
@@ -36,28 +33,9 @@ export const FileButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Скачать',
-                type: ButtonType.FullIconText,
+                type: ButtonType.FullIcon,
                 action: () => { },
                 icon: <ButtonIcons.Download />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Переименовать',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Rename />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Удалить',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Delete />,
             },
             buttonList: []
         },

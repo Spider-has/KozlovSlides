@@ -10,6 +10,7 @@ import {
     InsertionButtonList,
     ObjectButtonList,
     SlideButtonList,
+    TextButtonList,
     TextFamilyList,
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
@@ -239,7 +240,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                 iconSize={mainButton.iconSize || undefined}
                 right={props.right}
             />
-            {visible && (
+            {visible && (buttonList.length > 0) && (
                 <div ref={ButtonListBar} className={styles.buttonListList}>
                     {buttonList.map((button, index) => (
                         <div key={index} className={styles.buttonListListVerticalArea}>
@@ -366,7 +367,7 @@ const ImageFileUploader = () => {
     const { createChangeAddElementAction } = useAppActions();
     return (
         <div className={styles.buttonBlockFull}>
-            <input id="inputFile" className={styles.inputFile} type="file" accept="image/*" ref={inputRef} onChange={() => {
+            <input id="inputFile" className={styles.fileInputButton} type="file" accept="image/*" ref={inputRef} onChange={() => {
                 if (inputRef.current!.files) {
                     const imgReader = new FileReader();
                     imgReader.onload = () => {
@@ -378,7 +379,7 @@ const ImageFileUploader = () => {
             }} />
             <label htmlFor="inputFile" className={styles.buttonInputBlockFull}>
                 <ButtonIcon.Uploader />
-                <span className={styles.inputTextUploader}>Загрузить с компьютера</span>
+                <span className={styles.fileTextButton}>Загрузить с компьютера</span>
             </label>
         </div>
     )
@@ -393,23 +394,26 @@ const SavePresentationButton = () => {
         const href = URL.createObjectURL(file);
         return { href: href, name: name }
     }
-    return <a className={""} href={getJsonHref().href} download={getJsonHref().name}>Скачать презентацию</a>
+    return <div><ButtonIcon.Download /><a className={styles.buttonBlockButton} href={getJsonHref().href} download={getJsonHref().name}>Скачать</a></div>
 }
-
 const OpenPresentationButton = () => {
     const inputRef = useRef<HTMLInputElement>(null);
-    // const { } = useAppActions();
-    return <label> А открыть не хочешь?<input ref={inputRef} className={""} type={"file"} accept={".json"}
-        onChange={() => {
-            if (inputRef.current! && inputRef.current!.files) {
-                inputRef.current!.files[0].text().then(data => {
-                    const jsonObj = JSON.parse(data);
-                    console.log(jsonObj)
-                    // const isSlides = (x: any): x is Slides[] => fruit.includes(x);
-                    console.log(typeof jsonObj)
-                })
-            }
-        }} /></label>
+    return <div className={styles.buttonBlockFull}>
+        <input id="OpenPresentationButton" ref={inputRef} className={styles.fileInputButton} type={"file"} accept={".json"}
+            onChange={() => {
+                if (inputRef.current! && inputRef.current!.files) {
+                    inputRef.current!.files[0].text().then(data => {
+                        const jsonObj = JSON.parse(data);
+                        console.log(jsonObj)
+                        console.log(typeof jsonObj)
+                    })
+                }
+            }} />
+        <label htmlFor="OpenPresentationButton" className={styles.buttonInputBlockFull}>
+            <ButtonIcon.Open />
+            <span className={styles.fileTextButton}>Открыть</span>
+        </label>
+    </div>
 }
 
 const MainSettingsBar = () => {
@@ -452,14 +456,12 @@ const MainSettingsBar = () => {
     FormatButtonList.buttonList[0].buttonList[6].action = () => {
         createChangeTextSize(2);
     }
-
+    FileButtonList.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
+    FileButtonList.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
     console.log('buttons Rendered!')
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className={styles.docsMenubars}>
-            <SavePresentationButton />
-            <OpenPresentationButton />
-
             <ButtonWithActionList
                 mainButton={FileButtonSection.mainButton}
                 buttonList={FileButtonSection.buttonList}
@@ -492,8 +494,11 @@ const Title = () => {
     const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
     const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
+    const TextButtonSection: ButtonWithActionListProps = TextButtonList;
     const { createChangeAddElementAction } = useAppActions();
-
+    TextButtonList.mainButton.action = () => {
+        createChangeAddElementAction(ObjectType.Text)
+    }
     FigureButtonList.buttonList[0].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse)
     }
@@ -550,10 +555,9 @@ const Title = () => {
                         icon={<ButtonIcon.Cursor />}
                         action={() => { }}
                     />
-                    <Button
-                        type={ButtonType.Icon}
-                        icon={<ButtonIcon.TextField />}
-                        action={() => { }}
+                    <ButtonWithActionList
+                        mainButton={TextButtonSection.mainButton}
+                        buttonList={TextButtonSection.buttonList}
                     />
                     <ButtonWithActionList
                         mainButton={ImageButtonSection.mainButton}
@@ -587,6 +591,12 @@ const Title = () => {
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Line />}
+                        action={() => { }}
+                    />
+                    <div className={styles.createLine}></div>
+                    <Button
+                        text={'Фон'}
+                        type={ButtonType.Text}
                         action={() => { }}
                     />
                     <div className={styles.createLine}></div>
