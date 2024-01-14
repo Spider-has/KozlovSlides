@@ -6,6 +6,7 @@ import {
     FigureButtonList,
     FileButtonList,
     FormatButtonList,
+    ImageButtonList,
     InsertionButtonList,
     ObjectButtonList,
     SlideButtonList,
@@ -134,6 +135,8 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const ButtonListBar2 = useRef<HTMLDivElement>(null);
     const [visible3, setVisible3] = useState(false);
     const ButtonListBar3 = useRef<HTMLDivElement>(null);
+    const [visible4, setVisible4] = useState(false);
+    const ButtonListBar4 = useRef<HTMLDivElement>(null);
     const { mainButton, buttonList } = props;
     switch (mainButton.text) {
         case "Вставка":
@@ -151,6 +154,20 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                             visible2,
                             ButtonListBar2,
                         );
+                        break;
+                    case "Изображение":
+                        element.secondaryButton.action = () => {
+                            setVisible3(!visible3);
+                        };
+
+                        useClickOut(
+                            () => {
+                                setVisible3(!visible3);
+                            },
+                            visible3,
+                            ButtonListBar3,
+                        );
+                        break;
                 }
             });
             break;
@@ -181,6 +198,18 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                             },
                             visible3,
                             ButtonListBar3,
+                        );
+                        break;
+                    case "Маркеры и нумерация":
+                        element.secondaryButton.action = () => {
+                            setVisible4(!visible4);
+                        };
+                        useClickOut(
+                            () => {
+                                setVisible4(!visible4);
+                            },
+                            visible4,
+                            ButtonListBar4,
                         );
                         break;
                 }
@@ -229,7 +258,22 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                         ))
                                         }
                                     </div>) || (
-                                    (visible3 && ((button.secondaryButton.text == 'Выравнивание и отступы'))) && <div ref={ButtonListBar3} className={styles.buttonListListVertical}>
+                                    (visible3 && ((button.secondaryButton.text == 'Выравнивание и отступы') || (button.secondaryButton.text == 'Изображение'))) && <div ref={ButtonListBar3} className={styles.buttonListListVertical}>
+                                        {button.buttonList.map((button, index) => (
+                                            <Button
+                                                key={index}
+                                                text={button.text}
+                                                type={button.type}
+                                                icon={button.icon}
+                                                action={button.action || null}
+                                                iconSize={button.iconSize || undefined}
+                                            />
+                                        ))
+                                        }
+
+                                    </div>
+                                ) || (
+                                    (visible4 && ((button.secondaryButton.text == 'Маркеры и нумерация'))) && <div ref={ButtonListBar4} className={styles.buttonListListVertical}>
                                         {button.buttonList.map((button, index) => (
                                             <Button
                                                 key={index}
@@ -247,7 +291,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
 
                             }
                             {
-                                ((button.secondaryButton.text !== 'Цвет') && (button.secondaryButton.text !== 'Цвет фона') &&
+                                ((button.secondaryButton.text !== 'Цвет') && (button.secondaryButton.text !== 'Изменить фон') &&
                                     <Button
                                         key={index}
                                         text={button.secondaryButton.text}
@@ -258,7 +302,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                     />)
                             }
                             {
-                                (((button.secondaryButton.text == 'Цвет') || (button.secondaryButton.text == 'Цвет фона')) && <Colors name={button.secondaryButton.text}></Colors>)
+                                (((button.secondaryButton.text == 'Цвет') || (button.secondaryButton.text == 'Изменить фон')) && <Colors name={button.secondaryButton.text}></Colors>)
                             }
                         </div>
                     ))
@@ -268,21 +312,6 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         </div>
     );
 };
-// window.onload = function () {
-//     (function (H, D, s, h, r: number) {
-//         for (; r < H; r += D) {
-//             for (let g = 256; g < H; g += D)
-//                 for (let b = 256; b < H; b += D) {
-//                     const v = h(r) + h(g) + h(b);
-//                     s += '<b class=picker style="background-color:' + v
-//                         + '" onmouseover=this.title="' + v
-//                         + '" onclick=prompt("' + v.replace(/(.)./g, '$1') + '","' + v + '") ></b>';
-//                 }
-//             s += '<br>';
-//         }
-//         document.body.innerHTML += s;
-//     })(512, 51, '', function (a: number) { return a.toString(16).substr(1); }, 256)
-// }
 const Colors = (name: { name: string }) => {
     const colorList = [["IndianRedLightCoral", "Salmon", "DarkSalmon", "Crimson", "FireBrick", "DarkRed", "Pink", "LightPink", "HotPink", "DeepPink", "MediumVioletRed", "PaleVioletRed", "LightSalmon", "Coral", "Tomato", "OrangeRed", "DarkOrange", "Orange", "Gold", "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Moccasin", "PeachPuff", "PaleGoldenrod", "Khaki", "DarkKhaki", "Lavender", "Thistle", "Plum", "Violet", "Orchid", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Indigo", "SlateBlue", "DarkSlateBlue", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "Wheat", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenRod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Gray", "Silver", "Fuchsia", "Purple", "Red", "Maroon", "Yellow", "Lime", "AquaTeal", "Blue", "GreenYellow", "Chartreuse", "LawnGreen", "LimeGreen", "PaleGreen", "LightGreen", "MediumSpringGreen", "SpringGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "YellowGreen", "OliveDrab", "Olive", "DarkOliveGreen", "MediumAquamarine", "DarkSeaGreen", "LightSeaGreen", "DarkCyan", "Teal", "Aqua", "Cyan", "LightCyan", "PaleTurquoise", "Aquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "CadetBlue", "SteelBlue", "LightSteelBlue", "PowderBlue", "LightBlue", "SkyBlue", "LightSkyBlue", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "MediumSlateBlue", "RoyalBlue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Gainsboro", "LightGrey", "DarkGray", "Grey", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black"]];
     const [visible, setVisible] = useState(false);
@@ -296,7 +325,8 @@ const Colors = (name: { name: string }) => {
     );
     return (
         <div className={styles.colorPalitra}>
-            <Button type={ButtonType.FullIconText} icon={<ButtonIcon.FillIcon />} text={name.name} action={() => { setVisible(true) }} />
+            {(name.name === 'Цвет') && <Button type={ButtonType.FullIconText} icon={<ButtonIcon.FillIcon />} text={name.name} action={() => { setVisible(true) }} />}
+            {(name.name === 'Изменить фон') && <Button type={ButtonType.FullIconText} icon={<ButtonIcon.ChangeBg />} text={name.name} action={() => { setVisible(true) }} />}
             {visible &&
                 <div ref={colorRef} className={styles.colorPanel}>
                     {
@@ -335,7 +365,7 @@ const ImageFileUploader = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { createChangeAddElementAction } = useAppActions();
     return (
-        <div>
+        <div className={styles.buttonBlockFull}>
             <input id="inputFile" className={styles.inputFile} type="file" accept="image/*" ref={inputRef} onChange={() => {
                 if (inputRef.current!.files) {
                     const imgReader = new FileReader();
@@ -348,7 +378,7 @@ const ImageFileUploader = () => {
             }} />
             <label htmlFor="inputFile" className={styles.buttonInputBlockFull}>
                 <ButtonIcon.Uploader />
-                <span className={styles.inputTextUploader}>Загрузить фото с компьютера</span>
+                <span className={styles.inputTextUploader}>Загрузить с компьютера</span>
             </label>
         </div>
     )
@@ -403,7 +433,7 @@ const MainSettingsBar = () => {
     InsertionButtonList.buttonList[4].buttonList[2].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle)
     }
-    InsertionButtonList.buttonList[0].secondaryButton.icon = <ImageFileUploader />
+    InsertionButtonList.buttonList[0].buttonList[0].icon = <ImageFileUploader />
     InsertionButtonList.buttonList[1].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Text)
     }
@@ -460,6 +490,7 @@ const MainSettingsBar = () => {
 
 const Title = () => {
     const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
+    const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const { createChangeAddElementAction } = useAppActions();
 
@@ -524,12 +555,31 @@ const Title = () => {
                         icon={<ButtonIcon.TextField />}
                         action={() => { }}
                     />
-                    <Button
-                        type={ButtonType.Icon}
-                        icon={<ButtonIcon.Photo />}
-                        action={() => { }}
-                    />
+                    <ButtonWithActionList
+                        mainButton={ImageButtonSection.mainButton}
+                        buttonList={
+                            [
 
+                                {
+                                    secondaryButton: {
+                                        type: ButtonType.FullIcon,
+                                        action: () => { },
+                                        icon: <ImageFileUploader />,
+                                    },
+                                    buttonList: []
+                                },
+                                {
+                                    secondaryButton: {
+                                        type: ButtonType.FullIconText,
+                                        text: 'Загрузить из интернета',
+                                        action: () => { },
+                                        icon: <ButtonIcon.Photo />,
+                                    },
+                                    buttonList: []
+                                },
+                            ]
+                        }
+                    />
                     <ButtonWithActionList
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
@@ -537,12 +587,6 @@ const Title = () => {
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.Line />}
-                        action={() => { }}
-                    />
-                    <div className={styles.createLine}></div>
-                    <Button
-                        text={'Фон'}
-                        type={ButtonType.Text}
                         action={() => { }}
                     />
                     <div className={styles.createLine}></div>
