@@ -85,7 +85,6 @@ const SlidePreviewArea = (props: {
             if (props.isSelected) {
                 slideIndexRef.current!.style.opacity = '1';
                 slideRef.current!.style.zIndex = '0';
-                console.log(props.getNewOrder(slideRef));
                 createChangeSlidesOrderAction(slideIndex, props.getNewOrder(slideRef));
                 slideRef.current!.style.position = '';
                 slideRef.current!.style.top = '';
@@ -165,13 +164,9 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
     const getNewIndex = (currRef: RefObject<HTMLDivElement>) => {
         const currTop = currRef.current?.getBoundingClientRect().top;
         const currHeight = currRef.current?.getBoundingClientRect().height;
-        console.log(currHeight);
         let newIndex = 0;
         for (let i = 0; i < allSlides.current.length; i++) {
             const elemTop = allSlides.current[i].slideRef.current?.getBoundingClientRect().top;
-            console.log(currTop);
-            console.log(elemTop);
-
             const newPosRef = allSlides.current[i].newPositionRef.current;
             if (currTop && elemTop && currHeight && currTop + currHeight / 2 > elemTop) {
                 newIndex++;
@@ -188,21 +183,22 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
     ) => {
         const currTop = currRef.current?.getBoundingClientRect().top;
         const currHeight = currRef.current?.getBoundingClientRect().height;
-        let found = false;
-        for (let i = allSlides.current.length - 1; i > 0; i--) {
+        let nearestIndex = -1;
+        let maxElemTop = 0;
+        for (let i = 0; i < allSlides.current.length; i++) {
             const elemTop = allSlides.current[i].slideRef.current?.getBoundingClientRect().top;
-
             const newPosRef = allSlides.current[i].newPositionRef.current;
+            if (newPosRef) newPosRef.style.display = 'none';
             if (currTop && elemTop && currHeight && newPosRef && currTop + currHeight / 2 > elemTop) {
-                if (currNewPos.current! != newPosRef && !found) {
-                    newPosRef.style.display = 'block';
-                    found = true;
-                } else {
-                    newPosRef.style.display = 'none';
+                if (elemTop > maxElemTop && currNewPos.current != newPosRef) {
+                    maxElemTop = elemTop;
+                    nearestIndex = i;
                 }
-            } else {
-                if (newPosRef) newPosRef.style.display = 'none';
             }
+        }
+        if (nearestIndex != -1) {
+            if (allSlides.current[nearestIndex].newPositionRef.current)
+                allSlides.current[nearestIndex].newPositionRef.current!.style.display = 'block';
         }
     };
     const slidesPreviewList = props.slides.map((slide, i) => {
