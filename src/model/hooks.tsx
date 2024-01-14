@@ -36,7 +36,6 @@ const useClickOut = (action: () => void, visibility: boolean, elementRef: React.
 const useObjectsDragAndDrop = (ref: RefObject<HTMLElement>, startElemPos: Point) => {
     const onDragStart: OnDragStartFunc = ({ onDragAction, onDropAction, onClickAction }) => {
         useEffect(() => {
-            console.log(1);
             const onMouseUp = (e: MouseEvent) => {
                 onDropAction(e);
                 document.removeEventListener('mousemove', onMouseMove);

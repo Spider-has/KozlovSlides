@@ -24,6 +24,8 @@ enum PresentationActions {
     CHANGE_TEXT_FONT_FAMILY = 'CHANGE_TEXT_FONT_FAMILY',
     CHANGE_SLIDES_ORDER = 'CHANGE_SLIDES_ORDER',
     UPDATE_PRESENTATION = 'UPDATE_PRESENTATION',
+    CHANGE_PRESENTATION_NAME = 'CHANGE_PRESENTATION_NAME',
+    CHANGE_ELEMENTS_COLOR = 'CHANGE_ELEMENTS_COLOR',
 }
 
 type ChangeSlidePosition = {
@@ -152,6 +154,18 @@ type UpdatePresentationFromFile = {
     payload: Presentation;
 };
 
+type ChangePresentationName = {
+    type: PresentationActions.CHANGE_PRESENTATION_NAME;
+    payload: string;
+};
+
+type ChangeElementsColor = {
+    type: PresentationActions.CHANGE_ELEMENTS_COLOR;
+    payload: {
+        color: string;
+    };
+};
+
 type Action =
     | ChangeSlidePosition
     | ChangeSlideLayout
@@ -174,6 +188,8 @@ type Action =
     | ChangeTextSize
     | ChangeTextFontFamily
     | ChangeSlidesOrder
-    | UpdatePresentationFromFile;
+    | UpdatePresentationFromFile
+    | ChangePresentationName
+    | ChangeElementsColor;
 export type { Action };
 export { PresentationActions };

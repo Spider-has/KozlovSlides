@@ -56,10 +56,7 @@ const SlidePreviewArea = (props: {
     const slideRef = useRef<HTMLDivElement>(null);
     const newPosRef = useRef<HTMLDivElement>(null);
     const clearSpace = useRef<HTMLDivElement>(null);
-    const slideDnD = useObjectsDragAndDrop(slideRef, {
-        x: slideIndex,
-        y: 0,
-    });
+    const slideDnD = useObjectsDragAndDrop(slideRef, { x: slideIndex, y: 0 });
     const slideParams = {
         y: 0,
     };

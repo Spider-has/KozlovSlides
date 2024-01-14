@@ -4,6 +4,9 @@ import { Action } from '../actions/actions';
 import { PresentationActions } from '../actions/actions';
 import { generateRandomId, getSlideIndexById } from '../../model/utils';
 import {
+    getStateWithAddElementAction,
+    getStateWithCreatedElement,
+    getStateWithNewSelectedElemsColor,
     getStateWithNewSelectedElemsPosition,
     getStateWithNewSelectedElemsSize,
     getStateWithNewSelectedElemsTextParams,
@@ -30,7 +33,7 @@ const initData: InitData = {
             },
         ],
         size: defaultSize,
-        name: 'Презентация',
+        name: 'Презентация без имени',
         userAction: {
             ActionType: UserActions.SLIDE_EDIT,
             AddedElementType: null,
@@ -149,46 +152,11 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             return newState;
         }
         case PresentationActions.ADD_ELEMENT_ACTION: {
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    userAction: {
-                        ActionType: UserActions.ADD_ELEMENT,
-                        AddedElementType: action.payload.elementType,
-                        AddedFigureType: action.payload.figureType ? action.payload.figureType : null,
-                        Url: action.payload.url ? action.payload.url : '',
-                    },
-                },
-                selectMode: SelectModeTypes.Elements,
-            };
+            const newState = getStateWithAddElementAction(state, { ...action.payload });
             return newState;
         }
         case PresentationActions.CREATE_ELEMENT: {
-            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
-            const newState = {
-                ...state,
-                presentation: {
-                    ...state.presentation,
-                    userAction: {
-                        ActionType: UserActions.SLIDE_EDIT,
-                        AddedElementType: null,
-                        AddedFigureType: null,
-                        Url: '',
-                    },
-                    slides: state.presentation.slides.map((slide, i) => {
-                        if (i === selectedSlidesIndex[0]) {
-                            return {
-                                ...slide,
-                                elements: [...slide.elements, action.payload.element],
-                                selectedElements: [action.payload.element.id],
-                            };
-                        }
-                        return slide;
-                    }),
-                },
-                selectMode: SelectModeTypes.Elements,
-            };
+            const newState = getStateWithCreatedElement(state, action.payload.element);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_BOLD: {
@@ -236,6 +204,22 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             };
             return newState;
         }
+        case PresentationActions.CHANGE_ELEMENTS_COLOR: {
+            const newState = getStateWithNewSelectedElemsColor(state, action.payload.color);
+            return newState;
+        }
+        case PresentationActions.CHANGE_PRESENTATION_NAME: {
+            console.log('nameChange');
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    name: action.payload,
+                },
+            };
+            return newState;
+        }
+
         default:
             return state;
     }

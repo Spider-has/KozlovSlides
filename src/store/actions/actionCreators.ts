@@ -157,6 +157,21 @@ const createUpdatePresentationFromFileAction = (presentation: Presentation) => {
     };
 };
 
+const createChangePresentationNameAction = (newName: string) => {
+    return {
+        type: PresentationActions.CHANGE_PRESENTATION_NAME,
+        payload: newName,
+    };
+};
+
+const createChangeElementsColorAction = (newColor: string) => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_COLOR,
+        payload: {
+            color: newColor,
+        },
+    };
+};
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -177,4 +192,6 @@ export {
     createChangeTextFontFamily,
     createChangeSlidesOrderAction,
     createUpdatePresentationFromFileAction,
+    createChangePresentationNameAction,
+    createChangeElementsColorAction,
 };

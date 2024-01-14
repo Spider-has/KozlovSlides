@@ -100,8 +100,6 @@ interface TextObject extends DefaultSlideElement {
 enum ObjectType {
     Text = 'Text',
     Graphic = 'Graphic',
-    Triangle = 'Triangle',
-    Ellipse = 'Ellipse',
     Image = 'Image',
     Video = 'Video',
     Audio = 'Audio',

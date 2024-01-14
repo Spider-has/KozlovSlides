@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '../button/Button';
 import { ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
@@ -22,7 +22,8 @@ import { useClickOut } from '../../model/hooks';
 import { checkPresentationFileType } from '../../model/utils';
 
 const InputText = () => {
-    const [name, setName] = useState('Презентация без названия');
+    const name = useAppSelector(state => state.slideBar.presentation.name);
+    const { createChangePresentationNameAction } = useAppActions();
     const inputRef = useRef<HTMLInputElement>(null);
     const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -30,6 +31,8 @@ const InputText = () => {
         if (inputRef.current) {
             inputRef.current.addEventListener('keydown', enterDownHandler);
             document.addEventListener('click', closeOnClick);
+            inputRef.current.style.width = spanRef.current!.offsetWidth + 7 + 'px';
+            inputRef.current.value = name;
             inputRef.current.classList.add(styles.inputTextInputActive);
             inputRef.current.focus();
         }
@@ -41,9 +44,9 @@ const InputText = () => {
                 inputRef.current.classList.remove(styles.inputTextInputActive);
                 inputRef.current.blur();
                 if (inputRef.current.value.length) {
-                    setName(inputRef.current.value);
+                    createChangePresentationNameAction(inputRef.current.value);
                 } else {
-                    setName('Презентация без названия');
+                    createChangePresentationNameAction('Презентация без названия');
                 }
                 inputRef.current.removeEventListener('keydown', enterDownHandler);
             }
@@ -52,10 +55,8 @@ const InputText = () => {
 
     const changeInputWidth = () => {
         if (inputRef.current && spanRef.current) {
-            console.log(spanRef.current.offsetWidth);
             inputRef.current.style.width = spanRef.current.offsetWidth + 7 + 'px';
-            console.log(inputRef.current.style.width);
-            setName(inputRef.current.value);
+            createChangePresentationNameAction(inputRef.current.value);
         }
     };
 
@@ -71,10 +72,6 @@ const InputText = () => {
             document.removeEventListener('click', closeOnClick);
         }
     };
-
-    useEffect(() => {
-        console.log('Привет, Иван!');
-    }, []);
     return (
         <div className={styles.inputText}>
             <span onClick={handleClick} className={styles.inputTextText} ref={spanRef}>
@@ -420,6 +417,7 @@ const Colors = (name: { name: string }) => {
         visible,
         colorRef,
     );
+    const { createChangeElementsColorAction } = useAppActions();
     return (
         <div className={styles.colorPalitra}>
             {name.name === 'Цвет' && (
@@ -450,6 +448,10 @@ const Colors = (name: { name: string }) => {
                                 <button
                                     key={index[i]}
                                     className={styles.colorPalitraRowElement}
+                                    onClick={() => {
+                                        const newColor = elem;
+                                        createChangeElementsColorAction(newColor);
+                                    }}
                                     style={{ backgroundColor: elem }}
                                 ></button>
                             ))}
