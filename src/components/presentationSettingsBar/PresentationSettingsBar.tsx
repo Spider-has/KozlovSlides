@@ -514,6 +514,7 @@ const ImageFileUploader = () => {
                                 imgReader.result as string,
                             );
                         };
+                        imgReader.readAsDataURL(inputRef.current!.files[0]);
                     }
                 }}
             />
@@ -535,12 +536,14 @@ const SavePresentationButton = () => {
         return { href: href, name: name };
     };
     return (
-        <a className={''} href={getJsonHref().href} download={getJsonHref().name}>
-            Скачать презентацию
-        </a>
+        <div>
+            <ButtonIcon.Download />
+            <a className={styles.buttonBlockButton} href={getJsonHref().href} download={getJsonHref().name}>
+                Скачать
+            </a>
+        </div>
     );
 };
-
 const OpenPresentationButton = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { createUpdatePresentationFromFileAction } = useAppActions();
