@@ -40,6 +40,7 @@ const InputText = () => {
 
     const enterDownHandler = (event: { code: string }) => {
         if (event.code == 'Enter') {
+            document.removeEventListener('click', closeOnClick);
             if (inputRef.current) {
                 inputRef.current.classList.remove(styles.inputTextInputActive);
                 inputRef.current.blur();
@@ -56,7 +57,7 @@ const InputText = () => {
     const changeInputWidth = () => {
         if (inputRef.current && spanRef.current) {
             inputRef.current.style.width = spanRef.current.offsetWidth + 7 + 'px';
-            createChangePresentationNameAction(inputRef.current.value);
+            spanRef.current!.innerText = inputRef.current.value;
         }
     };
 
@@ -67,6 +68,7 @@ const InputText = () => {
             !(inputRef.current?.contains(tar) || spanRef.current?.contains(tar)) &&
             inputRef.current
         ) {
+            createChangePresentationNameAction(inputRef.current.value);
             inputRef.current.classList.remove(styles.inputTextInputActive);
             inputRef.current.blur();
             document.removeEventListener('click', closeOnClick);
@@ -464,6 +466,7 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                                     key={index[i]}
                                     className={styles.colorPalitraRowElement}
                                     onClick={() => {
+                                        console.log('1');
                                         const newColor = elem;
                                         props.onColorClick(newColor);
                                     }}
@@ -682,7 +685,8 @@ const Title = () => {
     const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const TextButtonSection: ButtonWithActionListProps = TextButtonList;
-    const { createChangeAddElementAction, createChangeTextFontFamily } = useAppActions();
+    const { createChangeAddElementAction, createChangeTextFontFamily, createUndoAction, createRedoAction } =
+        useAppActions();
     TextButtonSection.mainButton.action = () => {
         createChangeAddElementAction(ObjectType.Text);
     };
@@ -717,8 +721,20 @@ const Title = () => {
                         action={() => {}}
                     />
                     <div className={styles.createLine}></div>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Undo />} action={() => {}} />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Redo />} action={() => {}} />
+                    <Button
+                        type={ButtonType.Icon}
+                        icon={<ButtonIcon.Undo />}
+                        action={() => {
+                            createUndoAction();
+                        }}
+                    />
+                    <Button
+                        type={ButtonType.Icon}
+                        icon={<ButtonIcon.Redo />}
+                        action={() => {
+                            createRedoAction();
+                        }}
+                    />
                     <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList

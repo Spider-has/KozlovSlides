@@ -11,6 +11,7 @@ import {
     getStateWithNewSelectedElemsSize,
     getStateWithNewSelectedElemsTextParams,
 } from './reducerUtils';
+import { HistoryInit } from './history';
 
 type InitData = Editor;
 const defaultSize = {
@@ -45,12 +46,10 @@ const initData: InitData = {
 };
 initData.selectedSlides[0] = initData.presentation.slides[0].id;
 
+const statesHistory = HistoryInit<Editor>(initData);
+
 const SlideBarReducer = (state: InitData = initData, action: Action): InitData => {
     switch (action.type) {
-        case PresentationActions.CHANGE_SLIDE_POSITION:
-            return state;
-        case PresentationActions.CHANGE_SLIDE_LAYOUT:
-            return state;
         case PresentationActions.ADD_SLIDE: {
             const newState = {
                 ...state,
@@ -60,6 +59,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 },
                 selectMode: SelectModeTypes.Slides,
             };
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.DELETE_SLIDES: {
@@ -73,10 +73,9 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                     slides: newSlides.length ? newSlides : state.presentation.slides,
                 },
             };
+            statesHistory.addState(newState);
             return newState;
         }
-        case PresentationActions.REMOVE_SELECT_SLIDES:
-            return state;
         case PresentationActions.CHANGE_SELECTED_SLIDES: {
             const newState = {
                 ...state,
@@ -106,6 +105,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 },
                 selectMode: SelectModeTypes.Elements,
             };
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_SELECTED_ELEMENTS: {
@@ -134,6 +134,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 action.payload.deltaOffset.x,
                 action.payload.deltaOffset.y,
             );
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_SIZE: {
@@ -142,10 +143,12 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 action.payload.deltaOffset.x,
                 action.payload.deltaOffset.y,
             );
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENT_TEXT: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { value: action.payload.newText });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.ADD_ELEMENT_ACTION: {
@@ -154,28 +157,34 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
         }
         case PresentationActions.CREATE_ELEMENT: {
             const newState = getStateWithCreatedElement(state, action.payload.element);
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_BOLD: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { bold: true });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_CURSIVE: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { cursive: true });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_UNDERLINE: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { underline: true });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_SIZE: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { deltaTextSize: action.payload });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_TEXT_FONT_FAMILY: {
             const newState = getStateWithNewSelectedElemsTextParams(state, {
                 fontFamily: { fontFamily: action.payload },
             });
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_SLIDES_ORDER: {
@@ -190,6 +199,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 },
                 selectedSlides: [removedSlides[0].id],
             };
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.UPDATE_PRESENTATION: {
@@ -199,10 +209,12 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 presentation: action.payload,
                 selectedSlides: SelectedSlidesId,
             };
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENTS_COLOR: {
             const newState = getStateWithNewSelectedElemsColor(state, action.payload.color);
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_PRESENTATION_NAME: {
@@ -213,6 +225,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                     name: action.payload,
                 },
             };
+            statesHistory.addState(newState);
             return newState;
         }
         case PresentationActions.CHANGE_SLIDE_BACKGROUND: {
@@ -233,7 +246,16 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
                 },
                 selectMode: SelectModeTypes.Slides,
             };
+            statesHistory.addState(newState);
             return newState;
+        }
+        case PresentationActions.UNDO: {
+            const newState = statesHistory.undoState();
+            return newState ? newState : state;
+        }
+        case PresentationActions.REDO: {
+            const newState = statesHistory.redoState();
+            return newState ? newState : state;
         }
         default:
             return state;

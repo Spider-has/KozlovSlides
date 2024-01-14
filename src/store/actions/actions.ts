@@ -5,9 +5,6 @@ enum PresentationActions {
     CHANGE_SLIDE_POSITION = 'CHANGE_POSITION',
     DELETE_SLIDES = 'DELETE_SLIDES',
     ADD_SLIDE = 'ADD_SLIDE',
-    CHANGE_SLIDE_LAYOUT = 'CHANGE_LAYOUT',
-    SELECT_SLIDES = 'SELECT_SLIDES',
-    REMOVE_SELECT_SLIDES = 'REMOVE_SELECT_SLIDES',
     CHANGE_SHIFT_MODE = 'CHANGE_SHIFT_MODE',
     CHANGE_SELECTED_SLIDES = 'CHANGE_SELECTED_SLIDES',
     CHANGE_ELEMENTS_POSITION = 'CHANGE_ELEMENTS_POSITION',
@@ -27,6 +24,8 @@ enum PresentationActions {
     CHANGE_PRESENTATION_NAME = 'CHANGE_PRESENTATION_NAME',
     CHANGE_ELEMENTS_COLOR = 'CHANGE_ELEMENTS_COLOR',
     CHANGE_SLIDE_BACKGROUND = 'CHANGE_SLIDE_BACKGROUND',
+    UNDO = 'UNDO',
+    REDO = 'REDO',
 }
 
 type ChangeSlidePosition = {
@@ -44,24 +43,6 @@ type AddSlide = {
 
 type DeleteSlide = {
     type: PresentationActions.DELETE_SLIDES;
-};
-
-type SelectSlides = {
-    type: PresentationActions.SELECT_SLIDES;
-    payload: string[];
-};
-
-type ChangeSlideLayout = {
-    type: PresentationActions.CHANGE_SLIDE_LAYOUT;
-    payload: {
-        slideId: string;
-        newLayoutType: 'type';
-    };
-};
-
-type RemoveSelectSlides = {
-    type: PresentationActions.REMOVE_SELECT_SLIDES;
-    payload: string[];
 };
 
 type ChangeShiftMode = {
@@ -172,13 +153,18 @@ type ChangeSlideBackground = {
     payload: SlideBackground;
 };
 
+type Undo = {
+    type: PresentationActions.UNDO;
+};
+
+type Redo = {
+    type: PresentationActions.REDO;
+};
+
 type Action =
     | ChangeSlidePosition
-    | ChangeSlideLayout
     | DeleteSlide
     | AddSlide
-    | SelectSlides
-    | RemoveSelectSlides
     | ChangeShiftMode
     | ChangeSelectedSlides
     | ChangeElementPosition
@@ -197,6 +183,8 @@ type Action =
     | UpdatePresentationFromFile
     | ChangePresentationName
     | ChangeElementsColor
-    | ChangeSlideBackground;
+    | ChangeSlideBackground
+    | Undo
+    | Redo;
 export type { Action };
 export { PresentationActions };

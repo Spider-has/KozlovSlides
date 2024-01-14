@@ -17,7 +17,7 @@ import {
     defaultTextObject,
     defaultTriangleObject,
 } from '../../model/models';
-import { SelectedElementMode } from './resizeSquare/ResizeSquare';
+import { ResizeSquareWithoutHooks, SelectedElementMode } from './resizeSquare/ResizeSquare';
 import { getElementByType } from '../../model/reactUtils';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
@@ -214,62 +214,7 @@ const FigureCreationPreview = (props: { element: SlideElement; svgRef: RefObject
             ref={props.svgRef}
         >
             {Obj}
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    top: '-5px',
-                    left: '-6px',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    top: '-5px',
-                    left: 'calc(50% - 4px)',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    top: '-5px',
-                    right: '-6px',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    top: 'calc(50% - 5px)',
-                    left: '-6px',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    top: 'calc(50% - 5px)',
-                    right: '-6px',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    bottom: '-5px',
-                    left: '-6px',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    bottom: '-5px',
-                    left: 'calc(50% - 6px)',
-                }}
-            ></div>
-            <div
-                className={styles.scaleSquare}
-                style={{
-                    bottom: '-5px',
-                    right: '-6px',
-                }}
-            ></div>
+            <ResizeSquareWithoutHooks />
         </div>
     );
 };

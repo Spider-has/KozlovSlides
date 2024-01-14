@@ -256,4 +256,67 @@ const ResizeSquare = (props: {
     );
 };
 
-export { ResizeSquare, SelectedElementMode };
+const ResizeSquareWithoutHooks = () => {
+    return (
+        <>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    top: '-5px',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    top: '-5px',
+                    left: 'calc(50% - 4px)',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    top: '-5px',
+                    right: '-6px',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    top: 'calc(50% - 5px)',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    top: 'calc(50% - 5px)',
+                    right: '-6px',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    bottom: '-5px',
+                    left: '-6px',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    bottom: '-5px',
+                    left: 'calc(50% - 6px)',
+                }}
+            ></div>
+            <div
+                className={styles.scaleSquare}
+                style={{
+                    bottom: '-5px',
+                    right: '-6px',
+                }}
+            ></div>
+        </>
+    );
+};
+
+export { ResizeSquare, SelectedElementMode, ResizeSquareWithoutHooks };

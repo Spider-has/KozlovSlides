@@ -26,20 +26,6 @@ const createDeleteSlideAction = () => {
     };
 };
 
-const createSelectSlidesAction = (slidesId: string[]) => {
-    return {
-        type: PresentationActions.SELECT_SLIDES,
-        payload: slidesId,
-    };
-};
-
-const createRemoveSelectSlidesAction = (slidesId: Id[]) => {
-    return {
-        type: PresentationActions.REMOVE_SELECT_SLIDES,
-        payload: slidesId,
-    };
-};
-
 const createChangeSelectedSlidesAction = (slidesId: Id[]) => {
     return {
         type: PresentationActions.CHANGE_SELECTED_SLIDES,
@@ -179,11 +165,22 @@ const createChangeSlideBackgroundAction = (newBackground: SlideBackground) => {
         payload: newBackground,
     };
 };
+
+const createUndoAction = () => {
+    return {
+        type: PresentationActions.UNDO,
+    };
+};
+
+const createRedoAction = () => {
+    return {
+        type: PresentationActions.REDO,
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
-    createSelectSlidesAction,
-    createRemoveSelectSlidesAction,
     createChangeSelectedSlidesAction,
     createChangeSelectedElementsAction,
     createChangeElementsPositionAction,
@@ -202,4 +199,6 @@ export {
     createChangePresentationNameAction,
     createChangeElementsColorAction,
     createChangeSlideBackgroundAction,
+    createUndoAction,
+    createRedoAction,
 };
