@@ -433,16 +433,6 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
         visible,
         colorRef,
     );
-    const { createChangeElementsColorAction } = useAppActions();
-    const [visible2, setVisible2] = useState(false);
-    const colorRef2 = useRef(null);
-    useClickOut(
-        () => {
-            setVisible2(!visible2);
-        },
-        visible2,
-        colorRef2,
-    );
     return (
         <div className={styles.colorPalitra}>
             {props.name === 'Цвет' && (
@@ -473,11 +463,11 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                                 <button
                                     key={index[i]}
                                     className={styles.colorPalitraRowElement}
-                                    style={{ backgroundColor: elem }}
                                     onClick={() => {
                                         const newColor = elem;
                                         props.onColorClick(newColor);
                                     }}
+                                    style={{ backgroundColor: elem }}
                                 ></button>
                             ))}
                         </div>
@@ -491,7 +481,6 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                                 icon={<ButtonIcon.NewColor></ButtonIcon.NewColor>}
                                 action={() => {
                                     setVisible(true);
-                                    setVisible2(true);
                                 }}
                             ></Button>
                             <Button
@@ -517,7 +506,6 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                     </div>
                 </div>
             )}
-            {(visible2 && <ColorSelected></ColorSelected>)}
         </div>
     );
 };
@@ -565,9 +553,9 @@ const SavePresentationButton = () => {
         return { href: href, name: name };
     };
     return (
-        <div className={styles.buttonBlockFull}>
+        <div>
             <ButtonIcon.Download />
-            <a className={styles.DownloadButton} href={getJsonHref().href} download={getJsonHref().name}>
+            <a className={styles.buttonBlockButton} href={getJsonHref().href} download={getJsonHref().name}>
                 Скачать
             </a>
         </div>
@@ -606,14 +594,6 @@ const OpenPresentationButton = () => {
     );
 };
 
-const ColorSelected = () => {
-    return <div className={styles.ColorSelectedArea}>
-        <div className={styles.ColorSelected}>
-            гыгы
-        </div>
-    </div>
-}
-
 const MainSettingsBar = () => {
     const {
         createAddSlideAction,
@@ -628,39 +608,39 @@ const MainSettingsBar = () => {
     const InsertionButtonSection: ButtonWithActionListProps = InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
-    SlideButtonList.buttonList[0].secondaryButton.action = () => {
+    SlideButtonSection.buttonList[0].secondaryButton.action = () => {
         createAddSlideAction();
     };
-    InsertionButtonList.buttonList[4].buttonList[0].action = () => {
+    InsertionButtonSection.buttonList[4].buttonList[0].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
 
-    InsertionButtonList.buttonList[4].buttonList[1].action = () => {
+    InsertionButtonSection.buttonList[4].buttonList[1].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Rectangle);
     };
-    InsertionButtonList.buttonList[4].buttonList[2].action = () => {
+    InsertionButtonSection.buttonList[4].buttonList[2].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
-    InsertionButtonList.buttonList[0].buttonList[0].icon = <ImageFileUploader />;
-    InsertionButtonList.buttonList[1].secondaryButton.action = () => {
+    InsertionButtonSection.buttonList[0].buttonList[0].icon = <ImageFileUploader />;
+    InsertionButtonSection.buttonList[1].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Text);
     };
 
-    FormatButtonList.buttonList[0].buttonList[0].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[0].action = () => {
         createChangeTextBold();
     };
 
-    FormatButtonList.buttonList[0].buttonList[1].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[1].action = () => {
         createChangeTextCursive();
     };
 
-    FormatButtonList.buttonList[0].buttonList[2].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[2].action = () => {
         createChangeTextUnderline();
     };
-    FormatButtonList.buttonList[0].buttonList[6].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[6].action = () => {
         createChangeTextSize(2);
     };
-    FormatButtonList.buttonList[0].buttonList[7].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[7].action = () => {
         createChangeTextSize(-2);
     };
     FileButtonList.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
