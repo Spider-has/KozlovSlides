@@ -26,10 +26,7 @@ const initData: InitData = {
                 elements: [],
                 selectedElements: [],
                 elementsAnimations: [],
-                background: {
-                    type: BackgroundType.Color,
-                    data: { color: '' },
-                },
+                background: { type: BackgroundType.Color, color: 'white' },
             },
         ],
         size: defaultSize,
@@ -209,7 +206,6 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             return newState;
         }
         case PresentationActions.CHANGE_PRESENTATION_NAME: {
-            console.log('nameChange');
             const newState = {
                 ...state,
                 presentation: {
@@ -219,7 +215,26 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             };
             return newState;
         }
-
+        case PresentationActions.CHANGE_SLIDE_BACKGROUND: {
+            const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            const newState = {
+                ...state,
+                presentation: {
+                    ...state.presentation,
+                    slides: state.presentation.slides.map((slide, i) => {
+                        if (selectedSlidesIndex.includes(i)) {
+                            return {
+                                ...slide,
+                                background: action.payload,
+                            };
+                        }
+                        return slide;
+                    }),
+                },
+                selectMode: SelectModeTypes.Slides,
+            };
+            return newState;
+        }
         default:
             return state;
     }

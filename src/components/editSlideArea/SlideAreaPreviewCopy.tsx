@@ -1,4 +1,4 @@
-import { Slide } from '../../model/types';
+import { BackgroundType, Slide } from '../../model/types';
 import { SlideElement } from '../../model/figureTypes';
 import styles from './EditSlideArea.module.css';
 import { useRef } from 'react';
@@ -10,7 +10,20 @@ const ActiveSlideAreaPreview = (props: { slide: Slide }) => {
     const objects = elems.map(elem => {
         return <SlideObject element={elem} key={elem.id} />;
     });
-    return <div className={styles.mainEditSlideSpace}>{objects}</div>;
+    let backgroundSlide = '';
+    if (props.slide.background.type == BackgroundType.Color) {
+        backgroundSlide = props.slide.background.color;
+    }
+    return (
+        <div
+            className={styles.mainEditSlideSpace}
+            style={{
+                backgroundColor: backgroundSlide,
+            }}
+        >
+            {objects}
+        </div>
+    );
 };
 
 const SlideObject = (props: { element: SlideElement }) => {

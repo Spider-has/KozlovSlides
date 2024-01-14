@@ -1,5 +1,5 @@
 import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
-import { Id, Presentation, Slide } from '../../model/types';
+import { Id, Presentation, Slide, SlideBackground } from '../../model/types';
 
 enum PresentationActions {
     CHANGE_SLIDE_POSITION = 'CHANGE_POSITION',
@@ -26,6 +26,7 @@ enum PresentationActions {
     UPDATE_PRESENTATION = 'UPDATE_PRESENTATION',
     CHANGE_PRESENTATION_NAME = 'CHANGE_PRESENTATION_NAME',
     CHANGE_ELEMENTS_COLOR = 'CHANGE_ELEMENTS_COLOR',
+    CHANGE_SLIDE_BACKGROUND = 'CHANGE_SLIDE_BACKGROUND',
 }
 
 type ChangeSlidePosition = {
@@ -166,6 +167,11 @@ type ChangeElementsColor = {
     };
 };
 
+type ChangeSlideBackground = {
+    type: PresentationActions.CHANGE_SLIDE_BACKGROUND;
+    payload: SlideBackground;
+};
+
 type Action =
     | ChangeSlidePosition
     | ChangeSlideLayout
@@ -190,6 +196,7 @@ type Action =
     | ChangeSlidesOrder
     | UpdatePresentationFromFile
     | ChangePresentationName
-    | ChangeElementsColor;
+    | ChangeElementsColor
+    | ChangeSlideBackground;
 export type { Action };
 export { PresentationActions };

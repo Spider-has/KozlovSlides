@@ -1,4 +1,4 @@
-import { Slide, UserActions } from '../../model/types';
+import { BackgroundType, Slide, UserActions } from '../../model/types';
 import { FigureObjects, ObjectType, SlideElement } from '../../model/figureTypes';
 import styles from './EditSlideArea.module.css';
 import { RefObject, useRef } from 'react';
@@ -179,8 +179,16 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
             },
         });
     }
+    let backgroundSlide = '';
+    if (props.slide.background.type == BackgroundType.Color) {
+        backgroundSlide = props.slide.background.color;
+    }
     return (
-        <div className={styles.mainEditSlideSpace} ref={editAreaRef}>
+        <div
+            className={styles.mainEditSlideSpace}
+            style={{ backgroundColor: backgroundSlide }}
+            ref={editAreaRef}
+        >
             <MultipleElementSelect multipleSelectionRef={multipleSelectRef} />
             {objects}
             {userAction.ActionType == UserActions.ADD_ELEMENT && (
