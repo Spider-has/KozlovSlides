@@ -1,3 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #444746;
+    font-size: 14px;
+    font-family: 'Arial';
+}
+
 .ivan {
     display: flex;
 }
@@ -100,12 +108,12 @@
     flex-direction: column;
     position: absolute;
     left: 320px;
-    padding: 0 2px;
     background-color: #FFFFFF;
     box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
     border-radius: 5px;
+    padding: 10px 5px;
     min-width: 322px;
-    z-index: 1;
+    z-index: 5;
 }
 
 .docsMenubars {
@@ -128,18 +136,27 @@
     height: 100%;
 }
 
-.inputTextUploader {
+.fileTextButton {
     display: flex;
     color: #444746;
     margin-left: 5px;
     font-family: Arial;
 }
 
-.inputFile {
+.fileInputButton {
     display: flex;
     opacity: 0;
     visibility: hidden;
     position: absolute;
+}
+
+.buttonBlockButton {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    color: #444746;
+    text-decoration: none;
 }
 
 .newColorButtonsArea {
@@ -168,7 +185,7 @@
 
 .noColorButton {
     display: flex;
-    width: 170%;
+    width: 160%;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
@@ -224,7 +241,7 @@
     background: #C7C7C7;
     width: 2px;
     height: 26px;
-    margin: 0 5px;
+    margin: 0 3px 0 1px;
 }
 
 .docsBarsActivityPanel {
@@ -250,20 +267,21 @@
     display: flex;
     position: relative;
     height: 23px;
-    padding: 2px 7px;
+    padding: 5.5px 0px;
+    margin-top: -4px;
 }
 
 .buttonListList {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 28px;
+    top: 32px;
     padding: 10px 5px;
     background-color: #FFFFFF;
     box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
     border-radius: 1px 5px 5px;
     min-width: 322px;
-    z-index: 1;
+    z-index: 5;
 }
 
 
@@ -274,7 +292,7 @@
     box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
     border-radius: 5px;
     flex-flow: row wrap;
-    width: 200px;
+    width: 190px;
     gap: 5px;
     padding: 10px;
     border: 1px solid black;

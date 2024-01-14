@@ -7,7 +7,14 @@ import {
 } from './types';
 
 
-
+export const TextButtonList: ButtonWithActionListProps = {
+    mainButton: {
+        icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
+        type: ButtonType.Icon,
+        action: () => { },
+    },
+    buttonList: []
+};
 
 export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
@@ -18,17 +25,7 @@ export const FileButtonList: ButtonWithActionListProps = {
     buttonList: [
         {
             secondaryButton: {
-                text: 'Создать',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Create />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Открыть',
-                type: ButtonType.FullIconText,
+                type: ButtonType.FullIcon,
                 action: () => { },
                 icon: <ButtonIcons.Open />,
             },
@@ -36,28 +33,9 @@ export const FileButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Скачать',
-                type: ButtonType.FullIconText,
+                type: ButtonType.FullIcon,
                 action: () => { },
                 icon: <ButtonIcons.Download />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Переименовать',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Rename />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Удалить',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Delete />,
             },
             buttonList: []
         },
@@ -202,51 +180,29 @@ export const FormatButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Интервалы',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Intervals />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
                 text: 'Маркеры и нумерация',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.Numbering />,
             },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Изображение',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Photo />,
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Границы и линии',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Line />,
-            },
-            buttonList: []
+            buttonList: [
+                {
+                    text: 'Нумерованный список',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.NumList />,
+                },
+                {
+                    text: 'Маркерованный список',
+                    type: ButtonType.FullIconText,
+                    action: () => { },
+                    icon: <ButtonIcons.MarkList />,
+                },
+            ]
         },
         {
             secondaryButton: {
                 text: 'Цвет',
-                type: ButtonType.FullText,
-                action: () => { },
-            },
-            buttonList: []
-        },
-        {
-            secondaryButton: {
-                text: 'Цвет фона',
                 type: ButtonType.FullText,
                 action: () => { },
             },
@@ -322,6 +278,33 @@ export const SlideButtonList: ButtonWithActionListProps = {
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.ChooseLayout />,
+            },
+            buttonList: []
+        },
+    ],
+};
+export const ImageButtonList: ButtonWithActionListProps = {
+    mainButton: {
+        type: ButtonType.Icon,
+        icon: <ButtonIcons.Photo />,
+        action: () => { },
+    },
+    buttonList: [
+
+        {
+            secondaryButton: {
+                type: ButtonType.FullIcon,
+                action: () => { },
+                icon: <ButtonIcons.Uploader />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                type: ButtonType.FullIconText,
+                text: 'Загрузить из интернета',
+                action: () => { },
+                icon: <ButtonIcons.Photo />,
             },
             buttonList: []
         },
@@ -547,11 +530,24 @@ export const InsertionButtonList: ButtonWithActionListProps = {
     buttonList: [
         {
             secondaryButton: {
-                type: ButtonType.FullIcon,
+                type: ButtonType.FullIconText,
                 action: () => { },
+                text: 'Изображение',
                 icon: <ButtonIcons.Photo />,
             },
-            buttonList: []
+            buttonList: [
+                {
+                    type: ButtonType.FullIcon,
+                    action: () => { },
+                    icon: <ButtonIcons.Uploader />,
+                },
+                {
+                    type: ButtonType.FullIconText,
+                    text: 'Загрузить из интернета',
+                    action: () => { },
+                    icon: <ButtonIcons.Photo />,
+                },
+            ]
         },
         {
             secondaryButton: {

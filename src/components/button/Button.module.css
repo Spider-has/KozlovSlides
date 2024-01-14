@@ -16,7 +16,7 @@
     border: none;
     border-radius: 5px;
     align-items: center;
-    padding: 9px 7px;
+    padding: 9px 9px;
     margin: -4px 0;
 }
 
@@ -36,6 +36,7 @@
     padding: 0;
     margin: 0 5px;
     color: #444746;
+    text-decoration: none;
 }
 
 .buttonBlockFull:hover {
