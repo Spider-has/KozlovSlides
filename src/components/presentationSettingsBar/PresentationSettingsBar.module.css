@@ -1,3 +1,34 @@
+@font-face {
+    font-family: "Roboto Regular";
+    src: url("./fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Oswald Regular";
+    src: url("./fonts/Oswald/static/Oswald-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Press_Start_2P Regular";
+    src: url("./fonts/Press_Start_2P/PressStart2P-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Open_Sans Regular";
+    src: url("./fonts/Open_Sans/static/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat Regular";
+    src: url("./fonts/Montserrat/static/Montserrat-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Pacifico Regular";
+    src: url("./fonts/Pacifico/Pacifico-Regular.ttf");
+}
+
+
 * {
     margin: 0;
     padding: 0;

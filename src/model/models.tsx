@@ -381,6 +381,51 @@ export const TextFamilyList: ButtonWithActionListProps = {
             },
             buttonList: []
         },
+        {
+            secondaryButton: {
+                text: 'Pacifico',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Montserrat',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Open Sans',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Oswald',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
+        {
+            secondaryButton: {
+                text: 'Press Start 2P',
+                type: ButtonType.FullIconText,
+                action: () => { },
+                icon: <ButtonIcons.NoIcon />,
+            },
+            buttonList: []
+        },
     ],
     right: true,
 };
