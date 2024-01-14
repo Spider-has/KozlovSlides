@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button } from '../button/Button';
-import { ButtonType, ButtonWithActionListProps } from '../../model/types';
+import { BackgroundType, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
     FigureButtonList,
@@ -89,6 +89,7 @@ const InputText = () => {
 };
 
 const ButtonWithActionList = (props: ButtonWithActionListProps) => {
+    const { createChangeElementsColorAction, createChangeSlideBackgroundAction } = useAppActions();
     const [visible, setVisible] = useState(false);
     const ButtonListBar = useRef<HTMLDivElement>(null);
     const [visible2, setVisible2] = useState(false);
@@ -260,10 +261,25 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                         iconSize={button.secondaryButton.iconSize || undefined}
                                     />
                                 )}
-                            {(button.secondaryButton.text == 'Цвет' ||
-                                button.secondaryButton.text == 'Изменить фон') && (
-                                    <Colors name={button.secondaryButton.text}></Colors>
-                                )}
+                            {button.secondaryButton.text == 'Цвет' && (
+                                <Colors
+                                    name={button.secondaryButton.text}
+                                    onColorClick={(colorName: string) => {
+                                        createChangeElementsColorAction(colorName);
+                                    }}
+                                ></Colors>
+                            )}
+                            {button.secondaryButton.text == 'Изменить фон' && (
+                                <Colors
+                                    name={button.secondaryButton.text}
+                                    onColorClick={(colorName: string) => {
+                                        createChangeSlideBackgroundAction({
+                                            type: BackgroundType.Color,
+                                            color: colorName,
+                                        });
+                                    }}
+                                ></Colors>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -271,7 +287,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         </div>
     );
 };
-const Colors = (name: { name: string }) => {
+const Colors = (props: { name: string; onColorClick: (colorName: string) => void }) => {
     const colorList = [
         [
             'IndianRedLightCoral',
@@ -417,24 +433,23 @@ const Colors = (name: { name: string }) => {
         visible,
         colorRef,
     );
-    const { createChangeElementsColorAction } = useAppActions();
     return (
         <div className={styles.colorPalitra}>
-            {name.name === 'Цвет' && (
+            {props.name === 'Цвет' && (
                 <Button
                     type={ButtonType.FullIconText}
                     icon={<ButtonIcon.FillIcon />}
-                    text={name.name}
+                    text={props.name}
                     action={() => {
                         setVisible(true);
                     }}
                 />
             )}
-            {name.name === 'Изменить фон' && (
+            {props.name === 'Изменить фон' && (
                 <Button
                     type={ButtonType.FullIconText}
                     icon={<ButtonIcon.ChangeBg />}
-                    text={name.name}
+                    text={props.name}
                     action={() => {
                         setVisible(true);
                     }}
@@ -450,7 +465,7 @@ const Colors = (name: { name: string }) => {
                                     className={styles.colorPalitraRowElement}
                                     onClick={() => {
                                         const newColor = elem;
-                                        createChangeElementsColorAction(newColor);
+                                        props.onColorClick(newColor);
                                     }}
                                     style={{ backgroundColor: elem }}
                                 ></button>
@@ -625,6 +640,9 @@ const MainSettingsBar = () => {
     FormatButtonList.buttonList[0].buttonList[6].action = () => {
         createChangeTextSize(2);
     };
+    FormatButtonList.buttonList[0].buttonList[7].action = () => {
+        createChangeTextSize(-2);
+    };
     FileButtonList.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
     FileButtonList.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
     console.log('buttons Rendered!');
@@ -664,7 +682,7 @@ const Title = () => {
     const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const TextButtonSection: ButtonWithActionListProps = TextButtonList;
-    const { createChangeAddElementAction } = useAppActions();
+    const { createChangeAddElementAction, createChangeTextFontFamily } = useAppActions();
     TextButtonList.mainButton.action = () => {
         createChangeAddElementAction(ObjectType.Text);
     };
@@ -692,16 +710,16 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => { }} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => {}} />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => { }}
+                        action={() => {}}
                     />
                     <div className={styles.createLine}></div>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Undo />} action={() => { }} />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Redo />} action={() => { }} />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Undo />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Redo />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextButtonSection.mainButton}
@@ -713,7 +731,7 @@ const Title = () => {
                             {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
-                                    action: () => { },
+                                    action: () => {},
                                     icon: <ImageFileUploader />,
                                 },
                                 buttonList: [],
@@ -722,7 +740,7 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIconText,
                                     text: 'Загрузить из интернета',
-                                    action: () => { },
+                                    action: () => {},
                                     icon: <ButtonIcon.Photo />,
                                 },
                                 buttonList: [],
@@ -733,9 +751,9 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => {}} />
                     <div className={styles.createLine}></div>
-                    <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
+                    <Button text={'Фон'} type={ButtonType.Text} action={() => {}} />
                     {/*<div className={styles.createLine}></div>
                     <Button text={'Макет'} type={ButtonType.Text} action={() => { }} />
                     <div className={styles.createLine}></div>
@@ -743,7 +761,22 @@ const Title = () => {
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextFamilySection.mainButton}
-                        buttonList={TextFamilySection.buttonList}
+                        buttonList={[
+                            ...TextFamilySection.buttonList.map(button => {
+                                const fontFamily = button.secondaryButton.text
+                                    ? button.secondaryButton.text
+                                    : '';
+                                return {
+                                    ...button,
+                                    secondaryButton: {
+                                        ...button.secondaryButton,
+                                        action: () => {
+                                            createChangeTextFontFamily(fontFamily + ' Regular');
+                                        },
+                                    },
+                                };
+                            }),
+                        ]}
                         right={TextFamilySection.right}
                     />
                 </div>

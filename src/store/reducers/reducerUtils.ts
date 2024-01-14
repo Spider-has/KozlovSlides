@@ -124,7 +124,11 @@ const getStateWithNewSelectedElemsTextParams = (state: Editor, newTextParams: Ne
                                                     : element.properties.chars.cursive,
                                                 fontSize: newTextParams.deltaTextSize
                                                     ? element.properties.chars.fontSize +
-                                                      newTextParams.deltaTextSize
+                                                          newTextParams.deltaTextSize >
+                                                      0
+                                                        ? element.properties.chars.fontSize +
+                                                          newTextParams.deltaTextSize
+                                                        : element.properties.chars.fontSize
                                                     : newTextParams.fontSize
                                                     ? newTextParams.fontSize
                                                     : element.properties.chars.fontSize,

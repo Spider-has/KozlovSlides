@@ -1,5 +1,5 @@
 import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
-import { BackgroundType, Id, Presentation } from '../../model/types';
+import { BackgroundType, Id, Presentation, SlideBackground } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
 
@@ -172,6 +172,13 @@ const createChangeElementsColorAction = (newColor: string) => {
         },
     };
 };
+
+const createChangeSlideBackgroundAction = (newBackground: SlideBackground) => {
+    return {
+        type: PresentationActions.CHANGE_SLIDE_BACKGROUND,
+        payload: newBackground,
+    };
+};
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -194,4 +201,5 @@ export {
     createUpdatePresentationFromFileAction,
     createChangePresentationNameAction,
     createChangeElementsColorAction,
+    createChangeSlideBackgroundAction,
 };

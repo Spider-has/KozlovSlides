@@ -16,16 +16,15 @@ enum BackgroundType {
     Color,
 }
 
-type SlideBackground = {
-    type: BackgroundType;
-    data: BackgroundImg | BackgroundColor;
-};
+type SlideBackground = BackgroundImg | BackgroundColor;
 
 type BackgroundImg = {
+    type: BackgroundType.Image;
     url: string;
 };
 
 type BackgroundColor = {
+    type: BackgroundType.Color;
     color: Color;
 };
 
@@ -105,5 +104,14 @@ type ButtonWithActionListProps = {
     right?: boolean | false;
 };
 
-export type { Slide, Presentation, Editor, ElementAnimation, ButtonWithActionListProps, ButtonProps, Id };
+export type {
+    SlideBackground,
+    Slide,
+    Presentation,
+    Editor,
+    ElementAnimation,
+    ButtonWithActionListProps,
+    ButtonProps,
+    Id,
+};
 export { SelectModeTypes, ButtonType, BackgroundType, ViewMode, UserActions };

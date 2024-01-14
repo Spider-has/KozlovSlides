@@ -34,7 +34,7 @@
     padding: 0;
     color: #444746;
     font-size: 14px;
-    font-family: 'Arial';
+    font-family: Arial;
 }
 
 .ivan {
@@ -298,7 +298,7 @@
     display: flex;
     position: relative;
     height: 23px;
-    padding: 5.5px 0px;
+    padding: 5.5px 0;
     margin-top: -4px;
 }
 
