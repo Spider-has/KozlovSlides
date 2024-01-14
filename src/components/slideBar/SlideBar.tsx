@@ -49,6 +49,7 @@ const SlidePreviewArea = (props: {
     getNewOrder: (ref: RefObject<HTMLDivElement>) => number
 }) => {
     const { createChangeSelectedSlidesAction, createChangeSlidesOrderAction } = useAppActions();
+    console.log('slidePreviewArea ' + props.slide.id)
     const slideIndex = props.index - 1;
     const selectedSlides = [...props.selectedSlides];
     const selectedSlideClass = props.isSelected
@@ -146,7 +147,7 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
         const selected = selectedSlides.includes(slide.id);
         return (
             <SlidePreviewArea
-                key={i}
+                key={slide.id}
                 index={i + 1}
                 slide={slide}
                 isShifted={isShifted}

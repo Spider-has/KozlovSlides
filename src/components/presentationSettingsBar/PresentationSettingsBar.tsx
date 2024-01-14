@@ -13,7 +13,7 @@ import {
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
 import { Logo } from '../../logo';
-import { useAppActions } from '../../store/hooks';
+import { useAppActions, useAppSelector } from '../../store/hooks';
 import styles from './PresentationSettingsBar.module.css';
 import { FigureObjects, ObjectType } from '../../model/figureTypes';
 
@@ -354,6 +354,34 @@ const ImageFileUploader = () => {
     )
 }
 
+const SavePresentationButton = () => {
+    const presentation = useAppSelector(state => state.slideBar.presentation);
+    const getJsonHref = () => {
+        const objText = JSON.stringify(presentation)
+        const name = presentation.name + '.json';
+        const file = new Blob([objText], { type: "text/plain" })
+        const href = URL.createObjectURL(file);
+        return { href: href, name: name }
+    }
+    return <a className={""} href={getJsonHref().href} download={getJsonHref().name}>Скачать презентацию</a>
+}
+
+const OpenPresentationButton = () => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    // const { } = useAppActions();
+    return <label> А открыть не хочешь?<input ref={inputRef} className={""} type={"file"} accept={".json"}
+        onChange={() => {
+            if (inputRef.current! && inputRef.current!.files) {
+                inputRef.current!.files[0].text().then(data => {
+                    const jsonObj = JSON.parse(data);
+                    console.log(jsonObj)
+                    // const isSlides = (x: any): x is Slides[] => fruit.includes(x);
+                    console.log(typeof jsonObj)
+                })
+            }
+        }} /></label>
+}
+
 const MainSettingsBar = () => {
     const { createAddSlideAction, createChangeAddElementAction, createChangeTextBold, createChangeTextCursive, createChangeTextUnderline, createChangeTextSize } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
@@ -394,9 +422,14 @@ const MainSettingsBar = () => {
     FormatButtonList.buttonList[0].buttonList[6].action = () => {
         createChangeTextSize(2);
     }
+
+    console.log('buttons Rendered!')
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className={styles.docsMenubars}>
+            <SavePresentationButton />
+            <OpenPresentationButton />
+
             <ButtonWithActionList
                 mainButton={FileButtonSection.mainButton}
                 buttonList={FileButtonSection.buttonList}

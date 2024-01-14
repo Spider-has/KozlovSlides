@@ -7,8 +7,9 @@ import { Ellipse, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../fi
 
 const ActiveSlideAreaPreview = (props: { slide: Slide }) => {
     const elems = props.slide.elements;
-    const objects = elems.map((elem, i) => {
-        return <SlideObject element={elem} key={i} />;
+    console.log('ActiveSlideAreaPreview ' + props.slide.id)
+    const objects = elems.map((elem) => {
+        return <SlideObject element={elem} key={elem.id} />;
     });
     return (
         <div className={styles.mainEditSlideSpace}>
@@ -21,6 +22,7 @@ const SlideObject = (props: { element: SlideElement; }) => {
     const elem = { ...props.element };
     let Obj = <></>;
     const svgRef = useRef<HTMLDivElement>(null)
+    console.log('SlideObject ' + props.element.id)
     switch (elem.elementType) {
         case ObjectType.Text: {
             Obj = <TextObj elem={elem} svgRef={svgRef} />;
