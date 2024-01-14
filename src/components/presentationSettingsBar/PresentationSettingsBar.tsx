@@ -265,8 +265,8 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                 )}
                             {(button.secondaryButton.text == 'Цвет' ||
                                 button.secondaryButton.text == 'Изменить фон') && (
-                                <Colors name={button.secondaryButton.text}></Colors>
-                            )}
+                                    <Colors name={button.secondaryButton.text}></Colors>
+                                )}
                         </div>
                     ))}
                 </div>
@@ -550,8 +550,9 @@ const OpenPresentationButton = () => {
     return (
         <div className={styles.buttonBlockFull}>
             <input
+                id="OpenPresentationButton"
                 ref={inputRef}
-                className={''}
+                className={styles.fileInputButton}
                 type={'file'}
                 accept={'.json'}
                 onChange={() => {
@@ -689,18 +690,17 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => { }} />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className={styles.createLine}></div>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Undo />} action={() => {}} />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Redo />} action={() => {}} />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Undo />} action={() => { }} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Redo />} action={() => { }} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Cursor />} action={() => {}} />
                     <ButtonWithActionList
                         mainButton={TextButtonSection.mainButton}
                         buttonList={TextButtonSection.buttonList}
@@ -711,7 +711,7 @@ const Title = () => {
                             {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ImageFileUploader />,
                                 },
                                 buttonList: [],
@@ -720,7 +720,7 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIconText,
                                     text: 'Загрузить из интернета',
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ButtonIcon.Photo />,
                                 },
                                 buttonList: [],
@@ -731,13 +731,13 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <Button text={'Фон'} type={ButtonType.Text} action={() => {}} />
+                    <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
+                    {/*<div className={styles.createLine}></div>
+                    <Button text={'Макет'} type={ButtonType.Text} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <Button text={'Макет'} type={ButtonType.Text} action={() => {}} />
-                    <div className={styles.createLine}></div>
-                    <Button text={'Тема'} type={ButtonType.Text} action={() => {}} />
+                    <Button text={'Тема'} type={ButtonType.Text} action={() => { }} />*/}
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextFamilySection.mainButton}
