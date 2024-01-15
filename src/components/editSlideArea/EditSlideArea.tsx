@@ -22,9 +22,10 @@ import { ResizeSquareWithoutHooks, SelectedElementMode } from './resizeSquare/Re
 import { getElementByType } from '../../model/reactUtils';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
+    const areaRef = useRef<HTMLDivElement>(null);
     return (
-        <div className={styles.editSlideArea}>
-            <ActiveSlideArea slide={props.slide} />
+        <div ref={areaRef} className={styles.editSlideArea}>
+            <ActiveSlideArea slide={props.slide} editAreaRef={areaRef} />
         </div>
     );
 };
@@ -33,13 +34,14 @@ const MultipleElementSelect = (props: { multipleSelectionRef: RefObject<HTMLDivE
     return <div className={styles.multipleSelectionBlock} ref={props.multipleSelectionRef}></div>;
 };
 
-const ActiveSlideArea = (props: { slide: Slide }) => {
+const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivElement> }) => {
     const elems = props.slide.elements;
     const objects = elems.map((elem, i) => {
         const isSelected = props.slide.selectedElements.includes(elem.id);
         return <SlideObject element={elem} key={i} isSelected={isSelected} />;
     });
-    const editAreaRef = useRef<HTMLDivElement>(null);
+    const editAreaRef = props.editAreaRef;
+    const figureAreaRef = useRef<HTMLDivElement>(null);
     const multipleSelectRef = useRef<HTMLDivElement>(null);
     const newFigureRef = useRef<HTMLDivElement>(null);
     const { createChangeSelectedElementsAction, createCreateNewAlementAction } = useAppActions();
@@ -94,7 +96,11 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
         figureDnD({
             onClickAction(event) {
                 const tar = event.target as HTMLElement;
-                if (tar.classList.contains(styles.mainEditSlideSpace)) {
+
+                if (
+                    tar.classList.contains(styles.mainEditSlideSpace) ||
+                    tar.classList.contains(styles.editSlideArea)
+                ) {
                     console.log('Выделяем');
                     MultipleSelectionManager.canSelect = true;
                     multipleSelectRef.current!.style.display = 'block';
@@ -111,12 +117,6 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
             },
             onDragAction(event) {
                 if (MultipleSelectionManager.canSelect) {
-                    console.log({
-                        x: getNumfromPxString(multipleSelectRef.current!.style.left),
-                        y: getNumfromPxString(multipleSelectRef.current!.style.top),
-                        width: multipleSelectRef.current!.getBoundingClientRect().width,
-                        height: multipleSelectRef.current!.getBoundingClientRect().height,
-                    });
                     changeStyleSize(
                         multipleSelectRef,
                         { width: 0, height: 0 },
@@ -172,8 +172,14 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
                                     height: multipleSelectRef.current!.getBoundingClientRect().height,
                                 },
                                 {
-                                    x: elem.position.x,
-                                    y: elem.position.y,
+                                    x:
+                                        elem.position.x +
+                                        (figureAreaRef.current!.getBoundingClientRect().x -
+                                            editAreaRef.current!.getBoundingClientRect().x),
+                                    y:
+                                        elem.position.y +
+                                        (figureAreaRef.current!.getBoundingClientRect().y -
+                                            editAreaRef.current!.getBoundingClientRect().y),
                                     width: elem.size.width,
                                     height: elem.size.height,
                                 },
@@ -230,17 +236,19 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
         backgroundSlide = props.slide.background.color;
     }
     return (
-        <div
-            className={styles.mainEditSlideSpace}
-            style={{ backgroundColor: backgroundSlide }}
-            ref={editAreaRef}
-        >
+        <>
             <MultipleElementSelect multipleSelectionRef={multipleSelectRef} />
-            {objects}
-            {userAction.ActionType == UserActions.ADD_ELEMENT && (
-                <FigureCreationPreview element={defaultObject} svgRef={newFigureRef} />
-            )}
-        </div>
+            <div
+                ref={figureAreaRef}
+                className={styles.mainEditSlideSpace}
+                style={{ backgroundColor: backgroundSlide }}
+            >
+                {objects}
+                {userAction.ActionType == UserActions.ADD_ELEMENT && (
+                    <FigureCreationPreview element={defaultObject} svgRef={newFigureRef} />
+                )}
+            </div>
+        </>
     );
 };
 
