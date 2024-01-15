@@ -240,7 +240,6 @@ const ResizeSquare = (props: {
     });
     figureResizeDnD({
         onDragAction(event) {
-            props.parentRef.current!.style.zIndex = '2';
             props.resizeDragParams(event);
         },
         onDropAction(event) {
@@ -298,14 +297,12 @@ const RotationPoint = (props: {
             props.parentRef.current!.style.transform = `rotate(${angle}rad)`;
         },
         onDropAction(event) {
-            props.parentRef.current!.style.zIndex = '';
             const deltaY = -(event.pageY - startMousePos.y);
             const deltaX = event.pageX - startMousePos.x;
             const angle = calculateAngle(deltaX, deltaY);
             createChangeElementsRotateAngleAction(angle);
         },
         onClickAction() {
-            props.parentRef.current!.style.zIndex = '9999';
             startMousePos.x =
                 props.parentRef.current!.getBoundingClientRect().left + props.elemSize.width / 2;
             startMousePos.y =

@@ -166,7 +166,7 @@ const getStateWithCreatedElement = (state: Editor, newElement: SlideElement) => 
                 if (i === selectedSlidesIndex[0]) {
                     return {
                         ...slide,
-                        elements: [...slide.elements, newElement],
+                        elements: [...slide.elements, { ...newElement, layer: slide.elements.length }],
                         selectedElements: [newElement.id],
                     };
                 }

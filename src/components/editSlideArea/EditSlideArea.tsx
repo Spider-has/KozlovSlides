@@ -20,11 +20,33 @@ import {
 } from '../../model/models';
 import { ResizeSquareWithoutHooks, SelectedElementMode } from './resizeSquare/ResizeSquare';
 import { getElementByType } from '../../model/reactUtils';
+import { ContextMenu } from '../contextMenu/ContextMenu';
 
 const SlideEditSpace = (props: { slide: Slide }) => {
     const areaRef = useRef<HTMLDivElement>(null);
+    const [MenuParams, setParams] = useState({ isOpened: false, position: { x: 0, y: 0 } });
     return (
-        <div ref={areaRef} className={styles.editSlideArea}>
+        <div
+            onContextMenu={e => {
+                e.preventDefault();
+                setParams({
+                    isOpened: true,
+                    position: {
+                        x: e.pageX - areaRef.current!.getBoundingClientRect().x,
+                        y: e.pageY - areaRef.current!.getBoundingClientRect().y,
+                    },
+                });
+            }}
+            ref={areaRef}
+            className={styles.editSlideArea}
+        >
+            <ContextMenu
+                isOpened={MenuParams.isOpened}
+                setOpened={(isOpened1: boolean) => {
+                    setParams({ isOpened: isOpened1, position: MenuParams.position });
+                }}
+                menuPos={MenuParams.position}
+            />
             <ActiveSlideArea slide={props.slide} editAreaRef={areaRef} />
         </div>
     );
@@ -98,7 +120,6 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
                     tar.classList.contains(styles.mainEditSlideSpace) ||
                     tar.classList.contains(styles.editSlideArea)
                 ) {
-                    console.log('Выделяем');
                     MultipleSelectionManager.canSelect = true;
                     multipleSelectRef.current!.style.display = 'block';
                     multipleSelectRef.current!.style.zIndex = '9999';
@@ -201,7 +222,6 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
                     multipleSelectRef.current!.style.top = '';
                     multipleSelectRef.current!.style.width = '';
                     multipleSelectRef.current!.style.height = '';
-                    console.log('не выделяем');
                     createChangeSelectedElementsAction(Array.from(MultipleSelectionManager.selectedElemsId));
                 }
             },
@@ -330,7 +350,6 @@ const SlideObject = (props: {
                     });
                 }
             }
-            ref.current!.style.zIndex = '';
         },
         onClickAction(event) {
             startMousePos.x = event.pageX;
@@ -349,12 +368,13 @@ const SlideObject = (props: {
     };
 
     const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
-
+    console.log(elem.layer);
     const SelectedClass = props.isSelected ? styles.svgWrapperSelected : '';
     return (
         <div
             className={`${styles.svgWrapper} ${SelectedClass}`}
             style={{
+                zIndex: elem.layer,
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
                 width: elem.size.width + 'px',

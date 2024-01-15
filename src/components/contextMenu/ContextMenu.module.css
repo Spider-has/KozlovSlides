@@ -1,0 +1,15 @@
+.contextMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
+    min-height: 50px;
+    min-width: 250px;
+    border-radius: 5px;
+    padding: 10px 5px;
+    position: absolute;
+    z-index: 99999;
+}

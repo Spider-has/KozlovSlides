@@ -171,14 +171,17 @@
     display: flex;
     flex-direction: column;
 }
+
 .buttonList:hover {
     background-color: #FFC527;
     border-radius: 5px;
 }
+
 .buttonBlock:hover {
     background-color: #FFC527;
     border-radius: 5px;
 }
+
 .NewColorButton {
     background-color: transparent;
     border: none;
