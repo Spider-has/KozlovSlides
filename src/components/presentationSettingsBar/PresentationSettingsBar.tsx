@@ -556,9 +556,9 @@ const SavePresentationButton = () => {
         return { href: href, name: name };
     };
     return (
-        <div>
+        <div className={styles.buttonBlockFull}>
             <ButtonIcon.Download />
-            <a className={styles.buttonBlockButton} href={getJsonHref().href} download={getJsonHref().name}>
+            <a className={styles.DownloadButton} href={getJsonHref().href} download={getJsonHref().name}>
                 Скачать
             </a>
         </div>

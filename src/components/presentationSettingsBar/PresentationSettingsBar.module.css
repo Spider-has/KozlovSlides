@@ -180,7 +180,6 @@
     width: 100%;
     height: 100%;
 }
-
 .fileTextButton {
     display: flex;
     color: #444746;
@@ -194,6 +193,17 @@
     border-radius: 5px;
     align-items: center;
     height: 35px;
+    width: 100%;
+}
+
+.DownloadButton {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    color: #444746;
+    text-decoration: none;
     width: 100%;
 }
 
