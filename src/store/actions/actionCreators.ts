@@ -178,6 +178,13 @@ const createRedoAction = () => {
     };
 };
 
+const createChangeElementsRotateAngleAction = (newAngle: number) => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_ROTATE_ANGLE,
+        payload: newAngle,
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -201,4 +208,5 @@ export {
     createChangeSlideBackgroundAction,
     createUndoAction,
     createRedoAction,
+    createChangeElementsRotateAngleAction,
 };

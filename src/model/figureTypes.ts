@@ -52,6 +52,7 @@ interface ImageObject extends DefaultSlideElement {
     elementType: ObjectType.Image;
     properties: {
         imgUrl: string;
+        rotateAngle: number;
     };
 }
 
@@ -59,6 +60,7 @@ interface VideoObject extends DefaultSlideElement {
     elementType: ObjectType.Video;
     properties: {
         videoUrl: string;
+        rotateAngle: number;
     };
 }
 
@@ -73,6 +75,7 @@ interface FunctionGraphObject extends DefaultSlideElement {
     elementType: ObjectType.FunctionGraph;
     properties: {
         func: string;
+        rotateAngle: number;
     };
 }
 
@@ -147,6 +150,7 @@ type Color = string;
 type FontFamily = {
     fontFamily: string;
 };
+
 export type {
     VideoObject,
     ImageObject,

@@ -63,7 +63,7 @@ const getSlideById = (slides: Slide[], slideId: Id): Slide => {
             elements: [],
             selectedElements: [],
             elementsAnimations: [],
-            background: { type: BackgroundType.Color, data: { color: '' } },
+            background: { type: BackgroundType.Color, color: '' },
         };
 };
 

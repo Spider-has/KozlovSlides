@@ -8,6 +8,7 @@ import {
     getStateWithCreatedElement,
     getStateWithNewSelectedElemsColor,
     getStateWithNewSelectedElemsPosition,
+    getStateWithNewSelectedElemsRotationAngle,
     getStateWithNewSelectedElemsSize,
     getStateWithNewSelectedElemsTextParams,
 } from './reducerUtils';
@@ -256,6 +257,11 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
         case PresentationActions.REDO: {
             const newState = statesHistory.redoState();
             return newState ? newState : state;
+        }
+        case PresentationActions.CHANGE_ELEMENTS_ROTATE_ANGLE: {
+            const newState = getStateWithNewSelectedElemsRotationAngle(state, action.payload);
+            statesHistory.addState(newState);
+            return newState;
         }
         default:
             return state;

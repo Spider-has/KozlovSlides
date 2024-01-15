@@ -266,6 +266,89 @@ const getStateWithNewSelectedElemsColor = (state: Editor, newColor: string) => {
     return newState;
 };
 
+const getStateWithNewSelectedElemsRotationAngle = (state: Editor, newRotation: number) => {
+    const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+    const selectedElements = getElementsById(
+        state.presentation.slides[selectedSlidesIndex[0]].elements,
+        state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+    );
+    const newState = {
+        ...state,
+        presentation: {
+            ...state.presentation,
+            slides: state.presentation.slides.map((slide, i) => {
+                if (i === selectedSlidesIndex[0]) {
+                    return {
+                        ...slide,
+                        elements: slide.elements.map((element, j) => {
+                            if (selectedElements.includes(j)) {
+                                if (element.elementType == ObjectType.Graphic) {
+                                    if (element.figureType == FigureObjects.Rectangle)
+                                        return {
+                                            ...element,
+                                            properties: {
+                                                ...element.properties,
+                                                rotateAngle: newRotation,
+                                            },
+                                        };
+                                    if (element.figureType == FigureObjects.Triangle)
+                                        return {
+                                            ...element,
+                                            properties: {
+                                                ...element.properties,
+                                                rotateAngle: newRotation,
+                                            },
+                                        };
+                                    if (element.figureType == FigureObjects.Ellipse)
+                                        return {
+                                            ...element,
+                                            properties: {
+                                                ...element.properties,
+                                                rotateAngle: newRotation,
+                                            },
+                                        };
+                                }
+                                if (element.elementType == ObjectType.Text) {
+                                    return {
+                                        ...element,
+                                        properties: {
+                                            ...element.properties,
+                                            rotateAngle: newRotation,
+                                        },
+                                    };
+                                }
+                                if (element.elementType == ObjectType.FunctionGraph) {
+                                    return {
+                                        ...element,
+                                        properties: {
+                                            ...element.properties,
+                                            rotateAngle: newRotation,
+                                        },
+                                    };
+                                }
+                                if (element.elementType == ObjectType.Image) {
+                                    return {
+                                        ...element,
+                                        properties: {
+                                            ...element.properties,
+                                            rotateAngle: newRotation,
+                                        },
+                                    };
+                                }
+                                return element;
+                            }
+                            return element;
+                        }),
+                    };
+                }
+                return slide;
+            }),
+        },
+        selectMode: SelectModeTypes.Elements,
+    };
+    return newState;
+};
+
 export {
     getStateWithNewSelectedElemsPosition,
     getStateWithNewSelectedElemsSize,
@@ -273,4 +356,5 @@ export {
     getStateWithCreatedElement,
     getStateWithAddElementAction,
     getStateWithNewSelectedElemsColor,
+    getStateWithNewSelectedElemsRotationAngle,
 };

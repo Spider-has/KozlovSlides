@@ -1,5 +1,5 @@
 import { BackgroundType, Slide } from '../../model/types';
-import { SlideElement } from '../../model/figureTypes';
+import { ObjectType, SlideElement } from '../../model/figureTypes';
 import styles from './EditSlideArea.module.css';
 import { useRef } from 'react';
 
@@ -30,6 +30,7 @@ const SlideObject = (props: { element: SlideElement }) => {
     const elem = { ...props.element };
     const svgRef = useRef<HTMLDivElement>(null);
     const Obj = getElementByType(elem, svgRef);
+    const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
     return (
         <div
             className={`${styles.svgWrapper}`}
@@ -38,6 +39,7 @@ const SlideObject = (props: { element: SlideElement }) => {
                 left: elem.position.x + 'px',
                 width: elem.size.width + 'px',
                 height: elem.size.height + 'px',
+                transform: `rotate(${rotatation}rad)`,
             }}
             id={`object_${elem.id}`}
         >

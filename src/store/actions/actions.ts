@@ -26,6 +26,7 @@ enum PresentationActions {
     CHANGE_SLIDE_BACKGROUND = 'CHANGE_SLIDE_BACKGROUND',
     UNDO = 'UNDO',
     REDO = 'REDO',
+    CHANGE_ELEMENTS_ROTATE_ANGLE = 'CHANGE_ELEMENTS_ROTATE_ANGLE',
 }
 
 type ChangeSlidePosition = {
@@ -161,6 +162,11 @@ type Redo = {
     type: PresentationActions.REDO;
 };
 
+type ChangeElementsRotateAngle = {
+    type: PresentationActions.CHANGE_ELEMENTS_ROTATE_ANGLE;
+    payload: number;
+};
+
 type Action =
     | ChangeSlidePosition
     | DeleteSlide
@@ -185,6 +191,7 @@ type Action =
     | ChangeElementsColor
     | ChangeSlideBackground
     | Undo
-    | Redo;
+    | Redo
+    | ChangeElementsRotateAngle;
 export type { Action };
 export { PresentationActions };

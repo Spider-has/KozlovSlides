@@ -1,5 +1,5 @@
 import { RefObject, useRef } from 'react';
-import { Point, SlideElement } from '../../../model/figureTypes';
+import { ObjectType, Point, Size, SlideElement } from '../../../model/figureTypes';
 import { useAppActions } from '../../../store/hooks';
 import {
     changeStyleHeight,
@@ -18,6 +18,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
     const parent = props.parentRef;
     const startMousePos = { x: 0, y: 0 };
     const elemPos = { x: elem.position.x, y: elem.position.y };
+    const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
 
     const changeElementSize = (startMousePos: Point, mousePos: Point) => {
         if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
@@ -57,6 +58,12 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
 
     return (
         <>
+            <RotationPoint
+                elemPos={elemPos}
+                parentRef={parent}
+                startRotatation={rotatation}
+                elemSize={elem.size}
+            />
             <ResizeSquare
                 elemPos={elemPos}
                 parentRef={parent}
@@ -253,6 +260,63 @@ const ResizeSquare = (props: {
                 left: props.position.x,
             }}
         ></div>
+    );
+};
+
+const RotationPoint = (props: {
+    elemPos: Point;
+    parentRef: RefObject<HTMLDivElement>;
+    startRotatation: number;
+    elemSize: Size;
+}) => {
+    const { createChangeElementsRotateAngleAction } = useAppActions();
+    const squareRef = useRef<HTMLDivElement>(null);
+    const startRotatation = props.startRotatation;
+    const startMousePos = {
+        x: 0,
+        y: 0,
+    };
+    const figureResizeDnD = useObjectsDragAndDrop(squareRef, {
+        x: startRotatation,
+        y: 0,
+    });
+
+    const calculateAngle = (deltaX: number, deltaY: number): number => {
+        let angle = 0;
+        if (deltaX > 0 && deltaY >= 0) angle = Math.atan(deltaX / deltaY);
+        if (deltaX > 0 && deltaY <= 0) angle = Math.atan(-deltaY / deltaX) + Math.PI / 2;
+        if (deltaX <= 0 && deltaY <= 0) angle = Math.atan(deltaX / deltaY) + Math.PI;
+        if (deltaX <= 0 && deltaY >= 0) angle = Math.atan(deltaY / -deltaX) + Math.PI * 1.5;
+        return angle;
+    };
+
+    figureResizeDnD({
+        onDragAction(event) {
+            const deltaY = -(event.pageY - startMousePos.y);
+            const deltaX = event.pageX - startMousePos.x;
+            const angle = calculateAngle(deltaX, deltaY);
+            props.parentRef.current!.style.transform = `rotate(${angle}rad)`;
+        },
+        onDropAction(event) {
+            props.parentRef.current!.style.zIndex = '';
+            const deltaY = -(event.pageY - startMousePos.y);
+            const deltaX = event.pageX - startMousePos.x;
+            const angle = calculateAngle(deltaX, deltaY);
+            createChangeElementsRotateAngleAction(angle);
+        },
+        onClickAction() {
+            props.parentRef.current!.style.zIndex = '9999';
+            startMousePos.x =
+                props.parentRef.current!.getBoundingClientRect().left + props.elemSize.width / 2;
+            startMousePos.y =
+                props.parentRef.current!.getBoundingClientRect().top + props.elemSize.height / 2;
+        },
+    });
+    return (
+        <div>
+            <div className={styles.rotationPointLine}></div>
+            <div ref={squareRef} className={styles.rotationPoint}></div>
+        </div>
     );
 };
 

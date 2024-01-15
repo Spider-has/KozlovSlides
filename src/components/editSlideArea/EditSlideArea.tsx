@@ -67,7 +67,7 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
             break;
         }
         case ObjectType.Image: {
-            defaultObject = { ...defaultImageObject, properties: { imgUrl: userAction.Url } };
+            defaultObject = { ...defaultImageObject, properties: { rotateAngle: 0, imgUrl: userAction.Url } };
             break;
         }
         default:
@@ -222,7 +222,6 @@ const FigureCreationPreview = (props: { element: SlideElement; svgRef: RefObject
 const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
     const { createChangeSelectedElementsAction, createChangeElementsPositionAction } = useAppActions();
     const elem = { ...props.element };
-
     const ref = useRef<HTMLDivElement>(null);
     const svgRef = useRef<HTMLDivElement>(null);
     const figureDnD = useObjectsDragAndDrop(svgRef, {
@@ -252,7 +251,6 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
             startMousePos.x = event.pageX;
             startMousePos.y = event.pageY;
             setClass(ref, styles.svgWrapperSelected);
-            console.log('КЛИКНУЛИ');
             if (!props.isSelected) createChangeSelectedElementsAction([elem.id]);
         },
     });
@@ -265,6 +263,8 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
         }
     };
 
+    const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
+
     const SelectedClass = props.isSelected ? styles.svgWrapperSelected : '';
     return (
         <div
@@ -274,6 +274,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
                 left: elem.position.x + 'px',
                 width: elem.size.width + 'px',
                 height: elem.size.height + 'px',
+                transform: `rotate(${rotatation}rad)`,
             }}
             ref={ref}
             id={`object_${elem.id}`}
