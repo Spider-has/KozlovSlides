@@ -152,6 +152,34 @@ const checkPresentationFileType = (jsonObject: any) => {
     return true;
 };
 
+const getShiftSelectedSlides = (slides: Slide[], selectedSlides: Id[], newId: Id) => {
+    const alreadySelectedSlides = getSlideIndexById(slides, selectedSlides);
+    const newSelectedSlide = getSlideIndexById(slides, [newId])[0];
+    let minIndex = alreadySelectedSlides[0];
+    let maxIndex = 0;
+    const newIndexes = [];
+    alreadySelectedSlides.forEach(index => {
+        if (index > maxIndex) {
+            maxIndex = index;
+        }
+        if (index < minIndex) {
+            minIndex = index;
+        }
+    });
+    if (newSelectedSlide > maxIndex) {
+        for (let i = maxIndex + 1; i <= newSelectedSlide; i++) {
+            newIndexes.push(slides[i].id);
+        }
+    }
+    if (newSelectedSlide < minIndex) {
+        for (let i = newSelectedSlide; i < minIndex; i++) {
+            newIndexes.push(slides[i].id);
+        }
+    }
+    console.log(minIndex, maxIndex, newSelectedSlide);
+    return newIndexes;
+};
+
 export {
     generateRandomId,
     getNumfromPxString,
@@ -166,4 +194,5 @@ export {
     getSlideById,
     checkPresentationFileType,
     checkElemsCollision,
+    getShiftSelectedSlides,
 };

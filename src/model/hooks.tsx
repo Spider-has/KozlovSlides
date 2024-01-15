@@ -88,4 +88,26 @@ const useObjectsDragAndDropWithClick = (startElemPos: Point) => {
     return onDragStart;
 };
 
-export { useObjectsDragAndDrop, useObjectsDragAndDropWithClick, useClickOut };
+const useShiftAction = (DownAction: () => void, UpAction: () => void) => {
+    useEffect(() => {
+        const handleDown = (event: { key: string }) => {
+            if (event.key == 'Shift') {
+                DownAction();
+            }
+        };
+        const handleUp = (event: { key: string }) => {
+            if (event.key == 'Shift') {
+                UpAction();
+            }
+        };
+
+        document.addEventListener('keydown', handleDown);
+        document.addEventListener('keyup', handleUp);
+        return () => {
+            document.removeEventListener('keyup', handleUp);
+            document.removeEventListener('keydown', handleDown);
+        };
+    }, []);
+};
+
+export { useObjectsDragAndDrop, useObjectsDragAndDropWithClick, useClickOut, useShiftAction };

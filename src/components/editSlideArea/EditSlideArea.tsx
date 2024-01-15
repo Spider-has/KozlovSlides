@@ -1,9 +1,9 @@
-import { BackgroundType, Slide, UserActions } from '../../model/types';
+import { BackgroundType, Id, Slide, UserActions } from '../../model/types';
 import { FigureObjects, ObjectType, SlideElement } from '../../model/figureTypes';
 import styles from './EditSlideArea.module.css';
-import { RefObject, useRef } from 'react';
+import { RefObject, useRef, useState } from 'react';
 import { useAppActions, useAppSelector } from '../../store/hooks';
-import { useObjectsDragAndDrop, useObjectsDragAndDropWithClick } from '../../model/hooks';
+import { useObjectsDragAndDrop, useObjectsDragAndDropWithClick, useShiftAction } from '../../model/hooks';
 import {
     changeStylePosition,
     changeStyleSize,
@@ -36,10 +36,6 @@ const MultipleElementSelect = (props: { multipleSelectionRef: RefObject<HTMLDivE
 
 const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivElement> }) => {
     const elems = props.slide.elements;
-    const objects = elems.map((elem, i) => {
-        const isSelected = props.slide.selectedElements.includes(elem.id);
-        return <SlideObject element={elem} key={i} isSelected={isSelected} />;
-    });
     const editAreaRef = props.editAreaRef;
     const figureAreaRef = useRef<HTMLDivElement>(null);
     const multipleSelectRef = useRef<HTMLDivElement>(null);
@@ -47,6 +43,7 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
     const { createChangeSelectedElementsAction, createCreateNewAlementAction } = useAppActions();
     const userAction = useAppSelector(state => state.slideBar.presentation.userAction);
     let defaultObject: SlideElement = defaultRectangleObject;
+
     switch (userAction.AddedElementType) {
         case ObjectType.Text: {
             defaultObject = defaultTextObject;
@@ -189,6 +186,8 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
                             elemNode?.classList.add(styles.svgWrapperSelected);
                             MultipleSelectionManager.selectedElemsId.add(elem.id);
                         } else {
+                            const elemNode = editAreaRef.current!.querySelector(`#object_${elem.id}`);
+                            elemNode?.classList.remove(styles.svgWrapperSelected);
                             MultipleSelectionManager.selectedElemsId.delete(elem.id);
                         }
                     });
@@ -212,9 +211,9 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
         addFigureDnd({
             onDragAction(event) {
                 newFigureRef.current!.style.top =
-                    event.pageY - editAreaRef.current!.getBoundingClientRect().y + 'px';
+                    event.pageY - figureAreaRef.current!.getBoundingClientRect().y + 'px';
                 newFigureRef.current!.style.left =
-                    event.pageX - editAreaRef.current!.getBoundingClientRect().x + 'px';
+                    event.pageX - figureAreaRef.current!.getBoundingClientRect().x + 'px';
             },
             onClick(event) {
                 const tar = event.target as HTMLElement;
@@ -223,8 +222,8 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
                         ...defaultObject,
                         id: generateRandomId(),
                         position: {
-                            x: event.pageX - editAreaRef.current!.getBoundingClientRect().x,
-                            y: event.pageY - editAreaRef.current!.getBoundingClientRect().y,
+                            x: event.pageX - figureAreaRef.current!.getBoundingClientRect().x,
+                            y: event.pageY - figureAreaRef.current!.getBoundingClientRect().y,
                         },
                     });
                 }
@@ -235,6 +234,34 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
     if (props.slide.background.type == BackgroundType.Color) {
         backgroundSlide = props.slide.background.color;
     }
+    const [isShifted, setShifted] = useState(false);
+    useShiftAction(
+        () => {
+            setShifted(true);
+        },
+        () => {
+            setShifted(false);
+        },
+    );
+    const onSelectDnDAction = (isSelected: boolean, elemId: Id) => {
+        if (!isSelected) {
+            if (isShifted) {
+                createChangeSelectedElementsAction([...props.slide.selectedElements, elemId]);
+            } else createChangeSelectedElementsAction([elemId]);
+        }
+    };
+    const objects = elems.map((elem, i) => {
+        const isSelected = props.slide.selectedElements.includes(elem.id);
+        return (
+            <SlideObject
+                element={elem}
+                key={i}
+                isSelected={isSelected}
+                onSelectDnDAction={onSelectDnDAction}
+            />
+        );
+    });
+
     return (
         <>
             <MultipleElementSelect multipleSelectionRef={multipleSelectRef} />
@@ -273,8 +300,12 @@ const FigureCreationPreview = (props: { element: SlideElement; svgRef: RefObject
     );
 };
 
-const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
-    const { createChangeSelectedElementsAction, createChangeElementsPositionAction } = useAppActions();
+const SlideObject = (props: {
+    element: SlideElement;
+    isSelected: boolean;
+    onSelectDnDAction: (isSelected: boolean, elementId: Id) => void;
+}) => {
+    const { createChangeElementsPositionAction } = useAppActions();
     const elem = { ...props.element };
     const ref = useRef<HTMLDivElement>(null);
     const svgRef = useRef<HTMLDivElement>(null);
@@ -305,7 +336,7 @@ const SlideObject = (props: { element: SlideElement; isSelected: boolean }) => {
             startMousePos.x = event.pageX;
             startMousePos.y = event.pageY;
             setClass(ref, styles.svgWrapperSelected);
-            if (!props.isSelected) createChangeSelectedElementsAction([elem.id]);
+            props.onSelectDnDAction(props.isSelected, elem.id);
         },
     });
 

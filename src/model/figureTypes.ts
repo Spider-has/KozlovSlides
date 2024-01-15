@@ -3,6 +3,7 @@ interface DefaultSlideElement {
     position: Point;
     size: Size;
     elementType: ObjectType;
+    layer: number;
 }
 
 interface GraphicElements extends DefaultSlideElement {
