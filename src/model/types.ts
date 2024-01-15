@@ -94,7 +94,15 @@ type ButtonProps = {
     right?: boolean | false;
     action: () => void;
 };
-
+export type SketchExamplePopoverProps = {
+    state: {displayColorPicker: boolean,
+    color: {
+        r: string,
+        g: string,
+        b: string,
+        a: string,
+    },}
+};
 type ButtonWithActionListProps = {
     mainButton: ButtonProps;
     buttonList: {

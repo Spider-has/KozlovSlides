@@ -172,6 +172,32 @@
     flex-direction: column;
 }
 
+.NewColorButton {
+    background-color: transparent;
+    border: none;
+    padding: 10px 9px 8px;
+    color: #444746;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.PipkaButton {
+    background-color: transparent;
+    border: none;
+    padding: 1.5px 3px;
+    color: #444746;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.PipkaButton:hover {
+    background-color: #FFC527;
+}
+
+.NewColorButton:hover {
+    background-color: #FFC527;
+}
+
 .buttonInputBlockFull {
     display: flex;
     flex-direction: row;
@@ -180,6 +206,7 @@
     width: 100%;
     height: 100%;
 }
+
 .fileTextButton {
     display: flex;
     color: #444746;

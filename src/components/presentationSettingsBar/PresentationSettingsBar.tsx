@@ -12,6 +12,7 @@ import {
     SlideButtonList,
     TextButtonList,
     TextFamilyList,
+    colorList,
 } from '../../model/models';
 import * as ButtonIcon from '../button/icons/ButtonIcons';
 import { Logo } from '../../logo';
@@ -20,6 +21,7 @@ import styles from './PresentationSettingsBar.module.css';
 import { FigureObjects, ObjectType } from '../../model/figureTypes';
 import { useClickOut } from '../../model/hooks';
 import { checkPresentationFileType } from '../../model/utils';
+import SketchExample from '../colorButton/SketchExample';
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
@@ -290,142 +292,6 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     );
 };
 const Colors = (props: { name: string; onColorClick: (colorName: string) => void }) => {
-    const colorList = [
-        [
-            'IndianRedLightCoral',
-            'Salmon',
-            'DarkSalmon',
-            'Crimson',
-            'FireBrick',
-            'DarkRed',
-            'Pink',
-            'LightPink',
-            'HotPink',
-            'DeepPink',
-            'MediumVioletRed',
-            'PaleVioletRed',
-            'LightSalmon',
-            'Coral',
-            'Tomato',
-            'OrangeRed',
-            'DarkOrange',
-            'Orange',
-            'Gold',
-            'LightYellow',
-            'LemonChiffon',
-            'LightGoldenrodYellow',
-            'PapayaWhip',
-            'Moccasin',
-            'PeachPuff',
-            'PaleGoldenrod',
-            'Khaki',
-            'DarkKhaki',
-            'Lavender',
-            'Thistle',
-            'Plum',
-            'Violet',
-            'Orchid',
-            'Magenta',
-            'MediumOrchid',
-            'MediumPurple',
-            'BlueViolet',
-            'DarkViolet',
-            'DarkOrchid',
-            'DarkMagenta',
-            'Indigo',
-            'SlateBlue',
-            'DarkSlateBlue',
-            'Cornsilk',
-            'BlanchedAlmond',
-            'Bisque',
-            'NavajoWhite',
-            'Wheat',
-            'BurlyWood',
-            'Tan',
-            'RosyBrown',
-            'SandyBrown',
-            'Goldenrod',
-            'DarkGoldenRod',
-            'Peru',
-            'Chocolate',
-            'SaddleBrown',
-            'Sienna',
-            'Brown',
-            'Gray',
-            'Silver',
-            'Fuchsia',
-            'Purple',
-            'Red',
-            'Maroon',
-            'Yellow',
-            'Lime',
-            'AquaTeal',
-            'Blue',
-            'GreenYellow',
-            'Chartreuse',
-            'LawnGreen',
-            'LimeGreen',
-            'PaleGreen',
-            'LightGreen',
-            'MediumSpringGreen',
-            'SpringGreen',
-            'MediumSeaGreen',
-            'SeaGreen',
-            'ForestGreen',
-            'Green',
-            'DarkGreen',
-            'YellowGreen',
-            'OliveDrab',
-            'Olive',
-            'DarkOliveGreen',
-            'MediumAquamarine',
-            'DarkSeaGreen',
-            'LightSeaGreen',
-            'DarkCyan',
-            'Teal',
-            'Aqua',
-            'Cyan',
-            'LightCyan',
-            'PaleTurquoise',
-            'Aquamarine',
-            'Turquoise',
-            'MediumTurquoise',
-            'DarkTurquoise',
-            'CadetBlue',
-            'SteelBlue',
-            'LightSteelBlue',
-            'PowderBlue',
-            'LightBlue',
-            'SkyBlue',
-            'LightSkyBlue',
-            'DeepSkyBlue',
-            'DodgerBlue',
-            'CornflowerBlue',
-            'MediumSlateBlue',
-            'RoyalBlue',
-            'MediumBlue',
-            'DarkBlue',
-            'Navy',
-            'MidnightBlue',
-            'White',
-            'Snow',
-            'Honeydew',
-            'MintCream',
-            'Azure',
-            'AliceBlue',
-            'GhostWhite',
-            'WhiteSmoke',
-            'Gainsboro',
-            'LightGrey',
-            'DarkGray',
-            'Grey',
-            'DimGray',
-            'LightSlateGray',
-            'SlateGray',
-            'DarkSlateGray',
-            'Black',
-        ],
-    ];
     const [visible, setVisible] = useState(false);
     const colorRef = useRef(null);
     useClickOut(
@@ -435,6 +301,7 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
         visible,
         colorRef,
     );
+    console.log(colorList);
     return (
         <div className={styles.colorPalitra}>
             {props.name === 'Цвет' && (
@@ -463,6 +330,7 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                         <div className={styles.colorPalitraRow} key={index[i][0]}>
                             {elem.map((elem, i, index) => (
                                 <button
+                                    id={elem}
                                     key={index[i]}
                                     className={styles.colorPalitraRowElement}
                                     onClick={() => {
@@ -472,27 +340,22 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
                                     }}
                                     style={{ backgroundColor: elem }}
                                 ></button>
-                            ))}
+                            ))
+                            }
                         </div>
                     ))}
 
                     <div className={styles.newColorArea}>
                         <div className={styles.colorText}>Другой</div>
                         <div className={styles.newColorButtonsArea}>
-                            <Button
-                                type={ButtonType.Icon}
-                                icon={<ButtonIcon.NewColor></ButtonIcon.NewColor>}
-                                action={() => {
-                                    setVisible(true);
-                                }}
-                            ></Button>
-                            <Button
+                            <div className={styles.NewColorButton}><SketchExample /></div>
+                            <div className={styles.PipkaButton}><Button
                                 type={ButtonType.Icon}
                                 icon={<ButtonIcon.Pipka></ButtonIcon.Pipka>}
                                 action={() => {
                                     setVisible(true);
                                 }}
-                            ></Button>
+                            ></Button></div>
                         </div>
                         <div className={styles.noColorButton}>
                             <div className={styles.noColorButtonArea}>
@@ -714,11 +577,11 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => { }} />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className={styles.createLine}></div>
                     <Button
@@ -735,7 +598,7 @@ const Title = () => {
                             createRedoAction();
                         }}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextButtonSection.mainButton}
@@ -747,7 +610,7 @@ const Title = () => {
                             {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ImageFileUploader />,
                                 },
                                 buttonList: [],
@@ -756,7 +619,7 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIconText,
                                     text: 'Загрузить из интернета',
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ButtonIcon.Photo />,
                                 },
                                 buttonList: [],
@@ -767,9 +630,9 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <Button text={'Фон'} type={ButtonType.Text} action={() => {}} />
+                    <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
                     {/*<div className={styles.createLine}></div>
                     <Button text={'Макет'} type={ButtonType.Text} action={() => { }} />
                     <div className={styles.createLine}></div>
