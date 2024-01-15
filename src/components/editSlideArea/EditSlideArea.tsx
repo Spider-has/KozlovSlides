@@ -9,6 +9,7 @@ import {
     changeStyleSize,
     checkElemsCollision,
     generateRandomId,
+    getNumfromPxString,
 } from '../../model/utils';
 import {
     defaultEllipseObject,
@@ -110,20 +111,65 @@ const ActiveSlideArea = (props: { slide: Slide }) => {
             },
             onDragAction(event) {
                 if (MultipleSelectionManager.canSelect) {
+                    console.log({
+                        x: getNumfromPxString(multipleSelectRef.current!.style.left),
+                        y: getNumfromPxString(multipleSelectRef.current!.style.top),
+                        width: multipleSelectRef.current!.getBoundingClientRect().width,
+                        height: multipleSelectRef.current!.getBoundingClientRect().height,
+                    });
                     changeStyleSize(
                         multipleSelectRef,
                         { width: 0, height: 0 },
-                        MultipleSelectionManager.startMousePos,
-                        { x: event.pageX, y: event.pageY },
+                        {
+                            x:
+                                MultipleSelectionManager.startMousePos.x > event.pageX
+                                    ? event.pageX
+                                    : MultipleSelectionManager.startMousePos.x,
+                            y:
+                                MultipleSelectionManager.startMousePos.y > event.pageY
+                                    ? event.pageY
+                                    : MultipleSelectionManager.startMousePos.y,
+                        },
+                        {
+                            x:
+                                MultipleSelectionManager.startMousePos.x > event.pageX
+                                    ? MultipleSelectionManager.startMousePos.x
+                                    : event.pageX,
+                            y:
+                                MultipleSelectionManager.startMousePos.y > event.pageY
+                                    ? MultipleSelectionManager.startMousePos.y
+                                    : event.pageY,
+                        },
+                    );
+                    changeStylePosition(
+                        multipleSelectRef,
+                        {
+                            x: MultipleSelectionManager.startPos.x,
+                            y: MultipleSelectionManager.startPos.y,
+                        },
+                        {
+                            x: MultipleSelectionManager.startMousePos.x > event.pageX ? event.pageX : 0,
+                            y: MultipleSelectionManager.startMousePos.y > event.pageY ? event.pageY : 0,
+                        },
+                        {
+                            x:
+                                MultipleSelectionManager.startMousePos.x > event.pageX
+                                    ? MultipleSelectionManager.startMousePos.x
+                                    : 0,
+                            y:
+                                MultipleSelectionManager.startMousePos.y > event.pageY
+                                    ? MultipleSelectionManager.startMousePos.y
+                                    : 0,
+                        },
                     );
                     elems.forEach(elem => {
                         if (
                             checkElemsCollision(
                                 {
-                                    x: MultipleSelectionManager.startPos.x,
-                                    y: MultipleSelectionManager.startPos.y,
-                                    width: event.pageX - MultipleSelectionManager.startMousePos.x,
-                                    height: event.pageY - MultipleSelectionManager.startMousePos.y,
+                                    x: getNumfromPxString(multipleSelectRef.current!.style.left),
+                                    y: getNumfromPxString(multipleSelectRef.current!.style.top),
+                                    width: multipleSelectRef.current!.getBoundingClientRect().width,
+                                    height: multipleSelectRef.current!.getBoundingClientRect().height,
                                 },
                                 {
                                     x: elem.position.x,
