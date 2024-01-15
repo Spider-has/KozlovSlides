@@ -185,6 +185,18 @@ const createChangeElementsRotateAngleAction = (newAngle: number) => {
     };
 };
 
+const createChangeElementLayerActionHigher = () => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_LAYER_HIGHER,
+    };
+};
+
+const createChangeElementLayerActionLower = () => {
+    return {
+        type: PresentationActions.CHANGE_ELEMENTS_LAYER_LOWER,
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -209,4 +221,6 @@ export {
     createUndoAction,
     createRedoAction,
     createChangeElementsRotateAngleAction,
+    createChangeElementLayerActionHigher,
+    createChangeElementLayerActionLower,
 };

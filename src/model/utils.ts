@@ -180,6 +180,65 @@ const getShiftSelectedSlides = (slides: Slide[], selectedSlides: Id[], newId: Id
     return newIndexes;
 };
 
+const getNextHigherElementLayer = (selectedSlide: Slide, selectedElemLayer: number | undefined) => {
+    let nextLayer = 100000;
+    let nextLayerI = -1;
+    if (selectedElemLayer != undefined)
+        if (selectedSlide.elements.length > 1)
+            selectedSlide.elements.forEach((elem, i) => {
+                if (elem.layer > selectedElemLayer) {
+                    if (elem.layer < nextLayer) {
+                        nextLayerI = i;
+                        nextLayer = elem.layer;
+                    }
+                }
+            });
+        else {
+            nextLayer = 0;
+            nextLayerI = 0;
+        }
+    if (nextLayer == 100000 && selectedElemLayer != undefined) {
+        nextLayer = selectedElemLayer;
+    }
+    console.log({
+        nextLayer: nextLayer,
+        nextLayerIndex: nextLayerI,
+    });
+    return {
+        nextLayer: nextLayer,
+        nextLayerIndex: nextLayerI,
+    };
+};
+const getNextLowerElementLayer = (selectedSlide: Slide, selectedElemLayer: number | undefined) => {
+    let nextLayer = -1;
+    let nextLayerI = -1;
+    if (selectedElemLayer != undefined)
+        if (selectedSlide.elements.length > 1)
+            selectedSlide.elements.forEach((elem, i) => {
+                if (elem.layer < selectedElemLayer) {
+                    if (elem.layer > nextLayer) {
+                        nextLayerI = i;
+                        nextLayer = elem.layer;
+                    }
+                }
+            });
+        else {
+            nextLayer = 0;
+            nextLayerI = 0;
+        }
+    if (nextLayer == -1 && selectedElemLayer != undefined) {
+        nextLayer = selectedElemLayer;
+    }
+    console.log({
+        nextLayer: nextLayer,
+        nextLayerIndex: nextLayerI,
+    });
+    return {
+        nextLayer: nextLayer,
+        nextLayerIndex: nextLayerI,
+    };
+};
+
 export {
     generateRandomId,
     getNumfromPxString,
@@ -195,4 +254,6 @@ export {
     checkPresentationFileType,
     checkElemsCollision,
     getShiftSelectedSlides,
+    getNextHigherElementLayer,
+    getNextLowerElementLayer,
 };

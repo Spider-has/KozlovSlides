@@ -75,7 +75,7 @@ const SlidePreviewArea = (props: {
             <div
                 className={styles.slidePreviewArea}
                 onClick={() => {
-                    props.onSelectAction(props.isSelected, props.slide.id)
+                    props.onSelectAction(props.isSelected, props.slide.id);
                 }}
                 ref={slideRef}
             >
@@ -169,20 +169,24 @@ const SlidePreviewList = (props: { slides: Slide[]; selectedSlides: Id[] }) => {
     };
     const onSelectAction = (isSelected: boolean, slideId: Id) => {
         if (!isSelected && !isShifted) {
-            doRefsArrayCheck()
-            createChangeSelectedSlidesAction([slideId])
-        }
-        else {
+            doRefsArrayCheck();
+            createChangeSelectedSlidesAction([slideId]);
+        } else {
             if (isShifted) {
                 doRefsArrayCheck();
-                createChangeSelectedSlidesAction([...props.selectedSlides, ...getShiftSelectedSlides(props.slides, props.selectedSlides, slideId)])
+                createChangeSelectedSlidesAction([
+                    ...props.selectedSlides,
+                    ...getShiftSelectedSlides(props.slides, props.selectedSlides, slideId),
+                ]);
             }
         }
-    }
+    };
 
     const doRefsArrayCheck = () => {
-        allSlides.current! = allSlides.current!.filter((refs) => (refs.newPositionRef.current && refs.slideRef.current))
-    }
+        allSlides.current! = allSlides.current!.filter(
+            refs => refs.newPositionRef.current && refs.slideRef.current,
+        );
+    };
 
     const slidesPreviewList = props.slides.map((slide, i) => {
         const selected = selectedSlides.includes(slide.id);

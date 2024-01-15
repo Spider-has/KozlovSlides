@@ -7,6 +7,7 @@ import {
     getStateWithAddElementAction,
     getStateWithCreatedElement,
     getStateWithNewSelectedElemsColor,
+    getStateWithNewSelectedElemsLayer,
     getStateWithNewSelectedElemsPosition,
     getStateWithNewSelectedElemsRotationAngle,
     getStateWithNewSelectedElemsSize,
@@ -260,6 +261,16 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
         }
         case PresentationActions.CHANGE_ELEMENTS_ROTATE_ANGLE: {
             const newState = getStateWithNewSelectedElemsRotationAngle(state, action.payload);
+            statesHistory.addState(newState);
+            return newState;
+        }
+        case PresentationActions.CHANGE_ELEMENTS_LAYER_HIGHER: {
+            const newState = getStateWithNewSelectedElemsLayer(state, 'up');
+            statesHistory.addState(newState);
+            return newState;
+        }
+        case PresentationActions.CHANGE_ELEMENTS_LAYER_LOWER: {
+            const newState = getStateWithNewSelectedElemsLayer(state, 'down');
             statesHistory.addState(newState);
             return newState;
         }

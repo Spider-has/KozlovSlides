@@ -368,7 +368,6 @@ const SlideObject = (props: {
     };
 
     const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
-    console.log(elem.layer);
     const SelectedClass = props.isSelected ? styles.svgWrapperSelected : '';
     return (
         <div

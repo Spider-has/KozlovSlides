@@ -35,6 +35,7 @@ const SlideObject = (props: { element: SlideElement }) => {
         <div
             className={`${styles.svgWrapper}`}
             style={{
+                zIndex: elem.layer,
                 top: elem.position.y + 'px',
                 left: elem.position.x + 'px',
                 width: elem.size.width + 'px',

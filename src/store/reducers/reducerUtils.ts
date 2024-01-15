@@ -1,6 +1,11 @@
 import { Color, FigureObjects, FontFamily, ObjectType, SlideElement } from '../../model/figureTypes';
 import { Editor, SelectModeTypes, UserActions } from '../../model/types';
-import { getElementsById, getSlideIndexById } from '../../model/utils';
+import {
+    getElementsById,
+    getNextHigherElementLayer,
+    getNextLowerElementLayer,
+    getSlideIndexById,
+} from '../../model/utils';
 
 const getStateWithNewSelectedElemsPosition = (state: Editor, offsetX: number, offsetY: number) => {
     const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
@@ -349,6 +354,61 @@ const getStateWithNewSelectedElemsRotationAngle = (state: Editor, newRotation: n
     return newState;
 };
 
+const getStateWithNewSelectedElemsLayer = (state: Editor, type: 'up' | 'down') => {
+    const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+    const selectedElements = getElementsById(
+        state.presentation.slides[selectedSlidesIndex[0]].elements,
+        state.presentation.slides[selectedSlidesIndex[0]].selectedElements,
+    );
+
+    let newLayer = {
+        nextLayer: 0,
+        nextLayerIndex: 0,
+    };
+    let oldLayer = 0;
+    if (selectedElements.length > 0) {
+        oldLayer = state.presentation.slides[selectedSlidesIndex[0]].elements[selectedElements[0]].layer;
+        if (type === 'up') {
+            newLayer = getNextHigherElementLayer(
+                state.presentation.slides[selectedSlidesIndex[0]],
+                state.presentation.slides[selectedSlidesIndex[0]].elements[selectedElements[0]].layer,
+            );
+        } else if (type === 'down') {
+            newLayer = getNextLowerElementLayer(
+                state.presentation.slides[selectedSlidesIndex[0]],
+                state.presentation.slides[selectedSlidesIndex[0]].elements[selectedElements[0]].layer,
+            );
+        }
+    }
+    const newState = {
+        ...state,
+        presentation: {
+            ...state.presentation,
+            slides: state.presentation.slides.map((slide, i) => {
+                if (i === selectedSlidesIndex[0]) {
+                    return {
+                        ...slide,
+                        elements: slide.elements.map((element, j) => {
+                            if (j == selectedElements[0]) {
+                                return {
+                                    ...element,
+                                    layer: newLayer.nextLayer,
+                                };
+                            } else if (j == newLayer.nextLayerIndex) {
+                                return { ...element, layer: oldLayer };
+                            }
+                            return element;
+                        }),
+                    };
+                }
+                return slide;
+            }),
+        },
+        selectMode: SelectModeTypes.Elements,
+    };
+    return newState;
+};
+
 export {
     getStateWithNewSelectedElemsPosition,
     getStateWithNewSelectedElemsSize,
@@ -357,4 +417,5 @@ export {
     getStateWithAddElementAction,
     getStateWithNewSelectedElemsColor,
     getStateWithNewSelectedElemsRotationAngle,
+    getStateWithNewSelectedElemsLayer,
 };

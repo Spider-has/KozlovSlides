@@ -27,6 +27,8 @@ enum PresentationActions {
     UNDO = 'UNDO',
     REDO = 'REDO',
     CHANGE_ELEMENTS_ROTATE_ANGLE = 'CHANGE_ELEMENTS_ROTATE_ANGLE',
+    CHANGE_ELEMENTS_LAYER_HIGHER = 'CHANGE_ELEMENTS_LAYER_HIGHER',
+    CHANGE_ELEMENTS_LAYER_LOWER = 'CHANGE_ELEMENTS_LAYER_LOWER',
 }
 
 type ChangeSlidePosition = {
@@ -167,6 +169,16 @@ type ChangeElementsRotateAngle = {
     payload: number;
 };
 
+type ChangeElementsLayerToHigher = {
+    type: PresentationActions.CHANGE_ELEMENTS_LAYER_HIGHER;
+    payload: number;
+};
+
+type ChangeElementsLayerToLower = {
+    type: PresentationActions.CHANGE_ELEMENTS_LAYER_LOWER;
+    payload: number;
+};
+
 type Action =
     | ChangeSlidePosition
     | DeleteSlide
@@ -192,6 +204,8 @@ type Action =
     | ChangeSlideBackground
     | Undo
     | Redo
-    | ChangeElementsRotateAngle;
+    | ChangeElementsRotateAngle
+    | ChangeElementsLayerToHigher
+    | ChangeElementsLayerToLower;
 export type { Action };
 export { PresentationActions };
