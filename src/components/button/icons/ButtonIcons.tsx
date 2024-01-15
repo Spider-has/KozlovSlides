@@ -1004,14 +1004,8 @@ const Italic = () => (
 );
 export { Italic };
 const Underlined = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 20 20"
-        fill="none"
-    >
-        <path d="M0 14V12.5H11.666V14H0ZM5.833 11C4.569 11 3.503 10.566 2.635 9.698C1.767 8.83 1.333 7.764 1.333 6.5V0H3.333V6.5C3.333 7.19467 3.576 7.785 4.062 8.271C4.548 8.757 5.13833 9 5.833 9C6.52767 9 7.118 8.757 7.604 8.271C8.09 7.785 8.333 7.19467 8.333 6.5V0H10.333V6.5C10.333 7.764 9.899 8.83 9.031 9.698C8.163 10.566 7.097 11 5.833 11Z" fill="#444746" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <path d="M4 17V15.5H15.666V17H4ZM9.833 14C8.569 14 7.503 13.566 6.635 12.698C5.767 11.83 5.333 10.764 5.333 9.5V3H7.333V9.5C7.333 10.1947 7.576 10.785 8.062 11.271C8.548 11.757 9.13833 12 9.833 12C10.5277 12 11.118 11.757 11.604 11.271C12.09 10.785 12.333 10.1947 12.333 9.5V3H14.333V9.5C14.333 10.764 13.899 11.83 13.031 12.698C12.163 13.566 11.097 14 9.833 14Z" fill="#444746" />
     </svg>
 );
 export { Underlined };
@@ -1029,29 +1023,16 @@ const NotText = () => (
 );
 export { NotText };
 const LittleDown = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 20 20"
-        fill="none"
-    >
-        <path fillRule="evenodd" clipRule="evenodd" d="M13 6H11V7H13V8H12C11.448 8 11 8.4475 11 9V11H14V10H12V9H13C13.5525 9 14 8.5525 14 8V7C14 6.4475 13.5525 6 13 6ZM5 6.5L8 11H9.88503L6.5 5.5L10 0H8L5 4.5L2 0H0L3.5 5.5L0 11H2L5 6.5Z" fill="#444746" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <path fillRule="evenodd" clipRule="evenodd" d="M16 11H14V12H16V13H15C14.448 13 14 13.4475 14 14V16H17V15H15V14H16C16.5525 14 17 13.5525 17 13V12C17 11.4475 16.5525 11 16 11ZM8 11.5L11 16H12.885L9.5 10.5L13 5H11L8 9.5L5 5H3L6.5 10.5L3 16H5L8 11.5Z" fill="#444746" />
     </svg>
 
 );
 export { LittleDown };
 const LittleUp = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 20 20"
-        fill="none"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
         <path fillRule="evenodd" clipRule="evenodd" d="M16 5H14V6H16V7H15C14.448 7 14 7.4475 14 8V10H17V9H15V8H16C16.5525 8 17 7.5525 17 7V6C17 5.4475 16.5525 5 16 5ZM8 11.5L11 16H12.885L9.5 10.5L13 5H11L8 9.5L5 5H3L6.5 10.5L3 16H5L8 11.5Z" fill="#444746" />
     </svg>
-
 );
 
 export { LittleUp };
