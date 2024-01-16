@@ -165,5 +165,6 @@ export type {
     Span,
     FontFamily,
     Color,
+    FunctionGraphObject,
 };
 export { ObjectType, FigureObjects };

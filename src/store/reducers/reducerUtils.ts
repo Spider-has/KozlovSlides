@@ -155,6 +155,51 @@ const getStateWithNewSelectedElemsTextParams = (state: Editor, newTextParams: Ne
     return newState;
 };
 
+const getStateWithNewSelectedElemsTextValue = (
+    state: Editor,
+    newTextValue: string,
+    textElementId: string,
+) => {
+    const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+    const selectedElements = getElementsById(state.presentation.slides[selectedSlidesIndex[0]].elements, [
+        textElementId,
+    ]);
+    const newState = {
+        ...state,
+        presentation: {
+            ...state.presentation,
+            slides: state.presentation.slides.map((slide, i) => {
+                if (i === selectedSlidesIndex[0]) {
+                    return {
+                        ...slide,
+                        elements: slide.elements.map((element, j) => {
+                            if (selectedElements.includes(j)) {
+                                if (element.elementType === ObjectType.Text) {
+                                    return {
+                                        ...element,
+                                        properties: {
+                                            ...element.properties,
+                                            chars: {
+                                                ...element.properties.chars,
+                                                value: newTextValue,
+                                            },
+                                        },
+                                    };
+                                }
+                                return element;
+                            }
+                            return element;
+                        }),
+                    };
+                }
+                return slide;
+            }),
+        },
+        selectMode: SelectModeTypes.Elements,
+    };
+    return newState;
+};
+
 const getStateWithCreatedElement = (state: Editor, newElement: SlideElement) => {
     const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
     const newState = {
@@ -418,4 +463,5 @@ export {
     getStateWithNewSelectedElemsColor,
     getStateWithNewSelectedElemsRotationAngle,
     getStateWithNewSelectedElemsLayer,
+    getStateWithNewSelectedElemsTextValue,
 };

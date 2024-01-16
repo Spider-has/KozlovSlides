@@ -12,6 +12,7 @@ import {
     getStateWithNewSelectedElemsRotationAngle,
     getStateWithNewSelectedElemsSize,
     getStateWithNewSelectedElemsTextParams,
+    getStateWithNewSelectedElemsTextValue,
 } from './reducerUtils';
 import { HistoryInit } from './history';
 
@@ -33,7 +34,7 @@ const initData: InitData = {
             },
         ],
         size: defaultSize,
-        name: 'Презентация без имени',
+        name: 'Презентация без названия',
         userAction: {
             ActionType: UserActions.SLIDE_EDIT,
             AddedElementType: null,
@@ -149,7 +150,11 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
             return newState;
         }
         case PresentationActions.CHANGE_ELEMENT_TEXT: {
-            const newState = getStateWithNewSelectedElemsTextParams(state, { value: action.payload.newText });
+            const newState = getStateWithNewSelectedElemsTextValue(
+                state,
+                action.payload.newText,
+                action.payload.id,
+            );
             statesHistory.addState(newState);
             return newState;
         }
