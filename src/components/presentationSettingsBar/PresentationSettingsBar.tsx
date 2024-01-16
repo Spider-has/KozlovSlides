@@ -1,27 +1,30 @@
-import { useRef, useState } from 'react';
-import { Button } from '../button/Button';
-import { BackgroundType, ButtonType, ButtonWithActionListProps } from '../../model/types';
+import { useRef } from 'react';
+import { Button } from '../buttons/Button';
+import { ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
     FigureButtonList,
     FileButtonList,
     FormatButtonList,
     ImageButtonList,
+    InputButton,
     InsertionButtonList,
     ObjectButtonList,
     SlideButtonList,
-    TextButtonList,
+    TextButton,
     TextFamilyList,
-    colorList,
 } from '../../model/models';
-import * as ButtonIcon from '../button/icons/ButtonIcons';
+import * as ButtonIcon from '../buttons/icons/ButtonIcons';
 import { Logo } from '../../logo';
 import { useAppActions, useAppSelector } from '../../store/hooks';
 import styles from './PresentationSettingsBar.module.css';
 import { FigureObjects, ObjectType } from '../../model/figureTypes';
-import { useClickOut } from '../../model/hooks';
-import { checkPresentationFileType } from '../../model/utils';
-import SketchExample from '../colorButton/SketchExample';
+import {
+    ButtonWithActionList,
+    ImageFileUploader,
+    OpenPresentationButton,
+    SavePresentationButton,
+} from '../buttons/Buttons';
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
@@ -92,377 +95,6 @@ const InputText = () => {
     );
 };
 
-const ButtonWithActionList = (props: ButtonWithActionListProps) => {
-    const { createChangeElementsColorAction, createChangeSlideBackgroundAction } = useAppActions();
-    const [visible, setVisible] = useState(false);
-    const ButtonListBar = useRef<HTMLDivElement>(null);
-    const [visible2, setVisible2] = useState(false);
-    const ButtonListBar2 = useRef<HTMLDivElement>(null);
-    const [visible3, setVisible3] = useState(false);
-    const ButtonListBar3 = useRef<HTMLDivElement>(null);
-    const [visible4, setVisible4] = useState(false);
-    const ButtonListBar4 = useRef<HTMLDivElement>(null);
-    const { mainButton, buttonList } = props;
-    switch (mainButton.text) {
-        case 'Вставка':
-            buttonList.forEach(element => {
-                switch (element.secondaryButton.text) {
-                    case 'Фигура':
-                        element.secondaryButton.action = () => {
-                            setVisible2(!visible2);
-                        };
-
-                        useClickOut(
-                            () => {
-                                setVisible2(!visible2);
-                            },
-                            visible2,
-                            ButtonListBar2,
-                        );
-                        break;
-                    case 'Изображение':
-                        element.secondaryButton.action = () => {
-                            setVisible3(!visible3);
-                        };
-
-                        useClickOut(
-                            () => {
-                                setVisible3(!visible3);
-                            },
-                            visible3,
-                            ButtonListBar3,
-                        );
-                        break;
-                }
-            });
-            break;
-        case 'Формат':
-            buttonList.forEach(element => {
-                switch (element.secondaryButton.text) {
-                    case 'Текст':
-                        element.secondaryButton.action = () => {
-                            setVisible2(!visible2);
-                        };
-
-                        useClickOut(
-                            () => {
-                                setVisible2(!visible2);
-                            },
-                            visible2,
-                            ButtonListBar2,
-                        );
-                        break;
-                    case 'Выравнивание и отступы':
-                        element.secondaryButton.action = () => {
-                            setVisible3(!visible3);
-                        };
-
-                        useClickOut(
-                            () => {
-                                setVisible3(!visible3);
-                            },
-                            visible3,
-                            ButtonListBar3,
-                        );
-                        break;
-                    case 'Маркеры и нумерация':
-                        element.secondaryButton.action = () => {
-                            setVisible4(!visible4);
-                        };
-                        useClickOut(
-                            () => {
-                                setVisible4(!visible4);
-                            },
-                            visible4,
-                            ButtonListBar4,
-                        );
-                        break;
-                }
-            });
-            break;
-    }
-
-    mainButton.action = () => {
-        setVisible(!visible);
-    };
-
-    useClickOut(
-        () => {
-            setVisible(!visible);
-        },
-        visible,
-        ButtonListBar,
-    );
-
-    return (
-        <div className={styles.buttonList}>
-            <Button
-                text={mainButton.text}
-                type={mainButton.type}
-                action={mainButton.action}
-                icon={mainButton.icon || null}
-                iconSize={mainButton.iconSize || undefined}
-                right={props.right}
-            />
-            {visible && buttonList.length > 0 && (
-                <div ref={ButtonListBar} className={styles.buttonListList}>
-                    {buttonList.map((button, index) => (
-                        <div key={index} className={styles.buttonListListVerticalArea}>
-                            {(visible2 &&
-                                (button.secondaryButton.text == 'Фигура' ||
-                                    button.secondaryButton.text == 'Текст') && (
-                                    <div ref={ButtonListBar2} className={styles.buttonListListVertical}>
-                                        {button.buttonList.map((button, index) => (
-                                            <Button
-                                                key={index}
-                                                text={button.text}
-                                                type={button.type}
-                                                icon={button.icon}
-                                                action={button.action || null}
-                                                iconSize={button.iconSize || undefined}
-                                            />
-                                        ))}
-                                    </div>
-                                )) ||
-                                (visible3 &&
-                                    (button.secondaryButton.text == 'Выравнивание и отступы' ||
-                                        button.secondaryButton.text == 'Изображение') && (
-                                        <div ref={ButtonListBar3} className={styles.buttonListListVertical}>
-                                            {button.buttonList.map((button, index) => (
-                                                <Button
-                                                    key={index}
-                                                    text={button.text}
-                                                    type={button.type}
-                                                    icon={button.icon}
-                                                    action={button.action || null}
-                                                    iconSize={button.iconSize || undefined}
-                                                />
-                                            ))}
-                                        </div>
-                                    )) ||
-                                (visible4 && button.secondaryButton.text == 'Маркеры и нумерация' && (
-                                    <div ref={ButtonListBar4} className={styles.buttonListListVertical}>
-                                        {button.buttonList.map((button, index) => (
-                                            <Button
-                                                key={index}
-                                                text={button.text}
-                                                type={button.type}
-                                                icon={button.icon}
-                                                action={button.action || null}
-                                                iconSize={button.iconSize || undefined}
-                                            />
-                                        ))}
-                                    </div>
-                                ))}
-                            {button.secondaryButton.text !== 'Цвет' &&
-                                button.secondaryButton.text !== 'Изменить фон' && (
-                                    <Button
-                                        key={index}
-                                        text={button.secondaryButton.text}
-                                        type={button.secondaryButton.type}
-                                        icon={button.secondaryButton.icon}
-                                        action={button.secondaryButton.action || null}
-                                        iconSize={button.secondaryButton.iconSize || undefined}
-                                    />
-                                )}
-                            {button.secondaryButton.text == 'Цвет' && (
-                                <Colors
-                                    name={button.secondaryButton.text}
-                                    onColorClick={(colorName: string) => {
-                                        createChangeElementsColorAction(colorName);
-                                    }}
-                                ></Colors>
-                            )}
-                            {button.secondaryButton.text == 'Изменить фон' && (
-                                <Colors
-                                    name={button.secondaryButton.text}
-                                    onColorClick={(colorName: string) => {
-                                        createChangeSlideBackgroundAction({
-                                            type: BackgroundType.Color,
-                                            color: colorName,
-                                        });
-                                    }}
-                                ></Colors>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-};
-const Colors = (props: { name: string; onColorClick: (colorName: string) => void }) => {
-    const [visible, setVisible] = useState(false);
-    const colorRef = useRef(null);
-    useClickOut(
-        () => {
-            setVisible(!visible);
-        },
-        visible,
-        colorRef,
-    );
-    console.log(colorList);
-    return (
-        <div className={styles.colorPalitra}>
-            {props.name === 'Цвет' && (
-                <Button
-                    type={ButtonType.FullIconText}
-                    icon={<ButtonIcon.FillIcon />}
-                    text={props.name}
-                    action={() => {
-                        setVisible(true);
-                    }}
-                />
-            )}
-            {props.name === 'Изменить фон' && (
-                <Button
-                    type={ButtonType.FullIconText}
-                    icon={<ButtonIcon.ChangeBg />}
-                    text={props.name}
-                    action={() => {
-                        setVisible(true);
-                    }}
-                />
-            )}
-            {visible && (
-                <div ref={colorRef} className={styles.colorPanel}>
-                    {colorList.map((elem, i, index) => (
-                        <div className={styles.colorPalitraRow} key={index[i][0]}>
-                            {elem.map((elem, i, index) => (
-                                <button
-                                    id={elem}
-                                    key={index[i]}
-                                    className={styles.colorPalitraRowElement}
-                                    onClick={() => {
-                                        console.log('1');
-                                        const newColor = elem;
-                                        props.onColorClick(newColor);
-                                    }}
-                                    style={{ backgroundColor: elem }}
-                                ></button>
-                            ))}
-                        </div>
-                    ))}
-
-                    <div className={styles.newColorArea}>
-                        <div className={styles.colorText}>Другой</div>
-                        <div className={styles.newColorButtonsArea}>
-                            <div className={styles.NewColorButton}>
-                                <SketchExample />
-                            </div>
-                            <div className={styles.PipkaButton}>
-                                <Button
-                                    type={ButtonType.Icon}
-                                    icon={<ButtonIcon.Pipka></ButtonIcon.Pipka>}
-                                    action={() => {
-                                        setVisible(true);
-                                    }}
-                                ></Button>
-                            </div>
-                        </div>
-                        <div className={styles.noColorButton}>
-                            <div className={styles.noColorButtonArea}>
-                                <Button
-                                    type={ButtonType.FullIconText}
-                                    icon={<ButtonIcon.NoColor></ButtonIcon.NoColor>}
-                                    text={'Прозрачный'}
-                                    action={() => {
-                                        setVisible(true);
-                                    }}
-                                ></Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
-
-const ImageFileUploader = () => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { createChangeAddElementAction } = useAppActions();
-    return (
-        <div className={styles.buttonBlockFull}>
-            <input
-                id="inputFile"
-                className={styles.fileInputButton}
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={() => {
-                    if (inputRef.current!.files) {
-                        const imgReader = new FileReader();
-                        imgReader.onload = () => {
-                            createChangeAddElementAction(
-                                ObjectType.Image,
-                                undefined,
-                                imgReader.result as string,
-                            );
-                        };
-                        imgReader.readAsDataURL(inputRef.current!.files[0]);
-                    }
-                }}
-            />
-            <label htmlFor="inputFile" className={styles.buttonInputBlockFull}>
-                <ButtonIcon.Uploader />
-                <span className={styles.fileTextButton}>Загрузить с компьютера</span>
-            </label>
-        </div>
-    );
-};
-
-const SavePresentationButton = () => {
-    const presentation = useAppSelector(state => state.slideBar.presentation);
-    const getJsonHref = () => {
-        const objText = JSON.stringify(presentation);
-        const name = presentation.name + '.json';
-        const file = new Blob([objText], { type: 'text/plain' });
-        const href = URL.createObjectURL(file);
-        return { href: href, name: name };
-    };
-    return (
-        <div className={styles.buttonBlockFull}>
-            <ButtonIcon.Download />
-            <a className={styles.DownloadButton} href={getJsonHref().href} download={getJsonHref().name}>
-                Скачать
-            </a>
-        </div>
-    );
-};
-const OpenPresentationButton = () => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { createUpdatePresentationFromFileAction } = useAppActions();
-    return (
-        <div className={styles.buttonBlockFull}>
-            <input
-                id="OpenPresentationButton"
-                ref={inputRef}
-                className={styles.fileInputButton}
-                type={'file'}
-                accept={'.json'}
-                onChange={() => {
-                    if (inputRef.current! && inputRef.current!.files) {
-                        if (inputRef.current!.files[0]) {
-                            inputRef.current!.files[0].text().then(data => {
-                                const jsonObj = JSON.parse(data);
-                                console.log(jsonObj);
-                                if (checkPresentationFileType(jsonObj))
-                                    createUpdatePresentationFromFileAction(jsonObj);
-                                else console.log('Формат файла нормальным сделай, сука!');
-                            });
-                        }
-                    }
-                }}
-            />
-            <label htmlFor="OpenPresentationButton" className={styles.buttonInputBlockFull}>
-                <ButtonIcon.Open />
-                <span className={styles.fileTextButton}>Открыть</span>
-            </label>
-        </div>
-    );
-};
-
 const MainSettingsBar = () => {
     const {
         createAddSlideAction,
@@ -480,14 +112,14 @@ const MainSettingsBar = () => {
     SlideButtonSection.buttonList[0].secondaryButton.action = () => {
         createAddSlideAction();
     };
-    InsertionButtonSection.buttonList[4].buttonList[0].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[0].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
 
-    InsertionButtonSection.buttonList[4].buttonList[1].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[1].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Rectangle);
     };
-    InsertionButtonSection.buttonList[4].buttonList[2].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[2].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
     InsertionButtonSection.buttonList[0].buttonList[0].icon = <ImageFileUploader />;
@@ -506,15 +138,14 @@ const MainSettingsBar = () => {
     FormatButtonSection.buttonList[0].buttonList[2].action = () => {
         createChangeTextUnderline();
     };
-    FormatButtonSection.buttonList[0].buttonList[6].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[3].action = () => {
         createChangeTextSize(2);
     };
-    FormatButtonSection.buttonList[0].buttonList[7].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[4].action = () => {
         createChangeTextSize(-2);
     };
-    FileButtonList.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
-    FileButtonList.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
-    console.log('buttons Rendered!');
+    FileButtonSection.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
+    FileButtonSection.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className={styles.docsMenubars}>
@@ -547,14 +178,23 @@ const MainSettingsBar = () => {
 };
 
 const Title = () => {
+    const {
+        createAddSlideAction,
+        createChangeAddElementAction,
+        createChangeTextFontFamily,
+        createUndoAction,
+        createRedoAction,
+    } = useAppActions();
     const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
     const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
-    const TextButtonSection: ButtonWithActionListProps = TextButtonList;
-    const { createChangeAddElementAction, createChangeTextFontFamily, createUndoAction, createRedoAction } =
-        useAppActions();
-    TextButtonSection.mainButton.action = () => {
+    const TextButtonSection: ButtonProps = TextButton;
+    const InputButtonSection: ButtonProps = InputButton;
+    TextButtonSection.action = () => {
         createChangeAddElementAction(ObjectType.Text);
+    };
+    InputButtonSection.action = () => {
+        createAddSlideAction();
     };
     FigureButtonSection.buttonList[0].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
@@ -580,7 +220,11 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => {}} />
+                    <Button
+                        type={InputButtonSection.type}
+                        icon={InputButtonSection.icon}
+                        action={InputButtonSection.action}
+                    />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
@@ -603,9 +247,10 @@ const Title = () => {
                     />
                     <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
                     <div className={styles.createLine}></div>
-                    <ButtonWithActionList
-                        mainButton={TextButtonSection.mainButton}
-                        buttonList={TextButtonSection.buttonList}
+                    <Button
+                        type={TextButtonSection.type}
+                        icon={TextButtonSection.icon}
+                        action={TextButtonSection.action}
                     />
                     <ButtonWithActionList
                         mainButton={ImageButtonSection.mainButton}

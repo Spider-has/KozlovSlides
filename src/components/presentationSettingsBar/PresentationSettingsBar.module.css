@@ -37,50 +37,12 @@
     font-family: Arial;
 }
 
-.ColorSelectedArea {}
-
-.ColorSelected {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background-color: #FFFFFF;
-    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
-    border-radius: 5px;
-    padding: 10px 5px;
-    min-width: 322px;
-    z-index: 1000;
-}
-
-.ivan {
-    display: flex;
-}
-
 .inputText {
     display: block;
     position: relative;
     padding: 9px 2px 1px 5px;
     max-width: 90%;
     width: auto;
-}
-
-.inputTextInput2 {
-    display: block;
-    font-family: 'Times New Roman', Times, serif;
-    max-width: 90%;
-    font-size: 18px;
-    padding: 5px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-}
-
-
-.inputTextInput2:hover {
-    outline: 1px solid gray;
-}
-
-.inputTextInput2:focus {
-    outline: 1px solid #FFC527;
 }
 
 .inputTextText {
@@ -92,7 +54,7 @@
     white-space: nowrap;
     max-width: 90%;
     width: fit-content;
-    padding: 1px 6px;
+    padding: 1px 6px 1px 0;
     border-radius: 10px;
     color: "#444746";
     box-shadow: inset 1px 1px 0 rgba(0 0 0 .1), inset 0 -1px 0 rgba(0 0 0 .0);
@@ -127,10 +89,6 @@
     display: block;
 }
 
-.singleLine {
-    font-size: 18px;
-}
-
 .docsBars {
     height: 113.8px;
     display: flex;
@@ -143,180 +101,10 @@
     justify-content: center;
 }
 
-.buttonListListVerticalArea {
-    display: flex;
-    position: relative;
-}
-
-.buttonListListVertical {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 320px;
-    background-color: #FFFFFF;
-    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
-    border-radius: 5px;
-    padding: 10px 5px;
-    min-width: 322px;
-    z-index: 5;
-}
-
 .docsMenubars {
     display: flex;
     flex-direction: row;
     height: 33px;
-}
-
-.newColorArea {
-    display: flex;
-    flex-direction: column;
-}
-
-.buttonList:hover {
-    background-color: #FFC527;
-    border-radius: 5px;
-}
-
-.buttonBlock:hover {
-    background-color: #FFC527;
-    border-radius: 5px;
-}
-
-.NewColorButton {
-    background-color: transparent;
-    border: none;
-    padding: 10px 9px 8px;
-    color: #444746;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.PipkaButton {
-    background-color: transparent;
-    border: none;
-    padding: 4.5px 3px;
-    color: #444746;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.PipkaButton:hover {
-    background-color: #FFC527;
-}
-
-.NewColorButton:hover {
-    background-color: #FFC527;
-}
-
-.buttonInputBlockFull {
-    display: flex;
-    flex-direction: row;
-    border-radius: 5px;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.fileTextButton {
-    display: flex;
-    color: #444746;
-    margin-left: 5px;
-    font-family: Arial;
-}
-
-.buttonBlockFull {
-    display: flex;
-    flex-direction: row;
-    border-radius: 5px;
-    align-items: center;
-    height: 35px;
-    width: 100%;
-}
-
-.DownloadButton {
-    display: flex;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin: 0 5px;
-    color: #444746;
-    text-decoration: none;
-    width: 100%;
-}
-
-.fileInputButton {
-    display: flex;
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.DownloadButton {
-    display: flex;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin: 0 5px;
-    color: #444746;
-    text-decoration: none;
-    width: 100%;
-}
-
-.newColorButtonsArea {
-    display: flex;
-    flex-direction: row;
-}
-
-.colorPalitra {
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-}
-
-.colorPalitraRow {
-    display: flex;
-    flex-flow: row wrap;
-}
-
-.colorText {
-    margin-bottom: 5px;
-}
-
-.noColorButton {
-    display: flex;
-    width: 160%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    border-color: #444746;
-    border: solid 1px;
-    margin-top: 5px;
-}
-
-.noColorButton:hover {
-    background-color: #FFC527;
-}
-
-.colorPalitraRowElement {
-    display: flex;
-    padding: 5px;
-    height: 15px;
-    width: 15px;
-    border-radius: 15px;
-    border-width: 1px;
-    border-color: #444746;
-    margin: 1px;
-}
-
-.noColorButtonArea {
-    margin-left: 10px;
-    width: 60%;
 }
 
 .docsPrimaryToolbars {
@@ -366,41 +154,4 @@
     padding: 8px;
     width: 36px;
     height: 36px;
-}
-
-.buttonList {
-    display: flex;
-    position: relative;
-    height: 23px;
-    padding: 5px 1px;
-    margin-top: -2px;
-}
-
-.buttonListList {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 32px;
-    padding: 10px 5px;
-    background-color: #FFFFFF;
-    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
-    border-radius: 1px 5px 5px;
-    min-width: 322px;
-    z-index: 5;
-}
-
-
-.colorPanel {
-    display: flex;
-    position: absolute;
-    left: 320px;
-    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
-    border-radius: 5px;
-    flex-flow: row wrap;
-    width: 190px;
-    gap: 5px;
-    padding: 10px;
-    border: 1px solid black;
-    z-index: 100;
-    background-color: white;
 }

@@ -1,0 +1,90 @@
+.buttonList:hover {
+    background-color: #FFC527;
+    border-radius: 5px;
+}
+.buttonList {
+    display: flex;
+    position: relative;
+    height: 23px;
+    padding: 5px 1px;
+    margin-top: -2px;
+}
+.buttonListList {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 32px;
+    padding: 10px 5px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 1px 5px 5px;
+    min-width: 322px;
+    z-index: 5;
+}
+.buttonListListVerticalArea {
+    display: flex;
+    position: relative;
+}
+
+.buttonListListVertical {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 320px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 2px 8px rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    padding: 10px 5px;
+    min-width: 322px;
+    z-index: 5;
+}
+
+.buttonBlockFull {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+}
+
+.fileInputButton {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.DownloadButton {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    color: #444746;
+    text-decoration: none;
+    width: 100%;
+}
+
+.buttonBlock:hover {
+    background-color: #FFC527;
+    border-radius: 5px;
+}
+
+.buttonInputBlockFull {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fileTextButton {
+    display: flex;
+    color: #444746;
+    margin-left: 5px;
+    font-family: Arial;
+}
