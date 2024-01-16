@@ -1,13 +1,13 @@
-import { useRef, useState } from "react";
-import { BackgroundType, ButtonWithActionListProps } from "../../model/types";
-import { useAppActions, useAppSelector } from "../../store/hooks";
-import { useClickOut } from "../../model/hooks";
-import { Button } from "./Button";
-import styles from "./Buttons.module.css";
-import { Colors } from "./colorButton/Colors";
+import { useRef, useState } from 'react';
+import { BackgroundType, ButtonWithActionListProps } from '../../model/types';
+import { useAppActions, useAppSelector } from '../../store/hooks';
+import { useClickOut } from '../../model/hooks';
+import { Button } from './Button';
+import styles from './Buttons.module.css';
+import { Colors } from './colorButton/Colors';
 import * as ButtonIcon from './icons/ButtonIcons';
-import { ObjectType } from "../../model/figureTypes";
-import { checkPresentationFileType } from "../../model/utils";
+
+import { checkPresentationFileType } from '../../model/utils';
 export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const { createChangeElementsColorAction, createChangeSlideBackgroundAction } = useAppActions();
     const [visible, setVisible] = useState(false);
@@ -97,7 +97,6 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
             });
             break;
     }
-
 
     mainButton.action = () => {
         setVisible(!visible);
@@ -206,9 +205,8 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         </div>
     );
 };
-export const ImageFileUploader = () => {
+export const ImageFileUploader = (props: { onloadAction: (imageUrl: string) => void }) => {
     const inputRef = useRef<HTMLInputElement>(null);
-    const { createChangeAddElementAction } = useAppActions();
     return (
         <div className={styles.buttonBlockFull}>
             <input
@@ -221,11 +219,7 @@ export const ImageFileUploader = () => {
                     if (inputRef.current!.files) {
                         const imgReader = new FileReader();
                         imgReader.onload = () => {
-                            createChangeAddElementAction(
-                                ObjectType.Image,
-                                undefined,
-                                imgReader.result as string,
-                            );
+                            props.onloadAction(imgReader.result as string);
                         };
                         imgReader.readAsDataURL(inputRef.current!.files[0]);
                     }

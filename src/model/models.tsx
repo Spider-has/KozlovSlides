@@ -1,5 +1,6 @@
 import * as ButtonIcons from '../components/buttons/icons/ButtonIcons';
 import {
+    AlignTypes,
     EllipseElement,
     FigureObjects,
     ImageObject,
@@ -13,12 +14,12 @@ import { ButtonProps, ButtonType, ButtonWithActionListProps } from './types';
 export const TextButton: ButtonProps = {
     icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
     type: ButtonType.Icon,
-    action: () => { },
+    action: () => {},
 };
 export const InputButton: ButtonProps = {
     icon: <ButtonIcons.NewSlide></ButtonIcons.NewSlide>,
     type: ButtonType.Icon,
-    action: () => { },
+    action: () => {},
 };
 export const colorList = [
     [
@@ -160,13 +161,13 @@ export const FileButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Файл',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 type: ButtonType.FullIcon,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Open />,
             },
             buttonList: [],
@@ -174,7 +175,7 @@ export const FileButtonList: ButtonWithActionListProps = {
         {
             secondaryButton: {
                 type: ButtonType.FullIcon,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Download />,
             },
             buttonList: [],
@@ -186,44 +187,44 @@ export const FormatButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Формат',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Текст',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Text />,
             },
             buttonList: [
                 {
                     text: 'Полужирный',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Text />,
                 },
                 {
                     text: 'Курсив',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Italic />,
                 },
                 {
                     text: 'Подчеркнутый',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Underlined />,
                 },
                 {
                     text: 'Увеличить размер',
                     type: ButtonType.FullText,
-                    action: () => { },
+                    action: () => {},
                 },
                 {
                     text: 'Уменьшить размер',
                     type: ButtonType.FullText,
-                    action: () => { },
+                    action: () => {},
                 },
             ],
         },
@@ -231,32 +232,32 @@ export const FormatButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Выравнивание',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Leveling />,
             },
             buttonList: [
                 {
                     text: 'По левому краю',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.TextLeft />,
                 },
                 {
                     text: 'По центру',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.TextCenterX />,
                 },
                 {
                     text: 'По правому краю',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.TextRight />,
                 },
                 {
                     text: 'По ширине',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.TextWidth />,
                 },
             ],
@@ -265,20 +266,20 @@ export const FormatButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Нумерация',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Numbering />,
             },
             buttonList: [
                 {
                     text: 'Нумерованный список',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.NumList />,
                 },
                 {
                     text: 'Маркерованный список',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.MarkList />,
                 },
             ],
@@ -287,7 +288,7 @@ export const FormatButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Цвет',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -298,14 +299,14 @@ export const SlideButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Слайд',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Новый слайд',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NewSlide />,
             },
             buttonList: [],
@@ -314,7 +315,7 @@ export const SlideButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Дублировать слайд',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Duplication />,
             },
             buttonList: [],
@@ -323,7 +324,7 @@ export const SlideButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Удалить слайд',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Delete />,
             },
             buttonList: [],
@@ -332,8 +333,17 @@ export const SlideButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Изменить фон',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.ChangeBg />,
+            },
+            buttonList: [],
+        },
+        {
+            secondaryButton: {
+                text: '',
+                type: ButtonType.FullIconText,
+                action: () => {},
+                icon: <ButtonIcons.Photo />,
             },
             buttonList: [],
         },
@@ -343,13 +353,13 @@ export const ImageButtonList: ButtonWithActionListProps = {
     mainButton: {
         type: ButtonType.Icon,
         icon: <ButtonIcons.Photo />,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 type: ButtonType.FullIcon,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Uploader />,
             },
             buttonList: [],
@@ -358,7 +368,7 @@ export const ImageButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 type: ButtonType.FullIconText,
                 text: 'Загрузить из интернета',
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Photo />,
             },
             buttonList: [],
@@ -369,14 +379,14 @@ export const FigureButtonList: ButtonWithActionListProps = {
     mainButton: {
         type: ButtonType.Icon,
         icon: <ButtonIcons.Figure></ButtonIcons.Figure>,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Круг',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Circle />,
             },
             buttonList: [],
@@ -385,7 +395,7 @@ export const FigureButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Прямоугольник',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Rectangle />,
             },
             buttonList: [],
@@ -394,7 +404,7 @@ export const FigureButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Треугольник',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Triangle />,
             },
             buttonList: [],
@@ -406,14 +416,14 @@ export const TextFamilyList: ButtonWithActionListProps = {
         type: ButtonType.IconText,
         text: 'Arial',
         icon: <ButtonIcons.ArrowThatOpensTheListVertical />,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Arial',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.SelectedFont />,
             },
             buttonList: [],
@@ -422,7 +432,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Times New Roman',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -431,7 +441,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Roboto',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -440,7 +450,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Pacifico',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -449,7 +459,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Montserrat',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -458,7 +468,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Open Sans',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -467,7 +477,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Oswald',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -476,7 +486,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Press Start 2P',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
@@ -488,14 +498,14 @@ export const ObjectButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Объект',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Переместить на передний план',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -503,7 +513,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Переместить на задний план',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -511,7 +521,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Переместить вперед',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -519,7 +529,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Переместить назад',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -527,7 +537,7 @@ export const ObjectButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Цвет',
                 type: ButtonType.FullText,
-                action: () => { },
+                action: () => {},
             },
             buttonList: [],
         },
@@ -538,14 +548,14 @@ export const EditButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Правка',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 text: 'Отменить',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Undo />,
             },
             buttonList: [],
@@ -554,7 +564,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Повторить',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Redo />,
             },
             buttonList: [],
@@ -563,7 +573,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Вырезать',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Cut />,
             },
             buttonList: [],
@@ -572,7 +582,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Копировать',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Copy />,
             },
             buttonList: [],
@@ -581,7 +591,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Вставить',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Insert />,
             },
             buttonList: [],
@@ -590,7 +600,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Выбрать все',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.SelectAll />,
             },
             buttonList: [],
@@ -599,7 +609,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Удалить',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Delete />,
             },
             buttonList: [],
@@ -608,7 +618,7 @@ export const EditButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Создать копию',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Copy />,
             },
             buttonList: [],
@@ -620,26 +630,26 @@ export const InsertionButtonList: ButtonWithActionListProps = {
     mainButton: {
         text: 'Вставка',
         type: ButtonType.Text,
-        action: () => { },
+        action: () => {},
     },
     buttonList: [
         {
             secondaryButton: {
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 text: 'Изображение',
                 icon: <ButtonIcons.Photo />,
             },
             buttonList: [
                 {
                     type: ButtonType.FullIcon,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Uploader />,
                 },
                 {
                     type: ButtonType.FullIconText,
                     text: 'Загрузить из интернета',
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Photo />,
                 },
             ],
@@ -648,7 +658,7 @@ export const InsertionButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Текстовое поле',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.TextField />,
             },
             buttonList: [],
@@ -657,26 +667,26 @@ export const InsertionButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Фигура',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Figure />,
             },
             buttonList: [
                 {
                     text: 'Круг',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Circle />,
                 },
                 {
                     text: 'Прямоугольник',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Rectangle />,
                 },
                 {
                     text: 'Треугольник',
                     type: ButtonType.FullIconText,
-                    action: () => { },
+                    action: () => {},
                     icon: <ButtonIcons.Triangle />,
                 },
             ],
@@ -685,7 +695,7 @@ export const InsertionButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'График',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Diagram />,
             },
             buttonList: [],
@@ -694,7 +704,7 @@ export const InsertionButtonList: ButtonWithActionListProps = {
             secondaryButton: {
                 text: 'Линия',
                 type: ButtonType.FullIconText,
-                action: () => { },
+                action: () => {},
                 icon: <ButtonIcons.Line />,
             },
             buttonList: [],
@@ -804,6 +814,7 @@ const defaultTextObject: TextObject = {
             bold: false,
             cursive: false,
             underline: false,
+            align: AlignTypes.LEFT,
         },
         rotateAngle: 0,
     },

@@ -18,6 +18,7 @@
 
 .textChars{
     pointer-events: all;
+    display: block;
     cursor:text;
     outline: none;
 }

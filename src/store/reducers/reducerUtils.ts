@@ -1,4 +1,11 @@
-import { Color, FigureObjects, FontFamily, ObjectType, SlideElement } from '../../model/figureTypes';
+import {
+    AlignTypes,
+    Color,
+    FigureObjects,
+    FontFamily,
+    ObjectType,
+    SlideElement,
+} from '../../model/figureTypes';
 import { Editor, SelectModeTypes, UserActions } from '../../model/types';
 import {
     getElementsById,
@@ -84,14 +91,14 @@ const getStateWithNewSelectedElemsSize = (state: Editor, offsetX: number, offset
 };
 
 type NewTextParams = {
-    value?: string;
-    fontFamily?: FontFamily;
     fontSize?: number;
+    fontFamily?: FontFamily;
     color?: Color;
     bold?: boolean;
     cursive?: boolean;
     underline?: boolean;
     deltaTextSize?: number;
+    align?: AlignTypes;
 };
 
 const getStateWithNewSelectedElemsTextParams = (state: Editor, newTextParams: NewTextParams) => {

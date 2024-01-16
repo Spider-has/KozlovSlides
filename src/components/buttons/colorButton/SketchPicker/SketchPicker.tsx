@@ -17,22 +17,36 @@ class NewColorButtonButton extends React.Component {
     };
 
     handleClick = () => {
-        this.setState({ displayColorPicker: !this.state.displayColorPicker })
+        this.setState({ displayColorPicker: !this.state.displayColorPicker });
     };
 
     handleClose = () => {
-        this.setState({ displayColorPicker: false })
-        colorList[0].push('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')')));
+        this.setState({ displayColorPicker: false });
+        colorList[0].push(
+            '#' +
+                rgbHex(
+                    String(
+                        'rgba(' +
+                            this.state.color.r +
+                            ', ' +
+                            this.state.color.g +
+                            ', ' +
+                            this.state.color.b +
+                            ', ' +
+                            this.state.color.a +
+                            ')',
+                    ),
+                ),
+        );
     };
 
-    handleChange = (color) => {
-        this.setState({ color: color.rgb })
+    handleChange = color => {
+        this.setState({ color: color.rgb });
     };
 
     render() {
-
         const styles = reactCSS({
-            'default': {
+            default: {
                 color: {
                     width: '16px',
                     height: '16px',
@@ -60,14 +74,19 @@ class NewColorButtonButton extends React.Component {
                 <div style={styles.swatch} onClick={this.handleClick}>
                     <ButtonIcon.NewColor style={styles.color} />
                 </div>
-                {this.state.displayColorPicker ? <div style={styles.popover}>
-                    <div style={styles.cover} onClick={this.handleClose} />
-                    <SketchPicker presetColors={[]} color={this.state.color} onChange={this.handleChange} />
-                </div> : null}
-
+                {this.state.displayColorPicker ? (
+                    <div style={styles.popover}>
+                        <div style={styles.cover} onClick={this.handleClose} />
+                        <SketchPicker
+                            presetColors={[]}
+                            color={this.state.color}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                ) : null}
             </div>
-        )
+        );
     }
 }
 
-export default NewColorButtonButton
+export default NewColorButtonButton;

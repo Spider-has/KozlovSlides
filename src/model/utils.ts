@@ -239,6 +239,40 @@ const getNextLowerElementLayer = (selectedSlide: Slide, selectedElemLayer: numbe
     };
 };
 
+const getElementsArrayOnLayers = (SlideElements: SlideElement[]) => {
+    const layersArray: SlideElement[] = [];
+    let nextMinLayer = 10000;
+    let lastMinLayer = 10000;
+    let minLayerI = 0;
+    let nextMinLayerI = 0;
+    let prevIndex = 0;
+    for (let i = 0; i < SlideElements.length; i++) {
+        if (SlideElements[i].layer <= lastMinLayer) {
+            lastMinLayer = SlideElements[i].layer;
+            minLayerI = i;
+        }
+    }
+    prevIndex = minLayerI;
+    layersArray.push(SlideElements[minLayerI]);
+    for (let i = 0; i < SlideElements.length; i++) {
+        for (let j = 0; j < SlideElements.length; j++) {
+            if (SlideElements[j].layer > lastMinLayer) {
+                if (SlideElements[j].layer < nextMinLayer) {
+                    nextMinLayer = SlideElements[j].layer;
+                    nextMinLayerI = j;
+                }
+            }
+        }
+        console.log(prevIndex, nextMinLayer);
+        if (nextMinLayerI != prevIndex) layersArray.push(SlideElements[nextMinLayerI]);
+        lastMinLayer = nextMinLayer;
+        prevIndex = nextMinLayerI;
+        nextMinLayer = 10000;
+    }
+    console.log(layersArray);
+    return layersArray;
+};
+
 export {
     generateRandomId,
     getNumfromPxString,
@@ -256,4 +290,5 @@ export {
     getShiftSelectedSlides,
     getNextHigherElementLayer,
     getNextLowerElementLayer,
+    getElementsArrayOnLayers,
 };

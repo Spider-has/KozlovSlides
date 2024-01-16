@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Button } from '../buttons/Button';
-import { ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
+import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
     FigureButtonList,
@@ -18,13 +18,15 @@ import * as ButtonIcon from '../buttons/icons/ButtonIcons';
 import { Logo } from '../../logo';
 import { useAppActions, useAppSelector } from '../../store/hooks';
 import styles from './PresentationSettingsBar.module.css';
-import { FigureObjects, ObjectType } from '../../model/figureTypes';
+import { AlignTypes, FigureObjects, ObjectType } from '../../model/figureTypes';
 import {
     ButtonWithActionList,
     ImageFileUploader,
     OpenPresentationButton,
     SavePresentationButton,
 } from '../buttons/Buttons';
+import jsPDF from 'jspdf';
+import { slidesConvertor } from '../../model/pdfExportConvertor';
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
@@ -103,15 +105,22 @@ const MainSettingsBar = () => {
         createChangeTextCursive,
         createChangeTextUnderline,
         createChangeTextSize,
+        createChangeTextsAlignAction,
+        createChangeSlideBackgroundAction,
     } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
     const EditButtonSection: ButtonWithActionListProps = EditButtonList;
     const InsertionButtonSection: ButtonWithActionListProps = InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
-    SlideButtonSection.buttonList[0].secondaryButton.action = () => {
-        createAddSlideAction();
-    };
+
+    SlideButtonSection.buttonList[4].secondaryButton.icon = (
+        <ImageFileUploader
+            onloadAction={(imageUrl: string) => {
+                createChangeSlideBackgroundAction({ type: BackgroundType.Image, url: imageUrl });
+            }}
+        />
+    );
     InsertionButtonSection.buttonList[2].buttonList[0].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
@@ -122,7 +131,16 @@ const MainSettingsBar = () => {
     InsertionButtonSection.buttonList[2].buttonList[2].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
-    InsertionButtonSection.buttonList[0].buttonList[0].icon = <ImageFileUploader />;
+    InsertionButtonSection.buttonList[0].buttonList[0].icon = (
+        <ImageFileUploader
+            onloadAction={(imageUrl: string) => {
+                createChangeAddElementAction(ObjectType.Image, undefined, imageUrl);
+            }}
+        />
+    );
+    SlideButtonSection.buttonList[0].secondaryButton.action = () => {
+        createAddSlideAction();
+    };
     InsertionButtonSection.buttonList[1].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Text);
     };
@@ -143,6 +161,18 @@ const MainSettingsBar = () => {
     };
     FormatButtonSection.buttonList[0].buttonList[4].action = () => {
         createChangeTextSize(-2);
+    };
+    FormatButtonSection.buttonList[1].buttonList[0].action = () => {
+        createChangeTextsAlignAction(AlignTypes.LEFT);
+    };
+    FormatButtonSection.buttonList[1].buttonList[1].action = () => {
+        createChangeTextsAlignAction(AlignTypes.CENTER);
+    };
+    FormatButtonSection.buttonList[1].buttonList[2].action = () => {
+        createChangeTextsAlignAction(AlignTypes.RIGHT);
+    };
+    FormatButtonSection.buttonList[1].buttonList[3].action = () => {
+        createChangeTextsAlignAction(AlignTypes.BY_WIDTH);
     };
     FileButtonSection.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
     FileButtonSection.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
@@ -173,6 +203,28 @@ const MainSettingsBar = () => {
                 mainButton={ObjectButtonSection.mainButton}
                 buttonList={ObjectButtonSection.buttonList}
             />
+        </div>
+    );
+};
+
+const DownloadPDF = () => {
+    const presentation = useAppSelector(state => state.slideBar.presentation);
+    return (
+        <div>
+            <button
+                onClick={async () => {
+                    const scaleConst = 1920 / presentation.size.width;
+                    const doc = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [presentation.size.width, presentation.size.height],
+                    });
+                    await slidesConvertor(doc, presentation.slides, scaleConst, presentation.size);
+                    doc.save(presentation.name);
+                }}
+            >
+                Скачать в pdf
+            </button>
         </div>
     );
 };
@@ -220,6 +272,7 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
+                    <DownloadPDF />
                     <Button
                         type={InputButtonSection.type}
                         icon={InputButtonSection.icon}
@@ -259,7 +312,17 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
                                     action: () => {},
-                                    icon: <ImageFileUploader />,
+                                    icon: (
+                                        <ImageFileUploader
+                                            onloadAction={(imageUrl: string) => {
+                                                createChangeAddElementAction(
+                                                    ObjectType.Image,
+                                                    undefined,
+                                                    imageUrl,
+                                                );
+                                            }}
+                                        />
+                                    ),
                                 },
                                 buttonList: [],
                             },

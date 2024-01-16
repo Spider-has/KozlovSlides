@@ -1,4 +1,4 @@
-import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
+import { AlignTypes, FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
 import { Id, Presentation, Slide, SlideBackground } from '../../model/types';
 
 enum PresentationActions {
@@ -29,6 +29,7 @@ enum PresentationActions {
     CHANGE_ELEMENTS_ROTATE_ANGLE = 'CHANGE_ELEMENTS_ROTATE_ANGLE',
     CHANGE_ELEMENTS_LAYER_HIGHER = 'CHANGE_ELEMENTS_LAYER_HIGHER',
     CHANGE_ELEMENTS_LAYER_LOWER = 'CHANGE_ELEMENTS_LAYER_LOWER',
+    CHANGE_TEXT_ALIGN = 'CHANGE_TEXT_ALIGN',
 }
 
 type ChangeSlidePosition = {
@@ -121,6 +122,11 @@ type ChangeTextSize = {
     payload: number;
 };
 
+type ChangeTextAlign = {
+    type: PresentationActions.CHANGE_TEXT_ALIGN;
+    payload: AlignTypes;
+};
+
 type ChangeTextFontFamily = {
     type: PresentationActions.CHANGE_TEXT_FONT_FAMILY;
     payload: string;
@@ -206,6 +212,7 @@ type Action =
     | Redo
     | ChangeElementsRotateAngle
     | ChangeElementsLayerToHigher
-    | ChangeElementsLayerToLower;
+    | ChangeElementsLayerToLower
+    | ChangeTextAlign;
 export type { Action };
 export { PresentationActions };

@@ -82,6 +82,13 @@ interface FunctionGraphObject extends DefaultSlideElement {
 
 type Id = string;
 
+enum AlignTypes {
+    CENTER = 'center',
+    RIGHT = 'right',
+    LEFT = 'left',
+    BY_WIDTH = 'justify',
+}
+
 type Span = {
     value: string;
     fontFamily?: FontFamily;
@@ -90,6 +97,7 @@ type Span = {
     bold: boolean;
     cursive: boolean;
     underline: boolean;
+    align: AlignTypes;
 };
 
 interface TextObject extends DefaultSlideElement {
@@ -167,4 +175,4 @@ export type {
     Color,
     FunctionGraphObject,
 };
-export { ObjectType, FigureObjects };
+export { ObjectType, FigureObjects, AlignTypes };

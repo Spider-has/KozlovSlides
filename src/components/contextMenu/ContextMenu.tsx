@@ -15,13 +15,11 @@ const ContextMenu = (props: {
     const menuRef = useRef<HTMLDivElement>(null);
     useClickOut(
         () => {
-            console.log('close');
             props.setOpened(!props.isOpened);
         },
         props.isOpened,
         menuRef,
     );
-    console.log(props.menuPos);
     return (
         props.isOpened && (
             <div

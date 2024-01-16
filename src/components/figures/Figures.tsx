@@ -113,7 +113,6 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
             const newText = spanRef.current!.innerText;
             createChangeElementTextAction(newText, elem.id);
         }
-        console.log('кончили печатать');
     };
     return (
         <div className={styles.svgSpace} ref={svgRef}>
@@ -128,12 +127,11 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
                         fontStyle: chars.cursive ? 'italic' : 'normal',
                         textDecorationLine: chars.underline ? 'underline' : 'none',
                         color: chars.color ? chars.color : 'black',
+                        textAlign: elem.properties.chars.align,
                     }}
                     contentEditable
                     suppressContentEditableWarning={true}
                     onFocus={() => {
-                        console.log('печатаем');
-
                         spanRef.current!.addEventListener('blur', onBlur, { once: true });
                     }}
                 >

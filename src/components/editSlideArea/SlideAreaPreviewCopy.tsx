@@ -14,11 +14,18 @@ const ActiveSlideAreaPreview = (props: { slide: Slide }) => {
     if (props.slide.background.type == BackgroundType.Color) {
         backgroundSlide = props.slide.background.color;
     }
+
+    if (props.slide.background.type == BackgroundType.Color) {
+        backgroundSlide = props.slide.background.color;
+    } else if (props.slide.background.type == BackgroundType.Image) {
+        backgroundSlide = `url(${props.slide.background.url})`;
+    }
     return (
         <div
             className={styles.mainEditSlideSpace}
             style={{
                 backgroundColor: backgroundSlide,
+                backgroundImage: backgroundSlide,
             }}
         >
             {objects}

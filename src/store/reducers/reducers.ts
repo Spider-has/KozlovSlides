@@ -18,8 +18,8 @@ import { HistoryInit } from './history';
 
 type InitData = Editor;
 const defaultSize = {
-    width: 500,
-    height: 600,
+    width: 800,
+    height: 450,
 };
 
 const initData: InitData = {
@@ -184,6 +184,11 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
         }
         case PresentationActions.CHANGE_TEXT_SIZE: {
             const newState = getStateWithNewSelectedElemsTextParams(state, { deltaTextSize: action.payload });
+            statesHistory.addState(newState);
+            return newState;
+        }
+        case PresentationActions.CHANGE_TEXT_ALIGN: {
+            const newState = getStateWithNewSelectedElemsTextParams(state, { align: action.payload });
             statesHistory.addState(newState);
             return newState;
         }

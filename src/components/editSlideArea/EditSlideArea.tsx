@@ -253,6 +253,8 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
     let backgroundSlide = '';
     if (props.slide.background.type == BackgroundType.Color) {
         backgroundSlide = props.slide.background.color;
+    } else if (props.slide.background.type == BackgroundType.Image) {
+        backgroundSlide = `url(${props.slide.background.url})`;
     }
     const [isShifted, setShifted] = useState(false);
     useShiftAction(
@@ -281,14 +283,16 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
             />
         );
     });
-
     return (
         <>
             <MultipleElementSelect multipleSelectionRef={multipleSelectRef} />
             <div
                 ref={figureAreaRef}
                 className={styles.mainEditSlideSpace}
-                style={{ backgroundColor: backgroundSlide }}
+                style={{
+                    backgroundColor: backgroundSlide,
+                    backgroundImage: backgroundSlide,
+                }}
             >
                 {objects}
                 {userAction.ActionType == UserActions.ADD_ELEMENT && (

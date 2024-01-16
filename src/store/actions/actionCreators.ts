@@ -1,4 +1,4 @@
-import { FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
+import { AlignTypes, FigureObjects, ObjectType, Point, SlideElement } from '../../model/figureTypes';
 import { BackgroundType, Id, Presentation, SlideBackground } from '../../model/types';
 import { generateRandomId } from '../../model/utils';
 import { PresentationActions } from './actions';
@@ -197,6 +197,13 @@ const createChangeElementLayerActionLower = () => {
     };
 };
 
+const createChangeTextsAlignAction = (newAlign: AlignTypes) => {
+    return {
+        type: PresentationActions.CHANGE_TEXT_ALIGN,
+        payload: newAlign,
+    };
+};
+
 export {
     createAddSlideAction,
     createDeleteSlideAction,
@@ -223,4 +230,5 @@ export {
     createChangeElementsRotateAngleAction,
     createChangeElementLayerActionHigher,
     createChangeElementLayerActionLower,
+    createChangeTextsAlignAction,
 };
