@@ -9,20 +9,17 @@ class NewColorButtonButton extends React.Component {
     state = {
         displayColorPicker: false,
         color: {
-            r: '241',
-            g: '112',
-            b: '19',
+            r: '255',
+            g: '197',
+            b: '39',
             a: '1',
         },
     };
-
     handleClick = () => {
         this.setState({ displayColorPicker: !this.state.displayColorPicker })
-    };
-
-    handleClose = () => {
-        this.setState({ displayColorPicker: false })
-        colorList[0].push('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')')));
+        if (!this.state.displayColorPicker) {
+            colorList[0].push('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')')));
+        }
     };
 
     handleChange = (color) => {
@@ -45,13 +42,6 @@ class NewColorButtonButton extends React.Component {
                     position: 'absolute',
                     zIndex: '2',
                 },
-                cover: {
-                    position: 'fixed',
-                    top: '0px',
-                    right: '0px',
-                    bottom: '0px',
-                    left: '0px',
-                },
             },
         });
 
@@ -60,11 +50,9 @@ class NewColorButtonButton extends React.Component {
                 <div style={styles.swatch} onClick={this.handleClick}>
                     <ButtonIcon.NewColor style={styles.color} />
                 </div>
-                {this.state.displayColorPicker ? <div style={styles.popover}>
-                    <div style={styles.cover} onClick={this.handleClose} />
+                {this.state.displayColorPicker && <div style={styles.popover}>
                     <SketchPicker presetColors={[]} color={this.state.color} onChange={this.handleChange} />
-                </div> : null}
-
+                </div>}
             </div>
         )
     }

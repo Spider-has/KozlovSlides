@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button } from '../buttons/Button';
+import { Button } from '../button/Button';
 import { ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
@@ -228,7 +228,7 @@ const Title = () => {
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => {}}
+                        action={() => { }}
                     />
                     <div className={styles.createLine}></div>
                     <Button
@@ -245,7 +245,7 @@ const Title = () => {
                             createRedoAction();
                         }}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
                     <div className={styles.createLine}></div>
                     <Button
                         type={TextButtonSection.type}
@@ -258,7 +258,7 @@ const Title = () => {
                             {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ImageFileUploader />,
                                 },
                                 buttonList: [],
@@ -267,7 +267,7 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIconText,
                                     text: 'Загрузить из интернета',
-                                    action: () => {},
+                                    action: () => { },
                                     icon: <ButtonIcon.Photo />,
                                 },
                                 buttonList: [],
@@ -278,9 +278,9 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => {}} />
+                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <Button text={'Фон'} type={ButtonType.Text} action={() => {}} />
+                    <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
                     {/*<div className={styles.createLine}></div>
                     <Button text={'Макет'} type={ButtonType.Text} action={() => { }} />
                     <div className={styles.createLine}></div>

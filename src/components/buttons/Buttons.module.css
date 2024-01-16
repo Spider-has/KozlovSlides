@@ -2,6 +2,7 @@
     background-color: #FFC527;
     border-radius: 5px;
 }
+
 .buttonList {
     display: flex;
     position: relative;
@@ -9,6 +10,7 @@
     padding: 5px 1px;
     margin-top: -2px;
 }
+
 .buttonListList {
     display: flex;
     flex-direction: column;
@@ -21,6 +23,7 @@
     min-width: 322px;
     z-index: 5;
 }
+
 .buttonListListVerticalArea {
     display: flex;
     position: relative;

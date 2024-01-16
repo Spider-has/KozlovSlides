@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useClickOut } from "../../../model/hooks";
-import { Button } from "../Button";
+import { Button } from "../../button/Button";
 import styles from "./Colors.module.css";
 import { ButtonType } from "../../../model/types";
 import * as ButtonIcon from '../icons/ButtonIcons';
@@ -41,12 +41,12 @@ export const Colors = (props: { name: string; onColorClick: (colorName: string) 
             )}
             {visible && (
                 <div ref={colorRef} className={styles.colorPanel}>
-                    {colorList.map((elem, i, index) => (
-                        <div className={styles.colorPalitraRow} key={index[i][0]}>
-                            {elem.map((elem, i, index) => (
+                    {colorList.map((elem, i) => (
+                        <div className={styles.colorPalitraRow} key={i}>
+                            {elem.map((elem, i) => (
                                 <button
                                     id={elem}
-                                    key={index[i]}
+                                    key={i}
                                     className={styles.colorPalitraRowElement}
                                     onClick={() => {
                                         const newColor = elem;
@@ -62,14 +62,15 @@ export const Colors = (props: { name: string; onColorClick: (colorName: string) 
                     <div className={styles.newColorArea}>
                         <div className={styles.colorText}>Другой</div>
                         <div className={styles.newColorButtonsArea}>
-                            <div className={styles.NewColorButton}><NewColorButtonButton /></div>
-                            <div className={styles.PickerButton}><Button
-                                type={ButtonType.Icon}
-                                icon={<ButtonIcon.Picker></ButtonIcon.Picker>}
-                                action={() => {
-                                    setVisible(true);
-                                }}
-                            ></Button></div>
+                            <div className={styles.NewColorButton}>
+                                <Button
+                                    type={ButtonType.Icon}
+                                    icon={<NewColorButtonButton />}
+                                    action={() => {
+                                        setVisible(true);
+                                    }}
+                                ></Button>
+                            </div>
                         </div>
                         <div className={styles.noColorButton}>
                             <div className={styles.noColorButtonArea}>

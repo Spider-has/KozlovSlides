@@ -52,6 +52,7 @@
     margin-left: 10px;
     width: 60%;
 }
+
 .colorPanel {
     display: flex;
     position: absolute;
@@ -66,10 +67,11 @@
     z-index: 100;
     background-color: white;
 }
+
 .NewColorButton {
     background-color: transparent;
     border: none;
-    padding: 10px 9px 8px;
+    padding: 7px 0px 3px;
     color: #444746;
     text-decoration: none;
     border-radius: 5px;

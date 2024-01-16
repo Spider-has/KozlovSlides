@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { BackgroundType, ButtonWithActionListProps } from "../../model/types";
 import { useAppActions, useAppSelector } from "../../store/hooks";
 import { useClickOut } from "../../model/hooks";
-import { Button } from "./Button";
+import { Button } from "../button/Button";
 import styles from "./Buttons.module.css";
 import { Colors } from "./colorButton/Colors";
 import * as ButtonIcon from './icons/ButtonIcons';
