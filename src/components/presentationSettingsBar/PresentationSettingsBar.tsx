@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button } from '../button/Button';
+import { Button } from '../buttons/Button';
 import { ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
@@ -14,12 +14,12 @@ import {
     TextButton,
     TextFamilyList,
 } from '../../model/models';
-import * as ButtonIcon from '../button/icons/ButtonIcons';
+import * as ButtonIcon from '../buttons/icons/ButtonIcons';
 import { Logo } from '../../logo';
 import { useAppActions, useAppSelector } from '../../store/hooks';
 import styles from './PresentationSettingsBar.module.css';
 import { FigureObjects, ObjectType } from '../../model/figureTypes';
-import { ButtonWithActionList, ImageFileUploader, OpenPresentationButton, SavePresentationButton } from '../button/Buttons';
+import { ButtonWithActionList, ImageFileUploader, OpenPresentationButton, SavePresentationButton } from '../buttons/Buttons';
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);

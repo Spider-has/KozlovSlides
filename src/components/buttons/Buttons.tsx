@@ -4,7 +4,7 @@ import { useAppActions, useAppSelector } from "../../store/hooks";
 import { useClickOut } from "../../model/hooks";
 import { Button } from "./Button";
 import styles from "./Buttons.module.css";
-import { Colors } from "../colorButton/Colors";
+import { Colors } from "./colorButton/Colors";
 import * as ButtonIcon from './icons/ButtonIcons';
 import { ObjectType } from "../../model/figureTypes";
 import { checkPresentationFileType } from "../../model/utils";

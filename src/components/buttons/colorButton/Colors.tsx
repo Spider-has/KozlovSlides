@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import { useClickOut } from "../../model/hooks";
-import { Button } from "../button/Button";
+import { useClickOut } from "../../../model/hooks";
+import { Button } from "../Button";
 import styles from "./Colors.module.css";
-import { ButtonType } from "../../model/types";
-import * as ButtonIcon from '../button/icons/ButtonIcons';
-import { colorList } from "../../model/models";
+import { ButtonType } from "../../../model/types";
+import * as ButtonIcon from '../icons/ButtonIcons';
+import { colorList } from "../../../model/models";
 import NewColorButtonButton from "./SketchPicker/SketchPicker";
 
 export const Colors = (props: { name: string; onColorClick: (colorName: string) => void }) => {

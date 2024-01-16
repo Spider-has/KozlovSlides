@@ -1,4 +1,4 @@
-import * as ButtonIcons from '../components/button/icons/ButtonIcons';
+import * as ButtonIcons from '../components/buttons/icons/ButtonIcons';
 import {
     EllipseElement,
     FigureObjects,
