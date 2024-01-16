@@ -720,6 +720,7 @@ const defaultRectangleObject: RectangleElement = {
         rotateAngle: 0,
         opacity: 1,
     },
+    layer: 1,
 };
 
 const defaultEllipseObject: EllipseElement = {
@@ -745,6 +746,7 @@ const defaultEllipseObject: EllipseElement = {
 
 const defaultTriangleObject: TriangleElement = {
     id: '',
+    layer: 1,
     position: {
         x: 0,
         y: 0,
@@ -771,6 +773,7 @@ const defaultImageObject: ImageObject = {
         x: 0,
         y: 0,
     },
+    layer: 1,
     size: {
         width: 200,
         height: 150,
@@ -788,6 +791,7 @@ const defaultTextObject: TextObject = {
         x: 0,
         y: 0,
     },
+    layer: 1,
     size: {
         width: 100,
         height: 50,

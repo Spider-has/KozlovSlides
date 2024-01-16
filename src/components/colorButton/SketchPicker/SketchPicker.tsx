@@ -1,11 +1,11 @@
 import { SketchPicker } from 'react-color';
 import reactCSS from 'reactcss';
 import React from 'react';
-import * as ButtonIcon from '../button/icons/ButtonIcons';
-import { colorList } from '../../model/models';
+import * as ButtonIcon from '../../button/icons/ButtonIcons';
+import { colorList } from '../../../model/models';
 //import { colorList } from '../../model/models';
 import rgbHex from 'rgb-hex';
-class SketchExample extends React.Component {
+class NewColorButtonButton extends React.Component {
     state = {
         displayColorPicker: false,
         color: {
@@ -70,4 +70,4 @@ class SketchExample extends React.Component {
     }
 }
 
-export default SketchExample
+export default NewColorButtonButton

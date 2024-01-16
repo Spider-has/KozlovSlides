@@ -11,7 +11,6 @@ import styles from './Main.module.css';
 // };
 
 const MainPage = () => {
-    console.log('rendered!');
     return (
         <div className={styles.mainContainer}>
             <Title />
