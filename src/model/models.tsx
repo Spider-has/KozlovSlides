@@ -16,10 +16,12 @@ export const TextButton: ButtonProps = {
     icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
     type: ButtonType.Icon,
     action: () => { },
+    action: () => { },
 };
 export const InputButton: ButtonProps = {
     icon: <ButtonIcons.NewSlide></ButtonIcons.NewSlide>,
     type: ButtonType.Icon,
+    action: () => { },
     action: () => { },
 };
 export const colorList = [
@@ -181,6 +183,15 @@ export const FileButtonList: ButtonWithActionListProps = {
             },
             buttonList: [],
         },
+        {
+
+            secondaryButton: {
+                type: ButtonType.FullIcon,
+                action: () => { },
+                icon: <ButtonIcons.Download />,
+            },
+            buttonList: [],
+        }
     ],
 };
 
@@ -332,7 +343,7 @@ export const SlideButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Изменить фон',
+                text: 'Изменить цвет фона',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.ChangeBg />,
@@ -716,15 +727,6 @@ export const InsertionButtonList: ButtonWithActionListProps = {
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.Diagram />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Линия',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Line />,
             },
             buttonList: [],
         },

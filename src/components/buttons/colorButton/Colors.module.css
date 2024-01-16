@@ -71,7 +71,7 @@
 .NewColorButton {
     background-color: transparent;
     border: none;
-    padding: 7px 0px 3px;
+    padding: 7px 0 3px;
     color: #444746;
     text-decoration: none;
     border-radius: 5px;

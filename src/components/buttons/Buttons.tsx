@@ -8,6 +8,8 @@ import { Colors } from "./colorButton/Colors";
 import * as ButtonIcon from './icons/ButtonIcons';
 
 import { checkPresentationFileType } from '../../model/utils';
+import jsPDF from "jspdf";
+import { slidesConvertor } from "../../model/pdfExportConvertor";
 export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const { createChangeElementsColorAction, createChangeSlideBackgroundAction } = useAppActions();
     const [visible, setVisible] = useState(false);
@@ -169,7 +171,7 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                     </div>
                                 ))}
                             {button.secondaryButton.text !== 'Цвет' &&
-                                button.secondaryButton.text !== 'Изменить фон' && (
+                                button.secondaryButton.text !== 'Изменить цвет фона' && (
                                     <Button
                                         key={index}
                                         text={button.secondaryButton.text}
@@ -187,7 +189,7 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                     }}
                                 ></Colors>
                             )}
-                            {button.secondaryButton.text == 'Изменить фон' && (
+                            {button.secondaryButton.text == 'Изменить цвет фона' && (
                                 <Colors
                                     name={button.secondaryButton.text}
                                     onColorClick={(colorName: string) => {
@@ -227,12 +229,34 @@ export const ImageFileUploader = (props: { onloadAction: (imageUrl: string) => v
             />
             <label htmlFor="inputFile" className={styles.buttonInputBlockFull}>
                 <ButtonIcon.Uploader />
-                <span className={styles.fileTextButton}>Загрузить с компьютера</span>
+                <span className={styles.fileTextButton}>Загрузить фото с компьютера</span>
             </label>
         </div>
     );
 };
+export const DownloadPDF = () => {
+    const presentation = useAppSelector(state => state.slideBar.presentation);
+    return (
 
+        <div className={styles.buttonBlockFull}>
+            <ButtonIcon.Download />
+            <button className={styles.DownloadButton}
+                onClick={async () => {
+                    const scaleConst = 1920 / presentation.size.width;
+                    const doc = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [presentation.size.width, presentation.size.height],
+                    });
+                    await slidesConvertor(doc, presentation.slides, scaleConst, presentation.size);
+                    doc.save(presentation.name);
+                }}
+            >
+                Скачать в pdf
+            </button>
+        </div>
+    );
+};
 export const SavePresentationButton = () => {
     const presentation = useAppSelector(state => state.slideBar.presentation);
     const getJsonHref = () => {
@@ -246,7 +270,7 @@ export const SavePresentationButton = () => {
         <div className={styles.buttonBlockFull}>
             <ButtonIcon.Download />
             <a className={styles.DownloadButton} href={getJsonHref().href} download={getJsonHref().name}>
-                Скачать
+                Скачать json
             </a>
         </div>
     );

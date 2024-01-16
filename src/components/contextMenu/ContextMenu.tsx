@@ -5,6 +5,7 @@ import { Point } from '../../model/figureTypes';
 import { Button } from '../button/Button';
 import { ButtonType } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
+import * as ButtonIcons from '../buttons/icons/ButtonIcons';
 
 const ContextMenu = (props: {
     isOpened: boolean;
@@ -30,16 +31,41 @@ const ContextMenu = (props: {
                 ref={menuRef}
                 className={styles.contextMenu}
             >
-                Контекстная менюшка
+                <div className={styles.text}>Контекстная менюшка</div>
                 <Button
-                    type={ButtonType.Text}
+                    text={'Вырезать'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Cut />}
+                />
+                <Button
+                    text={'Копировать'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Copy />}
+                />
+                <Button
+                    text={'Вставить'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Insert />}
+                />
+                <Button
+
+                    type={ButtonType.FullIconText}
+                    text={'Удалить'}
+                    action={() => { }}
+                    icon={<ButtonIcons.Delete />}
+                />
+                <Button
+                    type={ButtonType.FullText}
                     text={'На передний план'}
                     action={() => {
                         createChangeElementLayerActionHigher();
                     }}
                 />
                 <Button
-                    type={ButtonType.Text}
+                    type={ButtonType.FullText}
                     text={'На задний план'}
                     action={() => {
                         createChangeElementLayerActionLower();

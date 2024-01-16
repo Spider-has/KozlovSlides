@@ -29,7 +29,7 @@ export const Colors = (props: { name: string; onColorClick: (colorName: string) 
                     }}
                 />
             )}
-            {props.name === 'Изменить фон' && (
+            {props.name === 'Изменить цвет фона' && (
                 <Button
                     type={ButtonType.FullIconText}
                     icon={<ButtonIcon.ChangeBg />}
