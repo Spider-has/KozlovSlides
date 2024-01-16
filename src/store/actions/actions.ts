@@ -91,6 +91,11 @@ type ChangeToAddElementAction = {
         elementType: ObjectType;
         figureType?: FigureObjects;
         url?: string;
+        func?: {
+            from: number;
+            to: number;
+            line: string;
+        };
     };
 };
 

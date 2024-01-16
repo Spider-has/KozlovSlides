@@ -51,7 +51,11 @@ type Presentation = {
         AddedElementType: ObjectType | null;
         AddedFigureType: FigureObjects | null;
         Url: string;
-        func: string;
+        func: {
+            from: number;
+            to: number;
+            line: string;
+        };
     };
 };
 

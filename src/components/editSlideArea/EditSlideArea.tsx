@@ -94,7 +94,14 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
             break;
         }
         case ObjectType.FunctionGraph: {
-            defaultObject = { ...defaultFuncObject, properties: { ...defaultFuncObject.properties, rotateAngle: 0, func: '' } };
+            defaultObject = {
+                ...defaultFuncObject, properties: {
+                    ...defaultFuncObject.properties, rotateAngle: 0, func: userAction.func.line, range: {
+                        from: userAction.func.from,
+                        to: userAction.func.to,
+                    }
+                }
+            };
             break;
         }
         default:

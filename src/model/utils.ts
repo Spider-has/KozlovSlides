@@ -238,24 +238,23 @@ const getNextLowerElementLayer = (selectedSlide: Slide, selectedElemLayer: numbe
         nextLayerIndex: nextLayerI,
     };
 };
-export function doMath(func: string, ldip: number, rdip: number): Array<{ x: number, y: number }> {  
-    func = func.replaceAll(')(', ')*(');  
-    for (let i = ldip; i <= rdip; i++) {  
-        func = func.replaceAll(i + 'x', i + '*x');  
-        func = func.replaceAll(i + '(', i + '*(');  
-    }  
-    func = func.replaceAll('x(', 'x*(');  
-    func = func.replaceAll(')x', ')*x');  
-    const ans: Array<{ x: number, y: number }> = [];  
-    for (let x = ldip; x <= rdip; x += 0.1) {  
-        ans.push(  
-            {  
-                x: x,  
-                y: Number(eval(func.replaceAll('x', String(x)))),  
-            }  
-        );  
-    } 
-    return ans  
+
+export function doMath(func: string, ldip: number, rdip: number): Array<{ x: number; y: number }> {
+    func = func.replaceAll(')(', ')*(');
+    for (let i = ldip; i <= rdip; i++) {
+        func = func.replaceAll(i + 'x', i + '*x');
+        func = func.replaceAll(i + '(', i + '*(');
+    }
+    func = func.replaceAll('x(', 'x*(');
+    func = func.replaceAll(')x', ')*x');
+    const ans: Array<{ x: number; y: number }> = [];
+    for (let x = ldip; x <= rdip; x += 0.1) {
+        ans.push({
+            x: x,
+            y: Number(eval(func.replaceAll('x', String(x)))),
+        });
+    }
+    return ans;
 }
 const getElementsArrayOnLayers = (SlideElements: SlideElement[]) => {
     const layersArray: SlideElement[] = [];
@@ -281,14 +280,59 @@ const getElementsArrayOnLayers = (SlideElements: SlideElement[]) => {
                 }
             }
         }
-        console.log(prevIndex, nextMinLayer);
         if (nextMinLayerI != prevIndex) layersArray.push(SlideElements[nextMinLayerI]);
         lastMinLayer = nextMinLayer;
         prevIndex = nextMinLayerI;
         nextMinLayer = 10000;
     }
-    console.log(layersArray);
     return layersArray;
+};
+
+const getGraphUnitOfMeasurementLines = (width: number, height: number) => {
+    let horizontalLines = '';
+    const HorizontalSpace = width / 40;
+    const lineWidth = 6;
+    for (let i = 0; i < width; i += HorizontalSpace) {
+        horizontalLines = horizontalLines + ` M ${i} ${height / 2 - lineWidth / 2} l 0 ${lineWidth} `;
+    }
+
+    let verticalLines = '';
+    const VerticalSpace = height / 40;
+    for (let i = 0; i < height; i += VerticalSpace) {
+        verticalLines = verticalLines + ` M ${width / 2 - lineWidth / 2} ${i} l ${lineWidth} 0  `;
+    }
+    return horizontalLines + verticalLines;
+};
+
+const getGraphLines = (width: number, height: number, from: number, to: number, func: string) => {
+    const numsArray = doMath(func, from, to);
+    const verticalOffset = height / 2;
+    const horizontalOffset = width / 2;
+    const verticalCoef = height / (Math.abs(from) + Math.abs(to));
+    const horizontalCoef = width / (Math.abs(from) + Math.abs(to));
+    let graphLines = '';
+    let prevPoint = '';
+    for (let i = 0; i < numsArray.length; i++) {
+        if (!isNaN(numsArray[i].x) && !isNaN(numsArray[i].y)) {
+            if (
+                !(
+                    -numsArray[i].y * verticalCoef + height < 0 ||
+                    -numsArray[i].y * verticalCoef > height ||
+                    numsArray[i].x * horizontalCoef + horizontalOffset > width ||
+                    numsArray[i].x * horizontalCoef + horizontalOffset < 0
+                )
+            ) {
+                if (prevPoint == 'L' || prevPoint == 'M') prevPoint = 'L';
+                else prevPoint = 'M';
+                graphLines =
+                    graphLines +
+                    ` ${prevPoint} ${numsArray[i].x * horizontalCoef + horizontalOffset} ${
+                        -numsArray[i].y * verticalCoef + verticalOffset
+                    } `;
+            }
+        } else prevPoint = '';
+    }
+    return graphLines;
 };
 
 export {
@@ -309,4 +353,6 @@ export {
     getNextHigherElementLayer,
     getNextLowerElementLayer,
     getElementsArrayOnLayers,
+    getGraphUnitOfMeasurementLines,
+    getGraphLines,
 };

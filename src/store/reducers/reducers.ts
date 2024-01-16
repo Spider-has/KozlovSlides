@@ -40,7 +40,11 @@ const initData: InitData = {
             AddedElementType: null,
             AddedFigureType: null,
             Url: '',
-            func: '',
+            func: {
+                from: 0,
+                to: 0,
+                line: '',
+            },
         },
     },
     selectedSlides: [],

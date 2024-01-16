@@ -204,11 +204,19 @@ const MainSettingsBar = () => {
 };
 const InputGraph = () => {
     const { createChangeAddElementAction } = useAppActions();
-    const inputRef = useRef<HTMLInputElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null);
+    const fromRef = useRef<HTMLInputElement>(null);
+    const toRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         const onKeydown = (key: KeyboardEvent) => {
             if (key.code == 'Enter') {
-                createChangeAddElementAction(ObjectType.FunctionGraph)
+                const func = inputRef.current!.value;
+                let from = Number(fromRef.current!.value);
+                let to = Number(toRef.current!.value);
+                if (from != undefined && from == 0) from = -100
+                if (to != undefined && to == 0) to = 100
+                console.log(from, to, func)
+                createChangeAddElementAction(ObjectType.FunctionGraph, undefined, undefined, { from, to, line: func })
             }
         }
         inputRef.current!.addEventListener('keydown', onKeydown)
@@ -218,6 +226,14 @@ const InputGraph = () => {
         <label>
             f(x)=
             <input ref={inputRef} type="text" />
+        </label>
+        <label>
+            от
+            <input placeholder='-100' ref={fromRef} type="text" />
+        </label>
+        <label>
+            до
+            <input placeholder='100' ref={toRef} type="text" />
         </label>
     </div>)
 }

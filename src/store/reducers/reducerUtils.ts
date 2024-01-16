@@ -218,7 +218,7 @@ const getStateWithCreatedElement = (state: Editor, newElement: SlideElement) => 
                 AddedElementType: null,
                 AddedFigureType: null,
                 Url: '',
-                func: '',
+                func: { from: 0, to: 0, line: '' },
             },
             slides: state.presentation.slides.map((slide, i) => {
                 if (i === selectedSlidesIndex[0]) {
@@ -240,7 +240,11 @@ type userAction = {
     elementType: ObjectType;
     figureType?: FigureObjects | undefined;
     url?: string | undefined;
-    func?: string | undefined;
+    func?: {
+        from: number;
+        to: number;
+        line: string;
+    };
 };
 
 const getStateWithAddElementAction = (state: Editor, userAction: userAction) => {
@@ -253,7 +257,7 @@ const getStateWithAddElementAction = (state: Editor, userAction: userAction) => 
                 AddedElementType: userAction.elementType,
                 AddedFigureType: userAction.figureType ? userAction.figureType : null,
                 Url: userAction.url ? userAction.url : '',
-                func: userAction.func ? userAction.func : '',
+                func: userAction.func ? userAction.func : { from: 0, to: 0, line: '' },
             },
         },
         selectMode: SelectModeTypes.Elements,
@@ -309,6 +313,15 @@ const getStateWithNewSelectedElemsColor = (state: Editor, newColor: string) => {
                                         properties: {
                                             ...element.properties,
                                             chars: { ...element.properties.chars, color: newColor },
+                                        },
+                                    };
+                                }
+                                if (element.elementType == ObjectType.FunctionGraph) {
+                                    return {
+                                        ...element,
+                                        properties: {
+                                            ...element.properties,
+                                            color: newColor,
                                         },
                                     };
                                 }
@@ -395,6 +408,7 @@ const getStateWithNewSelectedElemsRotationAngle = (state: Editor, newRotation: n
                                         },
                                     };
                                 }
+
                                 return element;
                             }
                             return element;

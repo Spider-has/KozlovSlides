@@ -10,6 +10,7 @@ import {
 } from '../../model/figureTypes';
 import styles from './Figures.module.css';
 import { useAppActions } from '../../store/hooks';
+import { getGraphLines, getGraphUnitOfMeasurementLines } from '../../model/utils';
 
 const Rectangle = (props: { elem: RectangleElement; svgRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.elem };
@@ -75,11 +76,26 @@ const Triangle = (props: { elem: TriangleElement; svgRef: RefObject<HTMLDivEleme
 const FunctionGraphObj = (props: { elem: FunctionGraphObject; svgRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.elem };
     const svgRef = props.svgRef;
+    const lines = getGraphUnitOfMeasurementLines(elem.size.width, elem.size.height)
+    const graphLines = getGraphLines(elem.size.width, elem.size.height, elem.properties.range.from, elem.properties.range.to, elem.properties.func)
     return (
         <div className={styles.svgSpace} ref={svgRef}>
-            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg id={`${elem.id}graphic`} className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <path
+                    d={`M 0 ${elem.size.height / 2} L ${elem.size.width} ${elem.size.height / 2}
+                    M ${elem.size.width / 2} 0  L ${elem.size.width / 2} ${elem.size.height}
+                     ` + lines}
+                    stroke='black'
+                    strokeWidth='1'
+                    strokeLinecap='square'
                     fill={elem.properties.color ? elem.properties.color : 'black'}
+                />
+                <path
+                    d={graphLines}
+                    stroke={elem.properties.color ? elem.properties.color : 'blue'}
+                    strokeWidth='3'
+                    strokeLinecap='square'
+                    fill={'none'}
                 />
             </svg>
         </div>

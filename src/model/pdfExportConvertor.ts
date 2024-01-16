@@ -14,6 +14,24 @@ import {
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
 import { getElementsArrayOnLayers } from './utils';
 
+// const FuncGraphicConvertor = (slideElement: FunctionGraphObject, doc: jsPDF) => {
+//     const svgElem = document.querySelector(`#${slideElement.id}graphic`) as SVGElement;
+//     const canvas = document.createElement('canvas');
+//     const ctx = canvas.getContext('2d');
+//     if (svgElem && ctx) {
+//         const svgCode = svgElem.innerHTML.replace(/\r?\n|\r/g, '').trim();
+//         const code = canvas.toDataURL('image/png');
+//         doc.addImage(
+//             code,
+//             'png',
+//             slideElement.position.x,
+//             slideElement.position.y,
+//             slideElement.size.width,
+//             slideElement.size.height,
+//         );
+//     }
+// };
+
 const ImageConvertor = (slideElement: ImageObject, doc: jsPDF) => {
     doc.addImage(
         slideElement.properties.imgUrl,
@@ -134,7 +152,7 @@ const slideElementConvert = async (slideElement: SlideElement, doc: jsPDF, scale
             break;
         }
         case ObjectType.FunctionGraph: {
-            // await FunctionGraphConvertor(slideElement, doc);
+            // FuncGraphicConvertor(slideElement, doc);
             break;
         }
         case ObjectType.Text: {

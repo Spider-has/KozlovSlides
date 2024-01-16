@@ -68,13 +68,23 @@ const createChangeElementTextAction = (newText: string, id: Id) => {
     };
 };
 
-const createChangeAddElementAction = (elementType: ObjectType, figureType?: FigureObjects, url?: string) => {
+const createChangeAddElementAction = (
+    elementType: ObjectType,
+    figureType?: FigureObjects,
+    url?: string,
+    func?: {
+        from: number;
+        to: number;
+        line: string;
+    },
+) => {
     return {
         type: PresentationActions.ADD_ELEMENT_ACTION,
         payload: {
             elementType: elementType,
             figureType: figureType ? figureType : null,
             url: url ? url : '',
+            func: func ? func : undefined,
         },
     };
 };
