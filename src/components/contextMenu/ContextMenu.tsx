@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import styles from './ContextMenu.module.css';
 import { useClickOut } from '../../model/hooks';
 import { Point } from '../../model/figureTypes';
-import { Button } from '../buttons/Button';
+import { Button } from '../button/Button';
 import { ButtonType } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
 

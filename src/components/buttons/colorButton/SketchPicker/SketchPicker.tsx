@@ -9,13 +9,12 @@ class NewColorButtonButton extends React.Component {
     state = {
         displayColorPicker: false,
         color: {
-            r: '241',
-            g: '112',
-            b: '19',
+            r: '255',
+            g: '197',
+            b: '39',
             a: '1',
         },
     };
-
     handleClick = () => {
         this.setState({ displayColorPicker: !this.state.displayColorPicker });
     };
@@ -24,19 +23,19 @@ class NewColorButtonButton extends React.Component {
         this.setState({ displayColorPicker: false });
         colorList[0].push(
             '#' +
-                rgbHex(
-                    String(
-                        'rgba(' +
-                            this.state.color.r +
-                            ', ' +
-                            this.state.color.g +
-                            ', ' +
-                            this.state.color.b +
-                            ', ' +
-                            this.state.color.a +
-                            ')',
-                    ),
+            rgbHex(
+                String(
+                    'rgba(' +
+                    this.state.color.r +
+                    ', ' +
+                    this.state.color.g +
+                    ', ' +
+                    this.state.color.b +
+                    ', ' +
+                    this.state.color.a +
+                    ')',
                 ),
+            ),
         );
     };
 
@@ -58,13 +57,6 @@ class NewColorButtonButton extends React.Component {
                 popover: {
                     position: 'absolute',
                     zIndex: '2',
-                },
-                cover: {
-                    position: 'fixed',
-                    top: '0px',
-                    right: '0px',
-                    bottom: '0px',
-                    left: '0px',
                 },
             },
         });
