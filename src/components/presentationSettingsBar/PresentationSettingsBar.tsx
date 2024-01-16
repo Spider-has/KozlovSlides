@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { Button } from '../button/Button';
 import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
-    EditButtonList,
     FigureButtonList,
     FileButtonList,
     FormatButtonList,
@@ -21,12 +20,11 @@ import styles from './PresentationSettingsBar.module.css';
 import { AlignTypes, FigureObjects, ObjectType } from '../../model/figureTypes';
 import {
     ButtonWithActionList,
+    DownloadPDF,
     ImageFileUploader,
     OpenPresentationButton,
     SavePresentationButton,
 } from '../buttons/Buttons';
-import jsPDF from 'jspdf';
-import { slidesConvertor } from '../../model/pdfExportConvertor';
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
@@ -109,7 +107,6 @@ const MainSettingsBar = () => {
         createChangeSlideBackgroundAction,
     } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
-    const EditButtonSection: ButtonWithActionListProps = EditButtonList;
     const InsertionButtonSection: ButtonWithActionListProps = InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
@@ -176,16 +173,13 @@ const MainSettingsBar = () => {
     };
     FileButtonSection.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
     FileButtonSection.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
+    FileButtonSection.buttonList[2].secondaryButton.icon = <DownloadPDF />;
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className={styles.docsMenubars}>
             <ButtonWithActionList
                 mainButton={FileButtonSection.mainButton}
                 buttonList={FileButtonSection.buttonList}
-            />
-            <ButtonWithActionList
-                mainButton={EditButtonSection.mainButton}
-                buttonList={EditButtonSection.buttonList}
             />
             <ButtonWithActionList
                 mainButton={InsertionButtonSection.mainButton}
@@ -203,28 +197,6 @@ const MainSettingsBar = () => {
                 mainButton={ObjectButtonSection.mainButton}
                 buttonList={ObjectButtonSection.buttonList}
             />
-        </div>
-    );
-};
-
-const DownloadPDF = () => {
-    const presentation = useAppSelector(state => state.slideBar.presentation);
-    return (
-        <div>
-            <button
-                onClick={async () => {
-                    const scaleConst = 1920 / presentation.size.width;
-                    const doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [presentation.size.width, presentation.size.height],
-                    });
-                    await slidesConvertor(doc, presentation.slides, scaleConst, presentation.size);
-                    doc.save(presentation.name);
-                }}
-            >
-                Скачать в pdf
-            </button>
         </div>
     );
 };
@@ -272,7 +244,6 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <DownloadPDF />
                     <Button
                         type={InputButtonSection.type}
                         icon={InputButtonSection.icon}
@@ -335,13 +306,8 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
                     <div className={styles.createLine}></div>
                     <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
-                    {/*<div className={styles.createLine}></div>
-                    <Button text={'Макет'} type={ButtonType.Text} action={() => { }} />
-                    <div className={styles.createLine}></div>
-                    <Button text={'Тема'} type={ButtonType.Text} action={() => { }} />*/}
                     <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextFamilySection.mainButton}
