@@ -1,16 +1,17 @@
 import { useRef, useState } from 'react';
 import { Button } from '../button/Button';
-import { BackgroundType, ButtonType, ButtonWithActionListProps } from '../../model/types';
+import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
     FigureButtonList,
     FileButtonList,
     FormatButtonList,
     ImageButtonList,
+    InputButton,
     InsertionButtonList,
     ObjectButtonList,
     SlideButtonList,
-    TextButtonList,
+    TextButton,
     TextFamilyList,
     colorList,
 } from '../../model/models';
@@ -152,7 +153,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                             ButtonListBar2,
                         );
                         break;
-                    case 'Выравнивание и отступы':
+                    case 'Выравнивание':
                         element.secondaryButton.action = () => {
                             setVisible3(!visible3);
                         };
@@ -165,7 +166,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                             ButtonListBar3,
                         );
                         break;
-                    case 'Маркеры и нумерация':
+                    case 'Нумерация':
                         element.secondaryButton.action = () => {
                             setVisible4(!visible4);
                         };
@@ -182,10 +183,10 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
             break;
     }
 
+
     mainButton.action = () => {
         setVisible(!visible);
     };
-
     useClickOut(
         () => {
             setVisible(!visible);
@@ -193,7 +194,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
         visible,
         ButtonListBar,
     );
-
+    console.log(mainButton.action)
     return (
         <div className={styles.buttonList}>
             <Button
@@ -225,7 +226,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                     </div>
                                 )) ||
                                 (visible3 &&
-                                    (button.secondaryButton.text == 'Выравнивание и отступы' ||
+                                    (button.secondaryButton.text == 'Выравнивание' ||
                                         button.secondaryButton.text == 'Изображение') && (
                                         <div ref={ButtonListBar3} className={styles.buttonListListVertical}>
                                             {button.buttonList.map((button, index) => (
@@ -240,7 +241,7 @@ const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                             ))}
                                         </div>
                                     )) ||
-                                (visible4 && button.secondaryButton.text == 'Маркеры и нумерация' && (
+                                (visible4 && button.secondaryButton.text == 'Нумерация' && (
                                     <div ref={ButtonListBar4} className={styles.buttonListListVertical}>
                                         {button.buttonList.map((button, index) => (
                                             <Button
@@ -301,7 +302,6 @@ const Colors = (props: { name: string; onColorClick: (colorName: string) => void
         visible,
         colorRef,
     );
-    console.log(colorList);
     return (
         <div className={styles.colorPalitra}>
             {props.name === 'Цвет' && (
@@ -477,14 +477,14 @@ const MainSettingsBar = () => {
     SlideButtonSection.buttonList[0].secondaryButton.action = () => {
         createAddSlideAction();
     };
-    InsertionButtonSection.buttonList[4].buttonList[0].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[0].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
 
-    InsertionButtonSection.buttonList[4].buttonList[1].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[1].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Rectangle);
     };
-    InsertionButtonSection.buttonList[4].buttonList[2].action = () => {
+    InsertionButtonSection.buttonList[2].buttonList[2].action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
     InsertionButtonSection.buttonList[0].buttonList[0].icon = <ImageFileUploader />;
@@ -503,14 +503,14 @@ const MainSettingsBar = () => {
     FormatButtonSection.buttonList[0].buttonList[2].action = () => {
         createChangeTextUnderline();
     };
-    FormatButtonSection.buttonList[0].buttonList[6].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[3].action = () => {
         createChangeTextSize(2);
     };
-    FormatButtonSection.buttonList[0].buttonList[7].action = () => {
+    FormatButtonSection.buttonList[0].buttonList[4].action = () => {
         createChangeTextSize(-2);
     };
-    FileButtonList.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
-    FileButtonList.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
+    FileButtonSection.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
+    FileButtonSection.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
     console.log('buttons Rendered!');
     const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
@@ -544,15 +544,19 @@ const MainSettingsBar = () => {
 };
 
 const Title = () => {
+    const { createAddSlideAction, createChangeAddElementAction, createChangeTextFontFamily, createUndoAction, createRedoAction } =
+        useAppActions();
     const FigureButtonSection: ButtonWithActionListProps = FigureButtonList;
     const ImageButtonSection: ButtonWithActionListProps = ImageButtonList;
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
-    const TextButtonSection: ButtonWithActionListProps = TextButtonList;
-    const { createChangeAddElementAction, createChangeTextFontFamily, createUndoAction, createRedoAction } =
-        useAppActions();
-    TextButtonSection.mainButton.action = () => {
+    const TextButtonSection: ButtonProps = TextButton;
+    const InputButtonSection: ButtonProps = InputButton;
+    TextButtonSection.action = () => {
         createChangeAddElementAction(ObjectType.Text);
-    };
+    }
+    InputButtonSection.action = () => {
+        createAddSlideAction();
+    }
     FigureButtonSection.buttonList[0].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Ellipse);
     };
@@ -577,7 +581,11 @@ const Title = () => {
             </div>
             <div className={styles.docsPrimaryToolbars}>
                 <div className={styles.docsPrimaryToolbarsButtonsPlace}>
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.NewSlide />} action={() => { }} />
+                    <Button
+                        type={InputButtonSection.type}
+                        icon={InputButtonSection.icon}
+                        action={InputButtonSection.action}
+                    />
                     <Button
                         type={ButtonType.Icon}
                         icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
@@ -600,9 +608,10 @@ const Title = () => {
                     />
                     <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
                     <div className={styles.createLine}></div>
-                    <ButtonWithActionList
-                        mainButton={TextButtonSection.mainButton}
-                        buttonList={TextButtonSection.buttonList}
+                    <Button
+                        type={TextButtonSection.type}
+                        icon={TextButtonSection.icon}
+                        action={TextButtonSection.action}
                     />
                     <ButtonWithActionList
                         mainButton={ImageButtonSection.mainButton}

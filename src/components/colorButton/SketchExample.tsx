@@ -22,8 +22,6 @@ class SketchExample extends React.Component {
 
     handleClose = () => {
         this.setState({ displayColorPicker: false })
-        console.log(this.state.color)
-        console.log('rgba(', this.state.color.r, ', ', this.state.color.g, ', ', this.state.color.b, ', ', this.state.color.a, ');');
         colorList[0].push('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')')));
     };
 

@@ -33,7 +33,7 @@ const initData: InitData = {
             },
         ],
         size: defaultSize,
-        name: 'Презентация без имени',
+        name: 'Презентация без названия',
         userAction: {
             ActionType: UserActions.SLIDE_EDIT,
             AddedElementType: null,

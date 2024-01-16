@@ -8,15 +8,17 @@ import {
     TextObject,
     TriangleElement,
 } from './figureTypes';
-import { ButtonType, ButtonWithActionListProps } from './types';
+import { ButtonProps, ButtonType, ButtonWithActionListProps } from './types';
 
-export const TextButtonList: ButtonWithActionListProps = {
-    mainButton: {
-        icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
-        type: ButtonType.Icon,
-        action: () => { },
-    },
-    buttonList: [],
+export const TextButton: ButtonProps = {
+    icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
+    type: ButtonType.Icon,
+    action: () => { },
+};
+export const InputButton: ButtonProps = {
+    icon: <ButtonIcons.NewSlide></ButtonIcons.NewSlide>,
+    type: ButtonType.Icon,
+    action: () => { },
 };
 export const colorList = [
     [
@@ -177,15 +179,6 @@ export const FileButtonList: ButtonWithActionListProps = {
             },
             buttonList: [],
         },
-        {
-            secondaryButton: {
-                text: 'Предварительный просмотр',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Preview />,
-            },
-            buttonList: [],
-        },
     ],
 };
 
@@ -223,24 +216,6 @@ export const FormatButtonList: ButtonWithActionListProps = {
                     icon: <ButtonIcons.Underlined />,
                 },
                 {
-                    text: 'Зачеркнутый',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.NotText />,
-                },
-                {
-                    text: 'Надстрочный',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.LittleUp />,
-                },
-                {
-                    text: 'Подстрочный',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.LittleDown />,
-                },
-                {
                     text: 'Увеличить размер',
                     type: ButtonType.FullText,
                     action: () => { },
@@ -254,7 +229,7 @@ export const FormatButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Выравнивание и отступы',
+                text: 'Выравнивание',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.Leveling />,
@@ -284,41 +259,11 @@ export const FormatButtonList: ButtonWithActionListProps = {
                     action: () => { },
                     icon: <ButtonIcons.TextWidth />,
                 },
-                {
-                    text: 'Увеличить отступ',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.MoreTab />,
-                },
-                {
-                    text: 'Уменьшить отступ',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.LessTab />,
-                },
-                {
-                    text: 'По верхнему краю',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.TextUp />,
-                },
-                {
-                    text: 'По центру',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.TextCenterY />,
-                },
-                {
-                    text: 'По нижнему краю',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.TextDown />,
-                },
             ],
         },
         {
             secondaryButton: {
-                text: 'Маркеры и нумерация',
+                text: 'Нумерация',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.Numbering />,
@@ -385,37 +330,10 @@ export const SlideButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Пропустить слайд',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Skip />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Переместить слайд',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Move />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
                 text: 'Изменить фон',
                 type: ButtonType.FullIconText,
                 action: () => { },
                 icon: <ButtonIcons.ChangeBg />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Выбрать макет',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.ChooseLayout />,
             },
             buttonList: [],
         },
@@ -575,46 +493,41 @@ export const ObjectButtonList: ButtonWithActionListProps = {
     buttonList: [
         {
             secondaryButton: {
-                text: 'Переместить',
-                type: ButtonType.FullIconText,
+                text: 'Переместить на передний план',
+                type: ButtonType.FullText,
                 action: () => { },
-                icon: <ButtonIcons.Remove />,
             },
             buttonList: [],
         },
         {
             secondaryButton: {
-                text: 'Центрировать на странице',
-                type: ButtonType.FullIconText,
+                text: 'Переместить на задний план',
+                type: ButtonType.FullText,
                 action: () => { },
-                icon: <ButtonIcons.Center />,
             },
             buttonList: [],
         },
         {
             secondaryButton: {
-                text: 'Повернуть',
-                type: ButtonType.FullIconText,
+                text: 'Переместить вперед',
+                type: ButtonType.FullText,
                 action: () => { },
-                icon: <ButtonIcons.Rotate />,
             },
             buttonList: [],
         },
         {
             secondaryButton: {
-                text: 'Сгруппировать',
-                type: ButtonType.FullIconText,
+                text: 'Переместить назад',
+                type: ButtonType.FullText,
                 action: () => { },
-                icon: <ButtonIcons.Group />,
             },
             buttonList: [],
         },
         {
             secondaryButton: {
-                text: 'Отменить группировку',
-                type: ButtonType.FullIconText,
+                text: 'Цвет',
+                type: ButtonType.FullText,
                 action: () => { },
-                icon: <ButtonIcons.GroupCancel />,
             },
             buttonList: [],
         },
@@ -742,24 +655,6 @@ export const InsertionButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Аудио',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Audio />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Видео',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Video />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
                 text: 'Фигура',
                 type: ButtonType.FullIconText,
                 action: () => { },
@@ -837,6 +732,7 @@ const defaultEllipseObject: EllipseElement = {
         width: 150,
         height: 150,
     },
+    layer: 1,
     elementType: ObjectType.Graphic,
     figureType: FigureObjects.Ellipse,
     properties: {
@@ -882,6 +778,7 @@ const defaultImageObject: ImageObject = {
     elementType: ObjectType.Image,
     properties: {
         imgUrl: '',
+        rotateAngle: 0,
     },
 };
 
