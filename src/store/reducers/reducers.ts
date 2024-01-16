@@ -242,6 +242,7 @@ const SlideBarReducer = (state: InitData = initData, action: Action): InitData =
         }
         case PresentationActions.CHANGE_SLIDE_BACKGROUND: {
             const selectedSlidesIndex = getSlideIndexById(state.presentation.slides, state.selectedSlides);
+            console.log(selectedSlidesIndex);
             const newState = {
                 ...state,
                 presentation: {

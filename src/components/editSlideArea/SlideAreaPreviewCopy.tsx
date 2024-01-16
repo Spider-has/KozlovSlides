@@ -24,8 +24,8 @@ const ActiveSlideAreaPreview = (props: { slide: Slide }) => {
         <div
             className={styles.mainEditSlideSpace}
             style={{
-                backgroundColor: backgroundSlide,
-                backgroundImage: backgroundSlide,
+                backgroundColor: props.slide.background.type == BackgroundType.Color ? backgroundSlide : '',
+                backgroundImage: props.slide.background.type == BackgroundType.Image ? backgroundSlide : '',
             }}
         >
             {objects}

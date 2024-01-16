@@ -290,8 +290,8 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
                 ref={figureAreaRef}
                 className={styles.mainEditSlideSpace}
                 style={{
-                    backgroundColor: backgroundSlide,
-                    backgroundImage: backgroundSlide,
+                    backgroundColor: props.slide.background.type == BackgroundType.Color ? backgroundSlide : '',
+                    backgroundImage: props.slide.background.type == BackgroundType.Image ? backgroundSlide : '',
                 }}
             >
                 {objects}

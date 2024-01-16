@@ -53,18 +53,15 @@ const Triangle = (props: { elem: TriangleElement; svgRef: RefObject<HTMLDivEleme
     const svgRef = props.svgRef;
     return (
         <div className={styles.svgSpace} ref={svgRef}>
-            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 100 100`}>
                 <path
                     className={`${styles.usualObject}`}
                     width={'100%'}
                     height={'100%'}
-                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${
-                        (elem.properties.point1.y * elem.size.height) / 100
-                    } L ${(elem.properties.point2.x * elem.size.width) / 100} ${
-                        (elem.properties.point2.y * elem.size.height) / 100
-                    } L ${(elem.properties.point3.x * elem.size.width) / 100} ${
-                        (elem.properties.point3.y * elem.size.height) / 100
-                    }`}
+                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${(elem.properties.point1.y * elem.size.height) / 100
+                        } L ${(elem.properties.point2.x * elem.size.width) / 100} ${(elem.properties.point2.y * elem.size.height) / 100
+                        } L ${(elem.properties.point3.x * elem.size.width) / 100} ${(elem.properties.point3.y * elem.size.height) / 100
+                        }`}
                     fill={elem.properties.color ? elem.properties.color : 'black'}
                     stroke={elem.properties.border?.color}
                 />
