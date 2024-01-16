@@ -31,7 +31,7 @@ const ContextMenu = (props: {
                 ref={menuRef}
                 className={styles.contextMenu}
             >
-                Контекстная менюшка
+                <div className={styles.text}>Контекстная менюшка</div>
                 <Button
                     text={'Вырезать'}
                     type={ButtonType.FullIconText}
@@ -51,12 +51,6 @@ const ContextMenu = (props: {
                     icon={<ButtonIcons.Insert />}
                 />
                 <Button
-                    text={'Выбрать все'}
-                    type={ButtonType.FullIconText}
-                    action={() => { }}
-                    icon={<ButtonIcons.SelectAll />}
-                />
-                <Button
 
                     type={ButtonType.FullIconText}
                     text={'Удалить'}
@@ -64,14 +58,14 @@ const ContextMenu = (props: {
                     icon={<ButtonIcons.Delete />}
                 />
                 <Button
-                    type={ButtonType.Text}
+                    type={ButtonType.FullText}
                     text={'На передний план'}
                     action={() => {
                         createChangeElementLayerActionHigher();
                     }}
                 />
                 <Button
-                    type={ButtonType.Text}
+                    type={ButtonType.FullText}
                     text={'На задний план'}
                     action={() => {
                         createChangeElementLayerActionLower();

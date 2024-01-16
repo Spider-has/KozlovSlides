@@ -246,7 +246,7 @@ export function doMath(func: string, ldip: number, rdip: number): Array<{ x: num
     }  
     func = func.replaceAll('x(', 'x*(');  
     func = func.replaceAll(')x', ')*x');  
-    let ans: Array<{ x: number, y: number }> = [];  
+    const ans: Array<{ x: number, y: number }> = [];  
     for (let x = ldip; x <= rdip; x += 0.1) {  
         ans.push(  
             {  

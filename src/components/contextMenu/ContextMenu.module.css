@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #444746;
+    font-size: 14px;
+    font-family: Arial;
+}
 .contextMenu{
     display: flex;
     flex-direction: column;
@@ -12,4 +19,7 @@
     padding: 10px 5px;
     position: absolute;
     z-index: 99999;
+}
+.text {
+font-size: 16px;
 }
