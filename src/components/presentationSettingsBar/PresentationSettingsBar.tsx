@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Button } from '../button/Button';
-import { ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
+import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
     EditButtonList,
     FigureButtonList,
@@ -312,7 +312,11 @@ const Title = () => {
                                 secondaryButton: {
                                     type: ButtonType.FullIcon,
                                     action: () => { },
-                                    icon: <ImageFileUploader />,
+                                    icon: <ImageFileUploader
+                                        onloadAction={(imageUrl: string) => {
+                                            createChangeAddElementAction(ObjectType.Image, undefined, imageUrl);
+                                        }}
+                                    />
                                 },
                                 buttonList: [],
                             },
