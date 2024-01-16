@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 import { FigureObjects, ObjectType, SlideElement } from './figureTypes';
-import { Ellipse, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../components/figures/Figures';
+import { Ellipse, FunctionGraphObj, ImageObj, Rectangle, TextObj, Triangle, VideoObj } from '../components/figures/Figures';
 
 const getElementByType = (elem: SlideElement, svgRef: RefObject<HTMLDivElement>) => {
     let Obj;
@@ -42,7 +42,7 @@ const getElementByType = (elem: SlideElement, svgRef: RefObject<HTMLDivElement>)
             break;
         }
         case ObjectType.FunctionGraph: {
-            Obj = <></>;
+            Obj = <FunctionGraphObj elem={elem} svgRef={svgRef} />;
             break;
         }
         default: {

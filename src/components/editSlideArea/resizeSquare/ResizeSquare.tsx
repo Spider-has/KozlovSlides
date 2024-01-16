@@ -1,5 +1,5 @@
 import { RefObject, useRef } from 'react';
-import { ObjectType, Point, Size, SlideElement } from '../../../model/figureTypes';
+import { FigureObjects, ObjectType, Point, Size, SlideElement } from '../../../model/figureTypes';
 import { useAppActions } from '../../../store/hooks';
 import {
     changeStyleHeight,
@@ -19,6 +19,20 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
     const startMousePos = { x: 0, y: 0 };
     const elemPos = { x: elem.position.x, y: elem.position.y };
     const rotatation = elem.elementType == ObjectType.Audio ? 0 : elem.properties.rotateAngle;
+
+    const onTriangleChange = () => {
+        if (elem.elementType == ObjectType.Graphic && elem.figureType == FigureObjects.Triangle) {
+            const coefX = parent.current!.getBoundingClientRect().width / 100;
+            const coefY = parent.current!.getBoundingClientRect().height / 100;
+            const triangleSvg = parent.current!.querySelector(`#${elem.id}triangle`) as SVGPathElement;
+            if (triangleSvg) {
+                triangleSvg.setAttribute("d", `m${elem.properties.point1.x * coefX} ${elem.properties.point1.y * coefY
+                    } L ${elem.properties.point2.x * coefX} ${elem.properties.point2.y * coefY
+                    } L ${elem.properties.point3.x * coefX} ${elem.properties.point3.y * coefY
+                    }`)
+            }
+        }
+    }
 
     const changeElementSize = (startMousePos: Point, mousePos: Point) => {
         if (!(mousePos.x - startMousePos.x === 0 && mousePos.y - startMousePos.y === 0)) {
@@ -71,6 +85,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStylePosition(parent, elem.position, mousePostion, startMousePos);
                     changeStyleSize(parent, elem.size, mousePostion, startMousePos);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -89,6 +104,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStyleTop(parent, elem.position.y, mousePostion.y, startMousePos.y);
                     changeStyleHeight(parent, elem.size.height, mousePostion.y, startMousePos.y);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: startMousePos.x, y: event.pageY };
@@ -108,6 +124,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     changeStyleTop(parent, elem.position.y, mousePostion.y, startMousePos.y);
                     changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
                     changeStyleHeight(parent, elem.size.height, mousePostion.y, startMousePos.y);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -130,6 +147,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStyleLeft(parent, elem.position.x, mousePostion.x, startMousePos.x);
                     changeStyleWidth(parent, elem.size.width, mousePostion.x, startMousePos.x);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -148,6 +166,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                 resizeDragParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -167,6 +186,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     changeStyleLeft(parent, elem.position.x, mousePostion.x, startMousePos.x);
                     changeStyleWidth(parent, elem.size.width, mousePostion.x, startMousePos.x);
                     changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -188,6 +208,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                 resizeDragParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };
@@ -206,6 +227,7 @@ const SelectedElementMode = (props: { element: SlideElement; parentRef: RefObjec
                     const mousePostion = { x: event.pageX, y: event.pageY };
                     changeStyleWidth(parent, elem.size.width, startMousePos.x, mousePostion.x);
                     changeStyleHeight(parent, elem.size.height, startMousePos.y, mousePostion.y);
+                    onTriangleChange();
                 }}
                 resizeDropParams={event => {
                     const mousePostion = { x: event.pageX, y: event.pageY };

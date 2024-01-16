@@ -218,6 +218,7 @@ const getStateWithCreatedElement = (state: Editor, newElement: SlideElement) => 
                 AddedElementType: null,
                 AddedFigureType: null,
                 Url: '',
+                func: '',
             },
             slides: state.presentation.slides.map((slide, i) => {
                 if (i === selectedSlidesIndex[0]) {
@@ -239,6 +240,7 @@ type userAction = {
     elementType: ObjectType;
     figureType?: FigureObjects | undefined;
     url?: string | undefined;
+    func?: string | undefined;
 };
 
 const getStateWithAddElementAction = (state: Editor, userAction: userAction) => {
@@ -251,6 +253,7 @@ const getStateWithAddElementAction = (state: Editor, userAction: userAction) => 
                 AddedElementType: userAction.elementType,
                 AddedFigureType: userAction.figureType ? userAction.figureType : null,
                 Url: userAction.url ? userAction.url : '',
+                func: userAction.func ? userAction.func : '',
             },
         },
         selectMode: SelectModeTypes.Elements,

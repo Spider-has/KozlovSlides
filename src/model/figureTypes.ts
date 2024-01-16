@@ -77,6 +77,11 @@ interface FunctionGraphObject extends DefaultSlideElement {
     properties: {
         func: string;
         rotateAngle: number;
+        range: {
+            from: number;
+            to: number;
+        };
+        color?: Color;
     };
 }
 

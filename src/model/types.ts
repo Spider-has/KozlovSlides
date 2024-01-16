@@ -51,6 +51,7 @@ type Presentation = {
         AddedElementType: ObjectType | null;
         AddedFigureType: FigureObjects | null;
         Url: string;
+        func: string;
     };
 };
 
@@ -62,7 +63,6 @@ enum UserActions {
 type Color = string;
 type Editor = {
     presentation: Presentation;
-    history: Array<Presentation>;
     selectedSlides: Array<Id>;
     viewMode: ViewMode;
     selectMode: SelectModeTypes;

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button } from '../button/Button';
 import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
@@ -6,6 +6,7 @@ import {
     FigureButtonList,
     FileButtonList,
     FormatButtonList,
+    GraphOpenMenu,
     ImageButtonList,
     InputButton,
     InsertionButtonList,
@@ -229,6 +230,26 @@ const DownloadPDF = () => {
     );
 };
 
+const InputGraph = () => {
+    const { createChangeAddElementAction } = useAppActions();
+    const inputRef = useRef<HTMLInputElement>(null)
+    useEffect(() => {
+        const onKeydown = (key: KeyboardEvent) => {
+            if (key.code == 'Enter') {
+                createChangeAddElementAction(ObjectType.FunctionGraph)
+            }
+        }
+        inputRef.current!.addEventListener('keydown', onKeydown)
+    }, [])
+    return (<div>
+        График функции
+        <label>
+            f(x)=
+            <input ref={inputRef} type="text" />
+        </label>
+    </div>)
+}
+
 const Title = () => {
     const {
         createAddSlideAction,
@@ -242,9 +263,8 @@ const Title = () => {
     const TextFamilySection: ButtonWithActionListProps = TextFamilyList;
     const TextButtonSection: ButtonProps = TextButton;
     const InputButtonSection: ButtonProps = InputButton;
-    TextButtonSection.action = () => {
-        createChangeAddElementAction(ObjectType.Text);
-    };
+    const GraphOpenMenuSection = GraphOpenMenu;
+    GraphOpenMenuSection.buttonList[0].secondaryButton.icon = <InputGraph />
     InputButtonSection.action = () => {
         createAddSlideAction();
     };
@@ -336,6 +356,11 @@ const Title = () => {
                         buttonList={FigureButtonSection.buttonList}
                     />
                     <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
+                    <ButtonWithActionList
+                        mainButton={GraphOpenMenuSection.mainButton}
+                        buttonList={GraphOpenMenuSection.buttonList}
+                    />
+
                     <div className={styles.createLine}></div>
                     <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
                     {/*<div className={styles.createLine}></div>

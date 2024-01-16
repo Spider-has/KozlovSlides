@@ -1,6 +1,7 @@
 import { RefObject, useRef } from 'react';
 import {
     EllipseElement,
+    FunctionGraphObject,
     ImageObject,
     RectangleElement,
     TextObject,
@@ -51,19 +52,34 @@ const Ellipse = (props: { elem: EllipseElement; svgRef: RefObject<HTMLDivElement
 const Triangle = (props: { elem: TriangleElement; svgRef: RefObject<HTMLDivElement> }) => {
     const elem = { ...props.elem };
     const svgRef = props.svgRef;
+    const coefX = elem.size.width / 100;
+    const coefY = elem.size.height / 100
     return (
         <div className={styles.svgSpace} ref={svgRef}>
-            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 100 100`}>
+            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <path
+                    id={elem.id + "triangle"}
                     className={`${styles.usualObject}`}
-                    width={'100%'}
-                    height={'100%'}
-                    d={`m${(elem.properties.point1.x * elem.size.width) / 100} ${(elem.properties.point1.y * elem.size.height) / 100
-                        } L ${(elem.properties.point2.x * elem.size.width) / 100} ${(elem.properties.point2.y * elem.size.height) / 100
-                        } L ${(elem.properties.point3.x * elem.size.width) / 100} ${(elem.properties.point3.y * elem.size.height) / 100
+                    d={`m${elem.properties.point1.x * coefX} ${elem.properties.point1.y * coefY
+                        } L ${elem.properties.point2.x * coefX} ${elem.properties.point2.y * coefY
+                        } L ${elem.properties.point3.x * coefX} ${elem.properties.point3.y * coefY
                         }`}
                     fill={elem.properties.color ? elem.properties.color : 'black'}
                     stroke={elem.properties.border?.color}
+                />
+            </svg>
+        </div>
+    );
+};
+
+const FunctionGraphObj = (props: { elem: FunctionGraphObject; svgRef: RefObject<HTMLDivElement> }) => {
+    const elem = { ...props.elem };
+    const svgRef = props.svgRef;
+    return (
+        <div className={styles.svgSpace} ref={svgRef}>
+            <svg className={styles.svgSpace} version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    fill={elem.properties.color ? elem.properties.color : 'black'}
                 />
             </svg>
         </div>
@@ -139,4 +155,4 @@ const TextObj = (props: { elem: TextObject; svgRef: RefObject<HTMLDivElement> })
     );
 };
 
-export { Rectangle, Ellipse, Triangle, ImageObj, VideoObj, TextObj };
+export { Rectangle, Ellipse, Triangle, ImageObj, VideoObj, TextObj, FunctionGraphObj };

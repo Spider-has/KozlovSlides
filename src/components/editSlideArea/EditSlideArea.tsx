@@ -17,6 +17,7 @@ import {
     defaultRectangleObject,
     defaultTextObject,
     defaultTriangleObject,
+    defaultFuncObject
 } from '../../model/models';
 import { ResizeSquareWithoutHooks, SelectedElementMode } from './resizeSquare/ResizeSquare';
 import { getElementByType } from '../../model/reactUtils';
@@ -90,6 +91,10 @@ const ActiveSlideArea = (props: { slide: Slide; editAreaRef: RefObject<HTMLDivEl
         }
         case ObjectType.Image: {
             defaultObject = { ...defaultImageObject, properties: { rotateAngle: 0, imgUrl: userAction.Url } };
+            break;
+        }
+        case ObjectType.FunctionGraph: {
+            defaultObject = { ...defaultFuncObject, properties: { ...defaultFuncObject.properties, rotateAngle: 0, func: '' } };
             break;
         }
         default:
