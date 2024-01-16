@@ -27,6 +27,7 @@ import {
     SavePresentationButton,
 } from '../buttons/Buttons';
 
+
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
     const { createChangePresentationNameAction } = useAppActions();
@@ -201,29 +202,6 @@ const MainSettingsBar = () => {
         </div>
     );
 };
-
-const DownloadPDF = () => {
-    const presentation = useAppSelector(state => state.slideBar.presentation);
-    return (
-        <div>
-            <button
-                onClick={async () => {
-                    const scaleConst = 1920 / presentation.size.width;
-                    const doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [presentation.size.width, presentation.size.height],
-                    });
-                    await slidesConvertor(doc, presentation.slides, scaleConst, presentation.size);
-                    doc.save(presentation.name);
-                }}
-            >
-                Скачать в pdf
-            </button>
-        </div>
-    );
-};
-
 const InputGraph = () => {
     const { createChangeAddElementAction } = useAppActions();
     const inputRef = useRef<HTMLInputElement>(null)

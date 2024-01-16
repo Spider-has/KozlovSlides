@@ -16,13 +16,12 @@ export const TextButton: ButtonProps = {
     icon: <ButtonIcons.TextField></ButtonIcons.TextField>,
     type: ButtonType.Icon,
     action: () => { },
-    action: () => { },
 };
 export const InputButton: ButtonProps = {
     icon: <ButtonIcons.NewSlide></ButtonIcons.NewSlide>,
     type: ButtonType.Icon,
     action: () => { },
-    action: () => { },
+
 };
 export const colorList = [
     [
