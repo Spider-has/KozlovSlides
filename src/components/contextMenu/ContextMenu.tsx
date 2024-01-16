@@ -5,6 +5,7 @@ import { Point } from '../../model/figureTypes';
 import { Button } from '../button/Button';
 import { ButtonType } from '../../model/types';
 import { useAppActions } from '../../store/hooks';
+import * as ButtonIcons from '../buttons/icons/ButtonIcons';
 
 const ContextMenu = (props: {
     isOpened: boolean;
@@ -31,6 +32,37 @@ const ContextMenu = (props: {
                 className={styles.contextMenu}
             >
                 Контекстная менюшка
+                <Button
+                    text={'Вырезать'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Cut />}
+                />
+                <Button
+                    text={'Копировать'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Copy />}
+                />
+                <Button
+                    text={'Вставить'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.Insert />}
+                />
+                <Button
+                    text={'Выбрать все'}
+                    type={ButtonType.FullIconText}
+                    action={() => { }}
+                    icon={<ButtonIcons.SelectAll />}
+                />
+                <Button
+
+                    type={ButtonType.FullIconText}
+                    text={'Удалить'}
+                    action={() => { }}
+                    icon={<ButtonIcons.Delete />}
+                />
                 <Button
                     type={ButtonType.Text}
                     text={'На передний план'}

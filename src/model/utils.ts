@@ -238,7 +238,25 @@ const getNextLowerElementLayer = (selectedSlide: Slide, selectedElemLayer: numbe
         nextLayerIndex: nextLayerI,
     };
 };
-
+export function doMath(func: string, ldip: number, rdip: number): Array<{ x: number, y: number }> {  
+    func = func.replaceAll(')(', ')*(');  
+    for (let i = ldip; i <= rdip; i++) {  
+        func = func.replaceAll(i + 'x', i + '*x');  
+        func = func.replaceAll(i + '(', i + '*(');  
+    }  
+    func = func.replaceAll('x(', 'x*(');  
+    func = func.replaceAll(')x', ')*x');  
+    let ans: Array<{ x: number, y: number }> = [];  
+    for (let x = ldip; x <= rdip; x += 0.1) {  
+        ans.push(  
+            {  
+                x: x,  
+                y: Number(eval(func.replaceAll('x', String(x)))),  
+            }  
+        );  
+    } 
+    return ans  
+}
 const getElementsArrayOnLayers = (SlideElements: SlideElement[]) => {
     const layersArray: SlideElement[] = [];
     let nextMinLayer = 10000;
