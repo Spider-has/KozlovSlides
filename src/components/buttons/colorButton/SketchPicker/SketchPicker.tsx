@@ -17,9 +17,8 @@ class NewColorButtonButton extends React.Component {
     };
     handleClick = () => {
         this.setState({ displayColorPicker: !this.state.displayColorPicker })
-        if (!this.state.displayColorPicker) {
+        if (!colorList[0].includes('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')'))))
             colorList[0].push('#' + rgbHex(String('rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')')));
-        }
     };
 
     handleChange = (color) => {

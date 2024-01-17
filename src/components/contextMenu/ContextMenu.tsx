@@ -59,14 +59,14 @@ const ContextMenu = (props: {
                 />
                 <Button
                     type={ButtonType.FullText}
-                    text={'На передний план'}
+                    text={'Переместить вперед'}
                     action={() => {
                         createChangeElementLayerActionHigher();
                     }}
                 />
                 <Button
                     type={ButtonType.FullText}
-                    text={'На задний план'}
+                    text={'Переместить назад'}
                     action={() => {
                         createChangeElementLayerActionLower();
                     }}

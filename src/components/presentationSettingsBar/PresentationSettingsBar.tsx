@@ -107,13 +107,16 @@ const MainSettingsBar = () => {
         createChangeTextSize,
         createChangeTextsAlignAction,
         createChangeSlideBackgroundAction,
+        createChangeElementLayerActionHigher,
+        createChangeElementLayerActionLower
     } = useAppActions();
     const FileButtonSection: ButtonWithActionListProps = FileButtonList;
     const InsertionButtonSection: ButtonWithActionListProps = InsertionButtonList;
     const FormatButtonSection: ButtonWithActionListProps = FormatButtonList;
     const SlideButtonSection: ButtonWithActionListProps = SlideButtonList;
 
-    SlideButtonSection.buttonList[4].secondaryButton.icon = (
+    const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
+    SlideButtonSection.buttonList[2].secondaryButton.icon = (
         <ImageFileUploader
             onloadAction={(imageUrl: string) => {
                 createChangeSlideBackgroundAction({ type: BackgroundType.Image, url: imageUrl });
@@ -151,7 +154,12 @@ const MainSettingsBar = () => {
     FormatButtonSection.buttonList[0].buttonList[1].action = () => {
         createChangeTextCursive();
     };
-
+    ObjectButtonSection.buttonList[1].secondaryButton.action = () => {
+        createChangeElementLayerActionLower();
+    };
+    ObjectButtonSection.buttonList[0].secondaryButton.action = () => {
+        createChangeElementLayerActionHigher();
+    };
     FormatButtonSection.buttonList[0].buttonList[2].action = () => {
         createChangeTextUnderline();
     };
@@ -176,7 +184,6 @@ const MainSettingsBar = () => {
     FileButtonSection.buttonList[0].secondaryButton.icon = <OpenPresentationButton />;
     FileButtonSection.buttonList[1].secondaryButton.icon = <SavePresentationButton />;
     FileButtonSection.buttonList[2].secondaryButton.icon = <DownloadPDF />;
-    const ObjectButtonSection: ButtonWithActionListProps = ObjectButtonList;
     return (
         <div className={styles.docsMenubars}>
             <ButtonWithActionList
@@ -221,19 +228,16 @@ const InputGraph = () => {
         }
         inputRef.current!.addEventListener('keydown', onKeydown)
     }, [])
-    return (<div>
+    return (<div className={styles.graphicPlace}>
         График функции
         <label>
-            f(x)=
-            <input ref={inputRef} type="text" />
+            <input ref={inputRef} type="text" placeholder='f(x)=' />
         </label>
         <label>
-            от
-            <input placeholder='-100' ref={fromRef} type="text" />
+            <input placeholder='from' ref={fromRef} type="text" />
         </label>
         <label>
-            до
-            <input placeholder='100' ref={toRef} type="text" />
+            <input placeholder='to' ref={toRef} type="text" />
         </label>
     </div>)
 }
@@ -266,7 +270,9 @@ const Title = () => {
     FigureButtonSection.buttonList[2].secondaryButton.action = () => {
         createChangeAddElementAction(ObjectType.Graphic, FigureObjects.Triangle);
     };
-
+    TextButtonSection.action = () => {
+        createChangeAddElementAction(ObjectType.Text)
+    }
     return (
         <header className={styles.docsBars}>
             <div className={styles.docsTitlebarContainer}>
@@ -342,7 +348,6 @@ const Title = () => {
                         mainButton={FigureButtonSection.mainButton}
                         buttonList={FigureButtonSection.buttonList}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.Line />} action={() => { }} />
                     <ButtonWithActionList
                         mainButton={GraphOpenMenuSection.mainButton}
                         buttonList={GraphOpenMenuSection.buttonList}
@@ -363,13 +368,18 @@ const Title = () => {
                                     secondaryButton: {
                                         ...button.secondaryButton,
                                         action: () => {
-                                            createChangeTextFontFamily(fontFamily + ' Regular');
+                                            createChangeTextFontFamily(fontFamily.replaceAll(' ', '_') + ' Regular');
                                         },
                                     },
                                 };
                             }),
                         ]}
                         right={TextFamilySection.right}
+                    />
+                    <Button
+                        text={'Слайд-шоу'}
+                        type={ButtonType.Text}
+                        action={() => { }}
                     />
                 </div>
             </div>

@@ -157,6 +157,8 @@ export const colorList = [
         'SlateGray',
         'DarkSlateGray',
         'Black',
+        '#ffc527ff',
+        '#444746',
     ],
 ];
 export const FileButtonList: ButtonWithActionListProps = {
@@ -324,24 +326,6 @@ export const SlideButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Дублировать слайд',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Duplication />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Удалить слайд',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Delete />,
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
                 text: 'Изменить цвет фона',
                 type: ButtonType.FullIconText,
                 action: () => { },
@@ -443,7 +427,7 @@ export const GraphOpenMenu: ButtonWithActionListProps = {
 export const TextFamilyList: ButtonWithActionListProps = {
     mainButton: {
         type: ButtonType.IconText,
-        text: 'Arial',
+        text: 'Шрифт',
         icon: <ButtonIcons.ArrowThatOpensTheListVertical />,
         action: () => { },
     },
@@ -453,7 +437,7 @@ export const TextFamilyList: ButtonWithActionListProps = {
                 text: 'Arial',
                 type: ButtonType.FullIconText,
                 action: () => { },
-                icon: <ButtonIcons.SelectedFont />,
+                icon: <ButtonIcons.NoIcon />,
             },
             buttonList: [],
         },
@@ -530,22 +514,6 @@ export const ObjectButtonList: ButtonWithActionListProps = {
         action: () => { },
     },
     buttonList: [
-        {
-            secondaryButton: {
-                text: 'Переместить на передний план',
-                type: ButtonType.FullText,
-                action: () => { },
-            },
-            buttonList: [],
-        },
-        {
-            secondaryButton: {
-                text: 'Переместить на задний план',
-                type: ButtonType.FullText,
-                action: () => { },
-            },
-            buttonList: [],
-        },
         {
             secondaryButton: {
                 text: 'Переместить вперед',
