@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '../button/Button';
 import { BackgroundType, ButtonProps, ButtonType, ButtonWithActionListProps } from '../../model/types';
 import {
@@ -26,7 +26,74 @@ import {
     OpenPresentationButton,
     SavePresentationButton,
 } from '../buttons/Buttons';
+import { ActiveSlideAreaPreview } from '../editSlideArea/SlideAreaPreviewCopy';
 
+const FullScreenButton = () => {
+    let isFullscreen = false;
+    const slides = useAppSelector(state => state.slideBar.presentation.slides);
+    const [Slide, setSlide] = useState(0);
+    const SlidesRef = useRef<HTMLDivElement>(null);
+    const onClick = () => {
+        console.log(Slide)
+        console.log(slides.length)
+        if (Slide + 1 < slides.length) {
+            setSlide(Slide + 1)
+        }
+    }
+    useEffect(() => {
+        const onChangeFunc = () => {
+            console.log('fullscreenChanged')
+            if (isFullscreen) {
+                if (SlidesRef) {
+                    SlidesRef.current!.style.display = 'none'
+                    SlidesRef.current!.style.zIndex = '-1'
+                    SlidesRef.current!.removeEventListener('click', onClick)
+                }
+                setSlide(0)
+                isFullscreen = false;
+            }
+            else {
+                if (SlidesRef) {
+                    SlidesRef.current!.style.display = 'block'
+                    SlidesRef.current!.style.zIndex = '100'
+                }
+                isFullscreen = true;
+                const preview = SlidesRef.current?.querySelector('div')
+                if (preview) {
+                    console.log(2)
+                    preview.classList.add(styles.slidesPreviewArea)
+                }
+            }
+        }
+        document.addEventListener('fullscreenchange', onChangeFunc);
+        return () => {
+            document.removeEventListener('fullscreenchange', onChangeFunc);
+        }
+    }, [slides])
+    return (<>
+        <div onClick={() => { onClick() }} ref={SlidesRef} className={styles.slidesPreview}>
+            <ActiveSlideAreaPreview slide={slides[Slide]} />
+        </div>
+        <Button
+            text={'Слайд-шоу'}
+            type={ButtonType.Text}
+            action={() => {
+                const fullScreen = (element: HTMLDivElement) => {
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                    }
+                }
+                if (SlidesRef.current) {
+                    if (!isFullscreen) {
+                        fullScreen(SlidesRef.current)
+                        SlidesRef.current!.style.display = 'block'
+                        SlidesRef.current!.style.zIndex = '100'
+                    }
+                }
+            }}
+        />
+    </>)
+}
 
 const InputText = () => {
     const name = useAppSelector(state => state.slideBar.presentation.name);
@@ -376,11 +443,7 @@ const Title = () => {
                         ]}
                         right={TextFamilySection.right}
                     />
-                    <Button
-                        text={'Слайд-шоу'}
-                        type={ButtonType.Text}
-                        action={() => { }}
-                    />
+                    <FullScreenButton />
                 </div>
             </div>
         </header>

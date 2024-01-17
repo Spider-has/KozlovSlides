@@ -36,6 +36,7 @@
     font-size: 14px;
     font-family: Arial;
 }
+
 .graphicPlace {
     display: flex;
     flex-direction: column;
@@ -49,6 +50,7 @@
     min-width: 325px;
     z-index: 5;
 }
+
 .inputText {
     display: block;
     position: relative;
@@ -59,7 +61,7 @@
 
 .inputTextText {
     display: block;
-    font-family: 'Arial', Times, serif;
+    font-family: Arial, Times, serif;
     font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -75,9 +77,10 @@
 .inputTextText:hover {
     outline: 1px solid gray;
 }
+
 .inputTextInput {
     display: none;
-    font-family: 'Arial', Times, serif;
+    font-family: Arial, Times, serif;
     position: absolute;
     top: 5px;
     left: 6px;
@@ -165,4 +168,22 @@
     padding: 8px;
     width: 36px;
     height: 36px;
+}
+
+.slidesPreview {
+    position: absolute;
+    transform: scale(2.4, 2.4);
+    display: none;
+}
+
+.slidesPreview:fullscreen {
+    transform: scale(2.4, 2.4);
+    display: flex;
+}
+
+.slidesPreviewArea {
+    transform: scale(2.2);
+    transform-origin: center;
+    top: 300px;
+    position: absolute
 }
