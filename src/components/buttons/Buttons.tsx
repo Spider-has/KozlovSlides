@@ -18,8 +18,6 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
     const ButtonListBar2 = useRef<HTMLDivElement>(null);
     const [visible3, setVisible3] = useState(false);
     const ButtonListBar3 = useRef<HTMLDivElement>(null);
-    const [visible4, setVisible4] = useState(false);
-    const ButtonListBar4 = useRef<HTMLDivElement>(null);
     const { mainButton, buttonList } = props;
     switch (mainButton.text) {
         case 'Вставка':
@@ -83,18 +81,6 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                             ButtonListBar3,
                         );
                         break;
-                    case 'Нумерация':
-                        element.secondaryButton.action = () => {
-                            setVisible4(!visible4);
-                        };
-                        useClickOut(
-                            () => {
-                                setVisible4(!visible4);
-                            },
-                            visible4,
-                            ButtonListBar4,
-                        );
-                        break;
                 }
             });
             break;
@@ -155,21 +141,7 @@ export const ButtonWithActionList = (props: ButtonWithActionListProps) => {
                                                 />
                                             ))}
                                         </div>
-                                    )) ||
-                                (visible4 && button.secondaryButton.text == 'Нумерация' && (
-                                    <div ref={ButtonListBar4} className={styles.buttonListListVertical}>
-                                        {button.buttonList.map((button, index) => (
-                                            <Button
-                                                key={index}
-                                                text={button.text}
-                                                type={button.type}
-                                                icon={button.icon}
-                                                action={button.action || null}
-                                                iconSize={button.iconSize || undefined}
-                                            />
-                                        ))}
-                                    </div>
-                                ))}
+                                    ))}
                             {button.secondaryButton.text !== 'Цвет' &&
                                 button.secondaryButton.text !== 'Изменить цвет фона' && (
                                     <Button

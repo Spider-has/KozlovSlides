@@ -277,28 +277,6 @@ export const FormatButtonList: ButtonWithActionListProps = {
         },
         {
             secondaryButton: {
-                text: 'Нумерация',
-                type: ButtonType.FullIconText,
-                action: () => { },
-                icon: <ButtonIcons.Numbering />,
-            },
-            buttonList: [
-                {
-                    text: 'Нумерованный список',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.NumList />,
-                },
-                {
-                    text: 'Маркерованный список',
-                    type: ButtonType.FullIconText,
-                    action: () => { },
-                    icon: <ButtonIcons.MarkList />,
-                },
-            ],
-        },
-        {
-            secondaryButton: {
                 text: 'Цвет',
                 type: ButtonType.FullText,
                 action: () => { },

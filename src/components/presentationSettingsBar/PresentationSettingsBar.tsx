@@ -360,12 +360,6 @@ const Title = () => {
                     />
                     <Button
                         type={ButtonType.Icon}
-                        icon={<ButtonIcon.ArrowThatOpensTheListVertical />}
-                        action={() => { }}
-                    />
-                    <div className={styles.createLine}></div>
-                    <Button
-                        type={ButtonType.Icon}
                         icon={<ButtonIcon.Undo />}
                         action={() => {
                             createUndoAction();
@@ -378,8 +372,6 @@ const Title = () => {
                             createRedoAction();
                         }}
                     />
-                    <Button type={ButtonType.Icon} icon={<ButtonIcon.CopyFormatting />} action={() => { }} />
-                    <div className={styles.createLine}></div>
                     <Button
                         type={TextButtonSection.type}
                         icon={TextButtonSection.icon}
@@ -419,10 +411,6 @@ const Title = () => {
                         mainButton={GraphOpenMenuSection.mainButton}
                         buttonList={GraphOpenMenuSection.buttonList}
                     />
-
-                    <div className={styles.createLine}></div>
-                    <Button text={'Фон'} type={ButtonType.Text} action={() => { }} />
-                    <div className={styles.createLine}></div>
                     <ButtonWithActionList
                         mainButton={TextFamilySection.mainButton}
                         buttonList={[
